@@ -11,10 +11,10 @@ export const BottomNavigationBar: React.FC = () => {
 
     return(
         <div className='h-screen'>
-            <div className='flex text-white bg-green-600 w-full absolute bottom-0'>
+            <div className='flex border-t border-green-600  bg-slate-50 w-full absolute bottom-0 font-fredoka'>
                 <CardActionArea onClick={()=> setPage("program")}>
                     <Link to="/program">
-                        <div className={`flex flex-col items-center p-1 pt-2 ${(page === "program") ? '' : 'opacity-50'}`}>
+                        <div className={`text-xs flex flex-col items-center p-1 py-1.5 ${(page === "program") ? 'text-green-600' : 'opacity-50 text-gray-500'}`}>
                             <CalendarTodayIcon />
                             Program
                         </div>
@@ -22,7 +22,7 @@ export const BottomNavigationBar: React.FC = () => {
                 </CardActionArea>
                 <CardActionArea onClick={() => setPage("results")}>
                     <Link to="/results">
-                        <div className={`flex flex-col items-center p-1 pt-2 ${(page === "results") ? '' : 'opacity-50'}`}>
+                        <div className={`text-xs flex flex-col items-center p-1 py-1.5 ${(page === "results") ? 'text-green-600' : 'opacity-50 text-gray-500'}`}>
                             <BarChartIcon />
                             Results
                         </div>
@@ -30,7 +30,7 @@ export const BottomNavigationBar: React.FC = () => {
                 </CardActionArea>
                 <CardActionArea onClick={() => setPage("settings")}>
                     <Link to="/settings">
-                        <div className={`flex flex-col items-center p-1 pt-2 ${(page === "settings") ? '' : 'opacity-50'}`}>
+                        <div className={`text-xs flex flex-col items-center p-1 py-1.5 ${(page === "settings") ? 'text-green-600' : 'opacity-50 text-gray-500'}`}>
                             <SettingsIcon />
                             Settings
                         </div>

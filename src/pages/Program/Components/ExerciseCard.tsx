@@ -1,36 +1,40 @@
 import { CardActionArea, Paper } from "@mui/material"
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { Link } from "react-router-dom";
 
 interface ExerciseCardProps {
     completed?: boolean
+    image?: string
+    text?: string
 }
 
 export const ExerciseCard: React.FC<ExerciseCardProps> = ({
-    completed = false
+    completed = false,
+    image = "exercise_image.webp",
+    text = "Exercise Name"
 }) => {
     return (
-        <CardActionArea>
-            <Paper className="m-1.5">
-                {(completed) &&
-                    <div className="absolute right-3 z-10 text-green-600">
-                        <CheckCircleIcon />
-                    </div>
-                }
-                
-                <div className={`p-1 ${(completed)? 'bg-green-50' : ''}`}>
-                    <div className={`${(completed) ? 'opacity-50' : ''}`}>
-                        <img className="rounded-md" src="exercise_image.webp" />
-                    </div>
-                    <div className="text-lg font-semibold">
-                        <div>
-                            Exercise 1 Name
+        <Link to="/demo-video">
+            <CardActionArea>
+                <div className="m-1.5 rounded" style={{
+                    boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 3px"
+                }}>
+                    {(completed) &&
+                        <div className="absolute top-2 right-2 z-10 text-green-600">
+                            <CheckCircleIcon />
                         </div>
-                        <div>
-                            (vernacular)
+                    }
+
+                    <div className={`p-1 ${(completed) ? 'bg-green-50' : ''}`}>
+                        <div className={`p-1 ${(completed) ? 'opacity-50' : ''}`}>
+                            <img className="rounded w-[180px] h-[180px] object-cover" src={image} />
+                        </div>
+                        <div className="p-1 text-md font-robotomedium">
+                            {text}
                         </div>
                     </div>
                 </div>
-            </Paper>
-        </CardActionArea>
+            </CardActionArea>
+        </Link>
     )
 }

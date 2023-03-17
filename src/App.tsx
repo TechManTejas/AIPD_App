@@ -8,6 +8,9 @@ import Settings from './pages/Settings';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 import { BottomNavigationBar } from './components/BottomNavigationBar';
+import { DemoVideo } from './pages/Program/DemoVideo';
+import { DemoVideoAndLogs } from './pages/Program/DemoVideoAndLogs';
+import { CameraRendering } from './pages/Program/CameraRendering';
 
 setupIonicReact();
 
@@ -15,6 +18,18 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
+        <Route exact path="/program">
+          <Program />
+        </Route>
+        <Route exact path="/demo-video">
+          <DemoVideo />
+        </Route>
+        <Route exact path="/demo-video-logs">
+          <DemoVideoAndLogs />
+        </Route>
+        <Route exact path="/camera-rendering">
+          <CameraRendering />
+        </Route>
         <Route exact path="/program">
           <Program />
         </Route>

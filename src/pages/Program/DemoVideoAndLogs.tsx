@@ -1,3 +1,4 @@
+import { IonContent, IonPage } from '@ionic/react';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { CardActionArea } from '@mui/material';
 import fittlyf_pcos_hero from "../../Videos/Fittlyf_pcos_hero.mp4"
@@ -5,7 +6,9 @@ import fittlyf_pcos_hero from "../../Videos/Fittlyf_pcos_hero.mp4"
 
 export const DemoVideoAndLogs: React.FC = () => {
     return (
-        <>
+        <IonPage>
+            <IonContent fullscreen>
+                <div className='bg-white flex flex-col flex-grow pb-16'>
             <div>
                 <video controls>
                     <source src={fittlyf_pcos_hero} type="video/mp4" />
@@ -23,13 +26,6 @@ export const DemoVideoAndLogs: React.FC = () => {
                 <div>
                     Exercise details including the movement, possible wrong movement chances
                 </div>
-                <div className="p-1 my-8">
-                    <CardActionArea>
-                        <div className="border bg-blue-600 text-white font-semibold p-1 text-center">
-                            Start Exercise
-                        </div>
-                    </CardActionArea>
-                </div>
             </div>
             <div className="p-2">
                 <div className="text-lg font-semibold">
@@ -41,6 +37,8 @@ export const DemoVideoAndLogs: React.FC = () => {
                     Completions highlighted in Green
                 </div>
             </div>
-        </>
+                </div>
+            </IonContent>
+        </IonPage>
     )
 }

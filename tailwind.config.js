@@ -5,6 +5,12 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      'fredoka': ['Fredoka'],
+      'fredokaone': ['Fredoka One'],
+      'lato':['Lato'],
+      'roboto': ['Roboto'],
+    }
   },
   plugins: [],
 }

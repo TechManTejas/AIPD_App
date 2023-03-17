@@ -9,8 +9,8 @@ const Program: React.FC = () => {
       <IonContent fullscreen>
         <div className='bg-white flex flex-col flex-grow pb-16'>
           <Home />
-          {/* <DemoVideoAndLogs />
-          <CameraRendering /> */}
+          {/* /* <DemoVideoAndLogs /> */}
+          {/* <CameraRendering /> */}
         </div>
       </IonContent>
     </IonPage>
