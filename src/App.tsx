@@ -1,17 +1,17 @@
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import Program from './pages/Program';
-import Results from './pages/Results';
-import Settings from './pages/Settings';
+import { Redirect, Route } from "react-router-dom";
+import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
+import { IonReactRouter } from "@ionic/react-router";
+import Program from "./pages/Program";
+import Results from "./pages/Results";
+import Settings from "./pages/Settings";
 
 /* Core CSS required for Ionic components to work properly */
-import '@ionic/react/css/core.css';
-import { BottomNavigationBar } from './components/BottomNavigationBar';
-import { DemoVideo } from './pages/Program/DemoVideo';
-import { DemoVideoAndLogs } from './pages/Program/DemoVideoAndLogs';
-import { CameraRendering } from './pages/Program/CameraRendering';
-
+import "@ionic/react/css/core.css";
+import { BottomNavigationBar } from "./components/BottomNavigationBar";
+import { DemoVideo } from "./pages/Program/DemoVideo";
+import { DemoVideoAndLogs } from "./pages/Program/DemoVideoAndLogs";
+import { CameraRendering } from "./pages/Program/CameraRendering";
+import { PoseRendering } from "./pages/Program/CameraComponent";
 setupIonicReact();
 
 const App: React.FC = () => (
@@ -42,10 +42,13 @@ const App: React.FC = () => (
         <Route exact path="/">
           <Redirect to="/program" />
         </Route>
+        <Route exact path="/camera">
+          <PoseRendering />
+        </Route>
       </IonRouterOutlet>
       <BottomNavigationBar />
     </IonReactRouter>
-  </IonApp >
+  </IonApp>
 );
 
 export default App;
