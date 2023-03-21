@@ -10,8 +10,8 @@ import "@ionic/react/css/core.css";
 import { BottomNavigationBar } from "./components/BottomNavigationBar";
 import { DemoVideo } from "./pages/Program/DemoVideo";
 import { DemoVideoAndLogs } from "./pages/Program/DemoVideoAndLogs";
+import CameraPoseDetect from "./pages/Program/CameraComponent";
 import { CameraRendering } from "./pages/Program/CameraRendering";
-import { PoseRendering } from "./pages/Program/CameraComponent";
 setupIonicReact();
 
 const App: React.FC = () => (
@@ -43,7 +43,7 @@ const App: React.FC = () => (
           <Redirect to="/program" />
         </Route>
         <Route exact path="/camera">
-          <PoseRendering />
+          <CameraPoseDetect />
         </Route>
       </IonRouterOutlet>
       <BottomNavigationBar />
