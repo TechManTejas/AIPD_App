@@ -4,6 +4,7 @@ import * as _Pose from "@mediapipe/pose";
 import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
 
+
 function CameraPoseDetect() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -113,8 +114,6 @@ function CameraPoseDetect() {
             right: 0,
             textAlign: "center",
             zindex: 9,
-            width: 640,
-            height: 480,
           }}
         />{" "}
         <canvas
@@ -128,8 +127,6 @@ function CameraPoseDetect() {
             right: 0,
             textAlign: "center",
             zindex: 9,
-            width: 640,
-            height: 480,
           }}
         ></canvas>
       </div>

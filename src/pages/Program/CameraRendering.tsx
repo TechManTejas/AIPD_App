@@ -4,21 +4,13 @@ import { Link } from "react-router-dom"
 import CameraPoseDetect from "./CameraComponent"
 
 export const CameraRendering: React.FC = () => {
+
     return (
         <IonPage>
             <IonContent fullscreen>
                 <div className='bg-white flex flex-col flex-grow pb-16'>
                     <div className="flex flex-col justify-between h-[calc(100vh-64px)]">
-                        <div className="p-1">
-                            <div className="font-bold text-lg">
-                                Recording screen details
-                            </div>
-                            <div>
-                            </div>
-                        </div>
-                        <div>
-                            <CameraPoseDetect />
-                        </div>
+                        <CameraPoseDetect />
                         <div className="p-1">
                             <Link to="/demo-video-logs">
                                 <CardActionArea>
