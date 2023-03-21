@@ -1,6 +1,7 @@
 import { IonContent, IonPage } from "@ionic/react"
 import { CardActionArea } from "@mui/material"
 import { Link } from "react-router-dom"
+import CameraPoseDetect from "./CameraComponent"
 
 export const CameraRendering: React.FC = () => {
     return (
@@ -13,31 +14,10 @@ export const CameraRendering: React.FC = () => {
                                 Recording screen details
                             </div>
                             <div>
-                                <div className="text-xs">
-                                    1. Starting point reference
-                                </div>
-                                <div className="text-xs">
-                                    2. Comfrmation when the patient gets into the right starting point
-                                </div>
-                                <div className="text-xs">
-                                    3. Reference on where the completion point is
-                                </div>
-                                <div className="text-xs">
-                                    4. Confrmation when the patient reaches the completion poin
-                                </div>
-                                <div className="text-xs">
-                                    5. Rep count
-                                </div>
-                                <div className="text-xs">
-                                    6. Current Set number
-                                </div>
-                                <div className="text-xs">
-                                    7. Total number of sets lef
-                                </div>
                             </div>
                         </div>
-                        <div className="text-center">
-                            CAMERA RENDERS HERE
+                        <div>
+                            <CameraPoseDetect />
                         </div>
                         <div className="p-1">
                             <Link to="/demo-video-logs">
