@@ -11,33 +11,15 @@ function CameraPoseDetect() {
   const connect = window.drawConnectors;
   var camera = null;
 
-  function drawPoint(context, x, y, label, color, size) {
-    if (color == null) {
-      color = "#000";
-    }
-    if (size == null) {
-      size = 5;
-    }
-
-    var radius = 0.5 * size;
-
-    // to increase smoothing for numbers with decimal part
-    var pointX = Math.round(x - radius);
-    var pointY = Math.round(y - radius);
-
-    context.beginPath();
-    context.fillStyle = color;
-    context.fillRect(pointX, pointY, size, size);
-    context.fill();
-
+  function drawPoint(context, x, y, label) {
     if (label) {
-      var textX = Math.round(x);
-      var textY = Math.round(pointY - 5);
-
-      context.font = "Italic 14px Arial";
-      context.fillStyle = color;
-      context.textAlign = "center";
-      context.fillText(label, textX, textY);
+      context.beginPath();
+      context.arc(x, y, 5, 0, 2 * Math.PI, false);
+      context.fillStyle = 'green';
+      context.fill();
+      context.lineWidth = 5;
+      context.strokeStyle = '#AAFF00';
+      context.stroke();
     }
   }
 
@@ -45,8 +27,8 @@ function CameraPoseDetect() {
     canvasCtx.strokeStyle = 'white';
     canvasCtx.lineWidth = 5;
     canvasCtx.beginPath();
-    canvasCtx.moveTo(results?.poseLandmarks[pointA]?.x * 640, results?.poseLandmarks[pointA]?.y * 480);
-    canvasCtx.lineTo(results?.poseLandmarks[pointB]?.x * 640, results?.poseLandmarks[pointB]?.y * 480);
+    canvasCtx.moveTo(results?.poseLandmarks[pointA]?.x * canvasRef.current.width, results?.poseLandmarks[pointA]?.y * canvasRef.current.height);
+    canvasCtx.lineTo(results?.poseLandmarks[pointB]?.x * canvasRef.current.width, results?.poseLandmarks[pointB]?.y * canvasRef.current.height);
     canvasCtx.stroke();
   }
 
@@ -72,53 +54,53 @@ function CameraPoseDetect() {
       canvasElement.height
     );
 
-    if (results.poseLandmarks)
+    if (results.poseLandmarks){
       results.poseLandmarks.map((e, i) => {
-        drawPoint(canvasCtx, e.x * 640, e.y * 480, i, "red", 1);
+        drawPoint(canvasCtx, e.x * canvasElement.width, e.y * canvasElement.height, i, "red", 1);
       });
 
-    connectPoint(canvasCtx, results, 12, 14)
-    connectPoint(canvasCtx, results, 14, 16)
-    connectPoint(canvasCtx, results, 12, 11)
-    connectPoint(canvasCtx, results, 11, 13)
-    connectPoint(canvasCtx, results, 15, 13)
-    
-    connectPoint(canvasCtx, results, 12, 24)
-    connectPoint(canvasCtx, results, 11, 23)
-    connectPoint(canvasCtx, results, 23, 24)
-    connectPoint(canvasCtx, results, 26, 24)
-    connectPoint(canvasCtx, results, 23, 25)
-    connectPoint(canvasCtx, results, 26, 28)
-    connectPoint(canvasCtx, results, 25, 27)
+      connectPoint(canvasCtx, results, 12, 14)
+      connectPoint(canvasCtx, results, 14, 16)
+      connectPoint(canvasCtx, results, 12, 11)
+      connectPoint(canvasCtx, results, 11, 13)
+      connectPoint(canvasCtx, results, 15, 13)
 
-    connectPoint(canvasCtx, results, 22, 16)
-    connectPoint(canvasCtx, results, 20, 16)
-    connectPoint(canvasCtx, results, 18, 16)
-    connectPoint(canvasCtx, results, 18, 20)
+      connectPoint(canvasCtx, results, 12, 24)
+      connectPoint(canvasCtx, results, 11, 23)
+      connectPoint(canvasCtx, results, 23, 24)
+      connectPoint(canvasCtx, results, 26, 24)
+      connectPoint(canvasCtx, results, 23, 25)
+      connectPoint(canvasCtx, results, 26, 28)
+      connectPoint(canvasCtx, results, 25, 27)
 
-    connectPoint(canvasCtx, results, 21, 15)
-    connectPoint(canvasCtx, results, 19, 15)
-    connectPoint(canvasCtx, results, 17, 15)
-    connectPoint(canvasCtx, results, 17, 19)
+      connectPoint(canvasCtx, results, 22, 16)
+      connectPoint(canvasCtx, results, 20, 16)
+      connectPoint(canvasCtx, results, 18, 16)
+      connectPoint(canvasCtx, results, 18, 20)
 
-    connectPoint(canvasCtx, results, 10, 9)
+      connectPoint(canvasCtx, results, 21, 15)
+      connectPoint(canvasCtx, results, 19, 15)
+      connectPoint(canvasCtx, results, 17, 15)
+      connectPoint(canvasCtx, results, 17, 19)
 
-    connectPoint(canvasCtx, results, 8,6)
-    connectPoint(canvasCtx, results, 5,6)
-    connectPoint(canvasCtx, results, 5,4)
-    connectPoint(canvasCtx, results, 0,4)
-    connectPoint(canvasCtx, results, 0,1)
-    connectPoint(canvasCtx, results, 2,1)
-    connectPoint(canvasCtx, results, 2,3)
-    connectPoint(canvasCtx, results, 7,3)
+      connectPoint(canvasCtx, results, 10, 9)
 
-    connectPoint(canvasCtx, results, 28,32)
-    connectPoint(canvasCtx, results, 30,32)
-    connectPoint(canvasCtx, results, 30,28)
-    connectPoint(canvasCtx, results, 27,29)
-    connectPoint(canvasCtx, results, 31,29)
-    connectPoint(canvasCtx, results, 31,27)
+      connectPoint(canvasCtx, results, 8, 6)
+      connectPoint(canvasCtx, results, 5, 6)
+      connectPoint(canvasCtx, results, 5, 4)
+      connectPoint(canvasCtx, results, 0, 4)
+      connectPoint(canvasCtx, results, 0, 1)
+      connectPoint(canvasCtx, results, 2, 1)
+      connectPoint(canvasCtx, results, 2, 3)
+      connectPoint(canvasCtx, results, 7, 3)
 
+      connectPoint(canvasCtx, results, 28, 32)
+      connectPoint(canvasCtx, results, 30, 32)
+      connectPoint(canvasCtx, results, 30, 28)
+      connectPoint(canvasCtx, results, 27, 29)
+      connectPoint(canvasCtx, results, 31, 29)
+      connectPoint(canvasCtx, results, 31, 27)
+    }
   }
   // setInterval(())
   useEffect(() => {
@@ -154,11 +136,14 @@ function CameraPoseDetect() {
   return (
     <center>
       <div className="App">
-        <Webcam ref={webcamRef} className="hidden"/>
+        <Webcam 
+          ref={webcamRef} 
+          className="hidden w-screen"
+        />
         <canvas
           ref={canvasRef}
-          className="output_canvas w-screen"
-        ></canvas>
+          className="w-screen"
+        />
       </div>
     </center>
   );
