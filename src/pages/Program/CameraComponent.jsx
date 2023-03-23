@@ -1,5 +1,5 @@
 import { Pose } from "@mediapipe/pose";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import * as _Pose from "@mediapipe/pose";
 import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
@@ -40,7 +40,7 @@ function CameraPoseDetect() {
   function onResults(results) {
     // console.log(results)
     // const video = webcamRef.current.video;
-    if(!results){
+    if(results.poseLandmarks == undefined){
       return;
     }
     const videoWidth = webcamRef.current.video.videoWidth;
@@ -186,7 +186,7 @@ function CameraPoseDetect() {
   return (
     <center>
       <div className="App">
-        <Webcam ref={webcamRef} className="hidden w-screen" />
+        <Webcam ref={webcamRef} className= {`hidden w-screen`} />
         <canvas ref={canvasRef} className="w-screen" />
       </div>
     </center>
