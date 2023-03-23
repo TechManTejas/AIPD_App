@@ -67,14 +67,13 @@ export const Home:React.FC = () => {
                 </div>
             </div>
             <div className="grid grid-cols-2">
-                <ExerciseCard image="exercise1.jpg" text="Shoulder circles AROM, sitting" completed/>
-                <ExerciseCard image="exercise2.jpg" text="Upper trapezius to levator scapulae s..."/>
-                <ExerciseCard image="exercise3.jpg" text="Scapular protraction/retraction " />
-                <ExerciseCard image="exercise4.jpg" text="Upper trunk rotation AROM, arms cros..." />
-                <ExerciseCard image="exercise5.jpg" text="Cervical/thoracic rotation AROM, rot..." />
-                <ExerciseCard image="exercise6.jpg" text="Rhomboids/middle trapezius stretch, ..." completed />
-                <ExerciseCard image="exercise7.webp" text="Pectoralis stretch, middle fibers arm ..." />
-                <ExerciseCard image="exercise8.jpg" text="Scapular retraction/ depression strength..." />
+                <ExerciseCard image="exercise1_new_webp.webp" text="Shoulder circles AROM, sitting" completed/>
+                <ExerciseCard image="exercise2_new_webp.webp" text="Upper trapezius to levator scapulae s..."/>
+                <ExerciseCard image="exercise3_new_webp.webp" text="Scapular protraction/retraction " />
+                <ExerciseCard image="exercise4_new_webp.webp" text="Upper trunk rotation AROM, arms cros..." />
+                <ExerciseCard image="exercise5_new_webp.webp" text="Cervical/thoracic rotation AROM, rot..." />
+                <ExerciseCard image="exercise6_new_webp.webp" text="Rhomboids/middle trapezius stretch, ..." completed />
+                <ExerciseCard image="exercise7_new_webp.webp" text="Pectoralis stretch, middle fibers arm ..." />
             </div>
         </div>
     )

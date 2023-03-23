@@ -1,5 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
+import { Camera } from '@capacitor/camera';
 import App from "./App";
 import "./index.css";
 
