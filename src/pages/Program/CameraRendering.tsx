@@ -11,7 +11,7 @@ export const CameraRendering: React.FC = () => {
                 <div className='bg-white flex flex-col flex-grow pb-16'>
                     <div className="flex flex-col justify-between h-[calc(100vh-64px)]">
                         <CameraPoseDetect />
-                        <div className="p-1">
+                        <div className="p-1 absolute w-full bottom-0">
                             <Link to="/demo-video-logs">
                                 <CardActionArea>
                                     <div className="border bg-blue-600 text-white font-semibold p-1 text-center">
