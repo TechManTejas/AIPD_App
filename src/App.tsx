@@ -13,6 +13,8 @@ import { DemoVideoAndLogs } from "./pages/Program/DemoVideoAndLogs";
 import { CameraRendering } from "./pages/Program/CameraRendering";
 import { useState } from "react";
 import { Auth } from "./pages/PartientAuth";
+import { DoctorAuth } from "./pages/DoctorAuth";
+import { DoctorDashboard } from "./pages/DoctorDashboard";
 setupIonicReact();
 
 const authenticatedRoutes = () => {
@@ -40,12 +42,24 @@ const authenticatedRoutes = () => {
         <Route path="/settings">
           <Settings />
         </Route>
+        <Route exact path="/auth">
+          <Auth />
+        </Route>
+        <Route exact path="/doctor-auth">
+          <DoctorAuth />
+        </Route>
+        <Route exact path="/doctor-dashboard">
+          <DoctorDashboard />
+        </Route>
         <Route exact path="/">
           <Redirect to="/program" />
         </Route>
       </IonRouterOutlet>
       <Switch>
         <Route exact path="/camera-rendering" />
+        <Route exact path="/auth" />
+        <Route exact path="/doctor-auth" />
+        <Route exact path="/doctor-dashboard" />
         <Route path="/" component={BottomNavigationBar} />
       </Switch>
     </IonReactRouter>
@@ -58,6 +72,9 @@ const unAuthenticatedRoutes = () => {
         <Route exact path="/auth">
           <Auth />
         </Route>
+        <Route exact path="/doctor-auth">
+          <DoctorAuth />
+        </Route>
         <Route exact path="/">
           <Redirect to="/auth" />
         </Route>
@@ -69,8 +86,8 @@ const unAuthenticatedRoutes = () => {
 const App: React.FC = () => {
 
   const [authenticated, isAuthenticated] = useState(
-    !!localStorage.getItem("aipd-access-token")
-    // true
+    // !!localStorage.getItem("aipd-access-token")
+    true
   )
 
   return (
