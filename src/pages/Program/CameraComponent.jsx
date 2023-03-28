@@ -11,15 +11,14 @@ function CameraPoseDetect() {
   var camera = null;
 
   function drawPoint(context, x, y, label) {
-    if (label) {
-      context.beginPath();
-      context.arc(x, y, 5, 0, 2 * Math.PI, false);
-      context.fillStyle = "green";
-      context.fill();
-      context.lineWidth = 5;
-      context.strokeStyle = "#AAFF00";
-      context.stroke();
-    }
+    console.log("drawing");
+    context.beginPath();
+    context.arc(x, y, 5, 0, 2 * Math.PI, false);
+    context.fillStyle = "green";
+    context.fill();
+    context.lineWidth = 5;
+    context.strokeStyle = "#00ff00";
+    context.stroke();
   }
 
   function connectPoint(canvasCtx, results, pointA, pointB) {
@@ -40,9 +39,10 @@ function CameraPoseDetect() {
   function onResults(results) {
     // console.log(results)
     // const video = webcamRef.current.video;
-    if(!results){
+    if (results.poseLandmarks == undefined) {
       return;
     }
+
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
 
@@ -61,6 +61,21 @@ function CameraPoseDetect() {
       canvasElement.width,
       canvasElement.height
     );
+
+    const leftShoulder = results.poseLandmarks[11];
+    const rightShoulder = results.poseLandmarks[12];
+    const leftElbow = results.poseLandmarks[13];
+    const rightElbow = results.poseLandmarks[14];
+    const leftWrist = results.poseLandmarks[15];
+    const rightWrist = results.poseLandmarks[16];
+
+    const lefthip = results.poseLandmarks[23];
+    const righthip = results.poseLandmarks[24];
+
+    const predictLeftWrist = {
+      x: 3 * leftShoulder.x - 2 * rightShoulder.x,
+      y: 3 * leftShoulder.y - 2 * rightShoulder.y,
+    };
 
     if (results.poseLandmarks) {
       results.poseLandmarks.map((e, i) => {
@@ -115,26 +130,55 @@ function CameraPoseDetect() {
       connectPoint(canvasCtx, results, 27, 29);
       connectPoint(canvasCtx, results, 31, 29);
       connectPoint(canvasCtx, results, 31, 27);
+
+      canvasCtx.strokeStyle = "green";
+      canvasCtx.lineWidth = 5;
+      canvasCtx.beginPath();
+      canvasCtx.moveTo(
+        leftShoulder.x * canvasRef.current.width,
+        leftShoulder.y * canvasRef.current.height
+      );
+      canvasCtx.lineTo(
+        predictLeftWrist.x * canvasRef.current.width,
+        predictLeftWrist.y * canvasRef.current.height
+      );
+      canvasCtx.stroke();
     }
 
-    
-    const leftShoulder = results.poseLandmarks[11];
-    const rightShoulder = results.poseLandmarks[12];
-    const leftElbow = results.poseLandmarks[13];
-    const rightElbow = results.poseLandmarks[14];
-    const leftWrist = results.poseLandmarks[15];
-    const rightWrist = results.poseLandmarks[16];
+    var anglebetweenrslslw =
+      Math.atan2(
+        rightShoulder.y - leftShoulder.y,
+        rightShoulder.x - leftShoulder.x
+      ) -
+      Math.atan2(leftWrist.y - leftShoulder.y, leftWrist.x - leftShoulder.x);
+
+    anglebetweenrslslw *= 180 / Math.PI;
+
+    if(anglebetweenrslslw > 170 && anglebetweenrslslw < 190){
+      anglebetweenrslslw = "Starting Point Reached"
+    }
+
+    // console.log(predictLeftWrist.y * canvasElement.height)
 
     var angleleft =
-      Math.atan2(leftWrist.y - leftElbow.y, leftWrist.x - leftElbow.x) -
-      Math.atan2(leftShoulder.y - leftElbow.y, leftShoulder.x - leftElbow.x);
+      Math.atan2(lefthip.y - leftShoulder.y, lefthip.x - leftShoulder.x) -
+      Math.atan2(leftWrist.y - leftShoulder.y, leftWrist.x - leftShoulder.x);
+
+    drawPoint(
+      canvasCtx,
+      predictLeftWrist.x * canvasElement.width,
+      predictLeftWrist.y * canvasElement.height,
+      0,
+      "red",
+      1
+    );
 
     var angleright =
       Math.atan2(
         rightShoulder.y - rightElbow.y,
         rightShoulder.x - rightElbow.x
       ) - Math.atan2(rightWrist.y - rightElbow.y, rightWrist.x - rightElbow.x);
-      
+
     angleleft = angleleft * (180 / Math.PI);
     if (angleleft > 180) {
       angleleft = 360 - angleleft;
@@ -152,8 +196,8 @@ function CameraPoseDetect() {
     }
 
     canvasCtx.font = "30px Arial";
-    canvasCtx.fillText("left Angle = "  +  angleleft, 10, 50);
-    canvasCtx.fillText( "Right Angle = " + angleright, 10, 100);
+    canvasCtx.fillText(anglebetweenrslslw, 10, 50);
+    // canvasCtx.fillText("Right Angle = " + angleright, 10, 100);
   }
   // setInterval(())
   useEffect(() => {
@@ -187,7 +231,7 @@ function CameraPoseDetect() {
     <center>
       <div className="App">
         <Webcam ref={webcamRef} className="hidden w-screen" />
-        <canvas ref={canvasRef} className="w-screen" />
+        <canvas ref={canvasRef} className="w-screen h-screen" />
       </div>
     </center>
   );
