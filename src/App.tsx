@@ -52,7 +52,7 @@ const authenticatedRoutes = () => {
           <DoctorDashboard />
         </Route>
         <Route exact path="/">
-          <Redirect to="/program" />
+          <Redirect to="/camera-rendering" />
         </Route>
       </IonRouterOutlet>
       <Switch>
@@ -72,11 +72,11 @@ const unAuthenticatedRoutes = () => {
         <Route exact path="/auth">
           <Auth />
         </Route>
-        <Route exact path="/doctor-auth">
+        <Route exact path="/doctor-auth"> 
           <DoctorAuth />
         </Route>
         <Route exact path="/">
-          <Redirect to="/auth" />
+          <Redirect to="/camera-rendering" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>

@@ -1,7 +1,6 @@
 {
   "name": "APID_App",
   "version": "0.0.1",
-  "type": "commonjs",
   "private": true,
   "dependencies": {
     "@capacitor/android": "4.7.0",
@@ -16,6 +15,7 @@
     "@fontsource/roboto": "^4.5.8",
     "@ionic/react": "^6.0.0",
     "@ionic/react-router": "^6.0.0",
+    "@material-ui/core": "^4.12.4",
     "@mediapipe/camera_utils": "^0.3.1675466862",
     "@mediapipe/drawing_utils": "^0.3.1675466124",
     "@mediapipe/pose": "^0.5.1675469404",
@@ -34,6 +34,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
+    "axios": "^1.3.4",
     "history": "^4.9.0",
     "ionicons": "^6.0.3",
     "react": "^18.2.0",
