@@ -14,17 +14,24 @@ export const connectingPoints = [
 
 export const drawPoint = (context, x, y, label) => {
   context.beginPath();
-  context.arc(x, y, 5, 0, 2 * Math.PI, false);
-  context.fillStyle = "green";
+  context.arc(x, y, 2.5, 0, 2 * Math.PI, false);
+  context.fillStyle = "#00cc00";
   context.fill();
-  context.lineWidth = 5;
-  context.strokeStyle = "#00ff00";
+  context.lineWidth = 2;
+  context.strokeStyle = "white";
   context.stroke();
 };
 
 export function connectPoint(canvasCtx, results, pointA, pointB, canvasRef) {
-  canvasCtx.strokeStyle = "blue";
+const gradient = canvasCtx.createLinearGradient(0, 0, canvasRef.current.width, canvasRef.current.height);
+gradient.addColorStop(0, "red");
+gradient.addColorStop(1, "blue");
+
+  canvasCtx.strokeStyle = gradient;
   canvasCtx.lineWidth = 5;
+  canvasCtx.lineCap = "round";
+  canvasCtx.lineJoin = "bevel"; 
+
   canvasCtx.beginPath();
   canvasCtx.moveTo(
     results?.poseLandmarks[pointA]?.x * canvasRef.current.width,
@@ -49,9 +56,7 @@ export const drawPointOnCanvas = (
         canvasCtx,
         e.x * canvasElement.width,
         e.y * canvasElement.height,
-        i,
-        "red",
-        1
+        i
       );
   });
 };

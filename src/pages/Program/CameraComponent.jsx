@@ -58,32 +58,16 @@ function CameraPoseDetect() {
     // * Predicted left Wrist
     // ! Used Section Formula
     const predictLeftWrist = {
-      x: 3 * leftShoulder.x - 2 * rightShoulder.x,
-      y: 3 * leftShoulder.y - 2 * rightShoulder.y,
+      x: 2.5 * leftShoulder.x - 1.5 * rightShoulder.x,
+      y: 2.5 * leftShoulder.y - 1.5 * rightShoulder.y,
     };
 
     // * Predicted Right Wrist
     // ! Used Section Formula
     const predictRightWrist = {
-      x: 3 * rightShoulder.x - 2 * leftShoulder.x,
-      y: 3 * rightShoulder.y - 2 * leftShoulder.y,
+      x: 2.5 * rightShoulder.x - 1.5 * leftShoulder.x,
+      y: 2.5 * rightShoulder.y - 1.5 * leftShoulder.y,
     };
-
-    // ^ Points that needs to be shown in the canvas
-    const allowedPoints = [11, 12, 13, 14, 15, 16, 23, 24];
-
-    if (results.poseLandmarks) {
-      drawPointOnCanvas(
-        results.poseLandmarks,
-        allowedPoints,
-        canvasCtx,
-        canvasElement
-      );
-
-      connectingPoints.map((e) => {
-        connectPoint(canvasCtx, results, e[0], e[1], canvasRef);
-      });
-    }
 
     // ! Angle between right shoulder left shoulder and left wrist
     var anglebetweenrslslw =
@@ -146,19 +130,41 @@ function CameraPoseDetect() {
       angleright = 360 + angleright;
     }
 
+    const distanceBetweenleftWristleftElbow = Math.sqrt(
+      Math.pow(
+        leftElbow.x * canvasElement.width - leftWrist.x * canvasElement.width,
+        2
+      ) +
+        Math.pow(
+          leftElbow.y * canvasElement.height -
+            leftWrist.y * canvasElement.height,
+          2
+        )
+    );
+
     // ! is starting point reached (buffer = 40deg)
     var ifStartingPointReached = false;
     if (
-      anglebetweenrslslw > 160 &&
-      anglebetweenrslslw < 200 &&
-      anglebetweenlsrsrw > 160 &&
-      anglebetweenlsrsrw < 200 &&
-      angleleft > 160 &&
-      angleleft < 200 &&
-      angleright > 160 &&
-      angleright < 200
+      (anglebetweenrslslw > 160 &&
+        anglebetweenrslslw < 200 &&
+        anglebetweenlsrsrw > 160 &&
+        anglebetweenlsrsrw < 200 &&
+        angleleft > 160 &&
+        angleleft < 200 &&
+        angleright > 160 &&
+        angleright < 200) ||
+      ifStartingPointReached != false
     ) {
       ifStartingPointReached = "Starting Point Reached";
+      canvasCtx.beginPath();  
+      canvasCtx.arc(
+        leftElbow.x * canvasElement.width,
+        leftElbow.y * canvasElement.height,
+        distanceBetweenleftWristleftElbow,
+        (-2 / 3) * Math.PI,
+        0
+      );
+      canvasCtx.stroke();
     }
 
     // ^ Change the color of the line
@@ -220,30 +226,27 @@ function CameraPoseDetect() {
 
     // console.log(predictLeftWrist.y * canvasElement.height)
 
-    // * Drawing Predicted Points on canvas
-    drawPoint(
-      canvasCtx,
-      predictLeftWrist.x * canvasElement.width,
-      predictLeftWrist.y * canvasElement.height,
-      0,
-      "red",
-      1
-    );
-
-    drawPoint(
-      canvasCtx,
-      predictRightWrist.x * canvasElement.width,
-      predictRightWrist.y * canvasElement.height,
-      0,
-      "red",
-      1
-    );
-
     canvasCtx.font = "30px Arial";
     if (ifStartingPointReached) {
       canvasCtx.fillText("Starting point reached", 10, 50);
     }
     // canvasCtx.fillText(anglebetweenlsrsrw, 10, 100);
+
+    // ^ Points that needs to be shown in the canvas
+    const allowedPoints = [11, 12, 13, 14, 15, 16, 23, 24];
+
+    if (results.poseLandmarks) {
+      connectingPoints.map((e) => {
+        connectPoint(canvasCtx, results, e[0], e[1], canvasRef);
+      });
+
+      drawPointOnCanvas(
+        results.poseLandmarks,
+        allowedPoints,
+        canvasCtx,
+        canvasElement
+      );
+    }
   }
   // setInterval(())
   useEffect(() => {
@@ -273,6 +276,7 @@ function CameraPoseDetect() {
       camera.start();
     }
   }, []);
+
   return (
     <center>
       <div className="App">
@@ -283,4 +287,3 @@ function CameraPoseDetect() {
   );
 }
 export default CameraPoseDetect;
-  
