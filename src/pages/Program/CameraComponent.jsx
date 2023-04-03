@@ -164,6 +164,7 @@ function CameraPoseDetect() {
     ) {
       ifStartingPointReached = true;
 
+      canvasCtx.setLineDash([5,5])
       canvasCtx.beginPath();
       canvasCtx.arc(
         leftElbow.x * canvasElement.width,
@@ -171,8 +172,9 @@ function CameraPoseDetect() {
         distanceBetweenleftWristleftElbow,
         (-2 / 3) * Math.PI,
         0
-      );
-      canvasCtx.stroke();
+        );
+        canvasCtx.stroke();
+        canvasCtx.setLineDash([0,0])
 
       let LPX = (leftElbow.x * canvasElement.width) + (distanceBetweenleftWristleftElbow)
       let LPY = leftShoulder.y * canvasElement.height
@@ -181,6 +183,7 @@ function CameraPoseDetect() {
 
       canvasCtx.beginPath();
       canvasCtx.strokeStyle = hitOn === 'lower' ? '#00ff00' : '#000000';
+      canvasCtx.lineWidth = 2;
       canvasCtx.arc(
         LPX,
         LPY,
@@ -195,6 +198,7 @@ function CameraPoseDetect() {
 
       canvasCtx.beginPath();
       canvasCtx.strokeStyle = hitOn === 'upper' ? '#00ff00' : '#000000';
+      canvasCtx.lineWidth = 2;
       canvasCtx.arc(
         UPX,
         UPY,
