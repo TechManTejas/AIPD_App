@@ -18,13 +18,15 @@ function distance(x1, y1, x2, y2) {
   return dist;
 }
 
+// recording exercise directly from the video of the trainer (making references point)
+
 function CameraPoseDetect() {
   // * Refs
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   var camera = null;
 
-  var ifStartingPointReached = true;
+  var ifStartingPointReached = false;
   var hitOn = 'lower'
   var reps = 0
 
