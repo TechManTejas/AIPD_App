@@ -11,17 +11,27 @@ import {
   drawLine,
 } from "./PoseFunctions";
 
+function distance(x1, y1, x2, y2) {
+  var dx = x2 - x1;
+  var dy = y2 - y1;
+  var dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+  return dist;
+}
+
 function CameraPoseDetect() {
   // * Refs
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   var camera = null;
 
+  var ifStartingPointReached = true;
+  var hitOn = 'lower'
+  var reps = 0
+
   function onResults(results) {
     // ^ check if landmarks are detected
-    if (results.poseLandmarks == undefined) {
+    if (results.poseLandmarks == undefined) 
       return;
-    }
 
     // * getting the video Width
     const videoWidth = webcamRef.current.video.videoWidth;
@@ -108,10 +118,7 @@ function CameraPoseDetect() {
     // * Angle made at right elbow
     var angleright =
       Math.atan2(rightWrist.y - rightElbow.y, rightWrist.x - rightElbow.x) -
-      Math.atan2(
-        rightShoulder.y - rightElbow.y,
-        rightShoulder.x - rightElbow.x
-      );
+      Math.atan2(rightShoulder.y - rightElbow.y, rightShoulder.x - rightElbow.x);
 
     angleleft = angleleft * (180 / Math.PI);
     if (angleleft > 180) {
@@ -135,15 +142,15 @@ function CameraPoseDetect() {
         leftElbow.x * canvasElement.width - leftWrist.x * canvasElement.width,
         2
       ) +
-        Math.pow(
-          leftElbow.y * canvasElement.height -
-            leftWrist.y * canvasElement.height,
-          2
-        )
+      Math.pow(
+        leftElbow.y * canvasElement.height -
+        leftWrist.y * canvasElement.height,
+        2
+      )
     );
 
     // ! is starting point reached (buffer = 40deg)
-    var ifStartingPointReached = false;
+
     if (
       (anglebetweenrslslw > 160 &&
         anglebetweenrslslw < 200 &&
@@ -155,80 +162,120 @@ function CameraPoseDetect() {
         angleright < 200) ||
       ifStartingPointReached != false
     ) {
-      ifStartingPointReached = "Starting Point Reached";
-      canvasCtx.beginPath();  
+      ifStartingPointReached = true;
+
+      canvasCtx.beginPath();
       canvasCtx.arc(
         leftElbow.x * canvasElement.width,
-        leftElbow.y * canvasElement.height,
+        leftShoulder.y * canvasElement.height,
         distanceBetweenleftWristleftElbow,
         (-2 / 3) * Math.PI,
         0
       );
       canvasCtx.stroke();
+
+      let LPX = (leftElbow.x * canvasElement.width) + (distanceBetweenleftWristleftElbow)
+      let LPY = leftShoulder.y * canvasElement.height
+      let UPX = (leftElbow.x * canvasElement.width) - (distanceBetweenleftWristleftElbow * Math.cos(60 * Math.PI / 180))
+      let UPY = (leftShoulder.y * canvasElement.height) - (distanceBetweenleftWristleftElbow * Math.sin(60 * Math.PI / 180))
+
+      canvasCtx.beginPath();
+      canvasCtx.strokeStyle = hitOn === 'lower' ? '#00ff00' : '#000000';
+      canvasCtx.arc(
+        LPX,
+        LPY,
+        10, 2 * Math.PI, false
+      );
+      canvasCtx.stroke();
+
+      if(distance(LPX, LPY, leftWrist.x * canvasElement.width, leftWrist.y * canvasElement.height) < 10){
+        if (hitOn === 'lower')
+          hitOn = 'upper'
+      }
+
+      canvasCtx.beginPath();
+      canvasCtx.strokeStyle = hitOn === 'upper' ? '#00ff00' : '#000000';
+      canvasCtx.arc(
+        UPX,
+        UPY,
+        10, 2 * Math.PI, false
+      );
+      canvasCtx.stroke();
+
+      if (distance(UPX, UPY, leftWrist.x * canvasElement.width, leftWrist.y * canvasElement.height) < 10) {
+        if(hitOn === 'upper')
+          reps++
+        hitOn = 'lower'
+      }
+
     }
 
     // ^ Change the color of the line
-    if (anglebetweenlsrsrw > 160 && anglebetweenlsrsrw < 200) {
-      canvasCtx.strokeStyle = "green";
-      canvasCtx.lineWidth = 5;
-      canvasCtx.beginPath();
-      canvasCtx.moveTo(
-        rightShoulder.x * canvasRef.current.width,
-        rightShoulder.y * canvasRef.current.height
-      );
-      canvasCtx.lineTo(
-        predictRightWrist.x * canvasRef.current.width,
-        predictRightWrist.y * canvasRef.current.height
-      );
-      canvasCtx.stroke();
-    } else {
-      canvasCtx.strokeStyle = "white";
-      canvasCtx.lineWidth = 5;
-      canvasCtx.beginPath();
-      canvasCtx.moveTo(
-        rightShoulder.x * canvasRef.current.width,
-        rightShoulder.y * canvasRef.current.height
-      );
-      canvasCtx.lineTo(
-        predictRightWrist.x * canvasRef.current.width,
-        predictRightWrist.y * canvasRef.current.height
-      );
-      canvasCtx.stroke();
-    }
+    if(!ifStartingPointReached){
+      if (anglebetweenlsrsrw > 150 && anglebetweenlsrsrw < 210) {
+        canvasCtx.strokeStyle = "green";
+        canvasCtx.lineWidth = 5;
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(
+          rightShoulder.x * canvasRef.current.width,
+          rightShoulder.y * canvasRef.current.height
+        );
+        canvasCtx.lineTo(
+          predictRightWrist.x * canvasRef.current.width,
+          predictRightWrist.y * canvasRef.current.height
+        );
+        canvasCtx.stroke();
+      } else {
+        canvasCtx.strokeStyle = "white";
+        canvasCtx.lineWidth = 5;
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(
+          rightShoulder.x * canvasRef.current.width,
+          rightShoulder.y * canvasRef.current.height
+        );
+        canvasCtx.lineTo(
+          predictRightWrist.x * canvasRef.current.width,
+          predictRightWrist.y * canvasRef.current.height
+        );
+        canvasCtx.stroke();
+      }
 
-    if (anglebetweenrslslw > 160 && anglebetweenrslslw < 200) {
-      drawLine(
-        "green",
-        [
-          leftShoulder.x * canvasRef.current.width,
-          leftShoulder.y * canvasRef.current.height,
-        ],
-        [
-          predictLeftWrist.x * canvasRef.current.width,
-          predictLeftWrist.y * canvasRef.current.height,
-        ],
-        canvasCtx
-      );
-    } else {
-      drawLine(
-        "white",
-        [
-          leftShoulder.x * canvasRef.current.width,
-          leftShoulder.y * canvasRef.current.height,
-        ],
-        [
-          predictLeftWrist.x * canvasRef.current.width,
-          predictLeftWrist.y * canvasRef.current.height,
-        ],
-        canvasCtx
-      );
+      if (anglebetweenrslslw > 150 && anglebetweenrslslw < 210) {
+        drawLine(
+          "green",
+          [
+            leftShoulder.x * canvasRef.current.width,
+            leftShoulder.y * canvasRef.current.height,
+          ],
+          [
+            predictLeftWrist.x * canvasRef.current.width,
+            predictLeftWrist.y * canvasRef.current.height,
+          ],
+          canvasCtx
+        );
+      } else {
+        drawLine(
+          "white",
+          [
+            leftShoulder.x * canvasRef.current.width,
+            leftShoulder.y * canvasRef.current.height,
+          ],
+          [
+            predictLeftWrist.x * canvasRef.current.width,
+            predictLeftWrist.y * canvasRef.current.height,
+          ],
+          canvasCtx
+        );
+      }
     }
+    
 
     // console.log(predictLeftWrist.y * canvasElement.height)
 
     canvasCtx.font = "30px Arial";
     if (ifStartingPointReached) {
       canvasCtx.fillText("Starting point reached", 10, 50);
+      canvasCtx.fillText(`Reps:- ${reps}`, 10, 100);
     }
     // canvasCtx.fillText(anglebetweenlsrsrw, 10, 100);
 
