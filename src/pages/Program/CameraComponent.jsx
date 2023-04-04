@@ -31,6 +31,7 @@ function CameraPoseDetect() {
   var reps = 0
 
   function onResults(results) {
+
     // ^ check if landmarks are detected
     if (results.poseLandmarks == undefined) 
       return;
