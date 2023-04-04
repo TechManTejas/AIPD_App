@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 import CameraPoseDetect from "./CameraComponent"
 
 export const CameraRendering: React.FC = () => {
-
     return (
         <IonPage>
             <IonContent fullscreen>
