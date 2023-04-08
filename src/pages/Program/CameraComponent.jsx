@@ -1,5 +1,5 @@
 import { Pose } from "@mediapipe/pose";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 // import * as _Pose from "@mediapipe/pose";
 import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
@@ -10,6 +10,7 @@ import {
   connectingPoints,
   drawLine,
 } from "./PoseFunctions";
+import { CountDownComponent } from "./CountDownComponent";
 
 function distance(x1, y1, x2, y2) {
   var dx = x2 - x1;
@@ -26,15 +27,26 @@ function CameraPoseDetect() {
   const canvasRef = useRef(null);
   var camera = null;
 
+  const [timer, settimer] = useState(true);
+  const [timeD, settd] = useState(60);
+
   var ifStartingPointReached = false;
-  var hitOn = 'lower'
-  var reps = 0
+  var hitOn = "lower";
+  var reps = 0;
+
+ 
 
   function onResults(results) {
-
     // ^ check if landmarks are detected
-    if (results.poseLandmarks == undefined) 
+    if (results.poseLandmarks == undefined) return;
+
+    // console.log(timer)
+    if (reps === 3) {
+      reps = 0;
+      settimer(false);
+      camera.stop();
       return;
+    }
 
     // * getting the video Width
     const videoWidth = webcamRef.current.video.videoWidth;
@@ -124,7 +136,10 @@ function CameraPoseDetect() {
     // * Angle made at right elbow
     var angleright =
       Math.atan2(rightWrist.y - rightElbow.y, rightWrist.x - rightElbow.x) -
-      Math.atan2(rightShoulder.y - rightElbow.y, rightShoulder.x - rightElbow.x);
+      Math.atan2(
+        rightShoulder.y - rightElbow.y,
+        rightShoulder.x - rightElbow.x
+      );
 
     angleleft = angleleft * (180 / Math.PI);
     if (angleleft > 180) {
@@ -148,11 +163,11 @@ function CameraPoseDetect() {
         leftElbow.x * canvasElement.width - leftWrist.x * canvasElement.width,
         2
       ) +
-      Math.pow(
-        leftElbow.y * canvasElement.height -
-        leftWrist.y * canvasElement.height,
-        2
-      )
+        Math.pow(
+          leftElbow.y * canvasElement.height -
+            leftWrist.y * canvasElement.height,
+          2
+        )
     );
 
     // ! is starting point reached (buffer = 40deg)
@@ -170,7 +185,7 @@ function CameraPoseDetect() {
     ) {
       ifStartingPointReached = true;
 
-      canvasCtx.setLineDash([5,5])
+      canvasCtx.setLineDash([5, 5]);
       canvasCtx.beginPath();
       canvasCtx.arc(
         leftElbow.x * canvasElement.width,
@@ -178,50 +193,58 @@ function CameraPoseDetect() {
         distanceBetweenleftWristleftElbow,
         (-2 / 3) * Math.PI,
         0
-        );
-        canvasCtx.stroke();
-        canvasCtx.setLineDash([0,0])
-
-      let LPX = (leftElbow.x * canvasElement.width) + (distanceBetweenleftWristleftElbow)
-      let LPY = leftShoulder.y * canvasElement.height
-      let UPX = (leftElbow.x * canvasElement.width) - (distanceBetweenleftWristleftElbow * Math.cos(60 * Math.PI / 180))
-      let UPY = (leftShoulder.y * canvasElement.height) - (distanceBetweenleftWristleftElbow * Math.sin(60 * Math.PI / 180))
-
-      canvasCtx.beginPath();
-      canvasCtx.strokeStyle = hitOn === 'lower' ? '#00ff00' : '#000000';
-      canvasCtx.lineWidth = 2;
-      canvasCtx.arc(
-        LPX,
-        LPY,
-        10, 2 * Math.PI, false
       );
       canvasCtx.stroke();
+      canvasCtx.setLineDash([0, 0]);
 
-      if(distance(LPX, LPY, leftWrist.x * canvasElement.width, leftWrist.y * canvasElement.height) < 10){
-        if (hitOn === 'lower')
-          hitOn = 'upper'
+      let LPX =
+        leftElbow.x * canvasElement.width + distanceBetweenleftWristleftElbow;
+      let LPY = leftShoulder.y * canvasElement.height;
+      let UPX =
+        leftElbow.x * canvasElement.width -
+        distanceBetweenleftWristleftElbow * Math.cos((60 * Math.PI) / 180);
+      let UPY =
+        leftShoulder.y * canvasElement.height -
+        distanceBetweenleftWristleftElbow * Math.sin((60 * Math.PI) / 180);
+
+      canvasCtx.beginPath();
+      canvasCtx.strokeStyle = hitOn === "lower" ? "#00ff00" : "#000000";
+      canvasCtx.lineWidth = 2;
+      canvasCtx.arc(LPX, LPY, 10, 2 * Math.PI, false);
+      canvasCtx.stroke();
+
+      if (
+        distance(
+          LPX,
+          LPY,
+          leftWrist.x * canvasElement.width,
+          leftWrist.y * canvasElement.height
+        ) < 10
+      ) {
+        if (hitOn === "lower") hitOn = "upper";
       }
 
       canvasCtx.beginPath();
-      canvasCtx.strokeStyle = hitOn === 'upper' ? '#00ff00' : '#000000';
+      canvasCtx.strokeStyle = hitOn === "upper" ? "#00ff00" : "#000000";
       canvasCtx.lineWidth = 2;
-      canvasCtx.arc(
-        UPX,
-        UPY,
-        10, 2 * Math.PI, false
-      );
+      canvasCtx.arc(UPX, UPY, 10, 2 * Math.PI, false);
       canvasCtx.stroke();
 
-      if (distance(UPX, UPY, leftWrist.x * canvasElement.width, leftWrist.y * canvasElement.height) < 10) {
-        if(hitOn === 'upper')
-          reps++
-        hitOn = 'lower'
+      if (
+        distance(
+          UPX,
+          UPY,
+          leftWrist.x * canvasElement.width,
+          leftWrist.y * canvasElement.height
+        ) < 10
+      ) {
+        if (hitOn === "upper") reps++;
+        hitOn = "lower";
       }
-
     }
 
     // ^ Change the color of the line
-    if(!ifStartingPointReached){
+    if (!ifStartingPointReached) {
       if (anglebetweenlsrsrw > 150 && anglebetweenlsrsrw < 210) {
         canvasCtx.strokeStyle = "green";
         canvasCtx.lineWidth = 5;
@@ -305,7 +328,7 @@ function CameraPoseDetect() {
       );
     }
   }
-  // setInterval(())
+
   useEffect(() => {
     const pose = new Pose({
       locateFile: (file) => {
@@ -332,13 +355,21 @@ function CameraPoseDetect() {
       });
       camera.start();
     }
-  }, []);
+  }, [timer]);
 
   return (
     <center>
       <div className="App">
-        <Webcam ref={webcamRef} className="hidden w-screen" />
-        <canvas ref={canvasRef} className="w-screen h-screen"/>
+        {timer ? (
+          <>
+            <Webcam ref={webcamRef} className="hidden w-screen" />
+            <canvas ref={canvasRef} className="w-screen h-screen" />
+          </>
+        ) : (
+          <>
+            <CountDownComponent settimer={settimer} />
+          </>
+        )}
       </div>
     </center>
   );
