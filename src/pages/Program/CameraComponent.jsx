@@ -49,6 +49,9 @@ function CameraPoseDetect() {
     const canvasCtx = canvasElement.getContext("2d");
     canvasCtx.save();
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+    canvasCtx.scale(-1, 1);
+    canvasCtx.translate(-canvasElement.width, 0);
     canvasCtx.drawImage(
       results.image,
       0,
@@ -275,16 +278,16 @@ function CameraPoseDetect() {
         );
       }
     }
-    
-
-    // console.log(predictLeftWrist.y * canvasElement.height)
 
     canvasCtx.font = "30px Arial";
     if (ifStartingPointReached) {
+      canvasCtx.scale(-1, 1);
+      canvasCtx.translate(-canvasElement.width, 0);
       canvasCtx.fillText("Starting point reached", 10, 50);
       canvasCtx.fillText(`Reps:- ${reps}`, 10, 100);
+      canvasCtx.scale(-1, 1);
+      canvasCtx.translate(-canvasElement.width, 0);
     }
-    // canvasCtx.fillText(anglebetweenlsrsrw, 10, 100);
 
     // ^ Points that needs to be shown in the canvas
     const allowedPoints = [11, 12, 13, 14, 15, 16, 23, 24];
@@ -335,7 +338,7 @@ function CameraPoseDetect() {
     <center>
       <div className="App">
         <Webcam ref={webcamRef} className="hidden w-screen" />
-        <canvas ref={canvasRef} className="w-screen h-screen" />
+        <canvas ref={canvasRef} className="w-screen h-screen"/>
       </div>
     </center>
   );
