@@ -14,20 +14,14 @@ import {
 import { Elbow_Curl } from "./Elbow_Curl";
 import { CountDownComponent } from "./CountDownComponent";
 
-
-// recording exercise directly from the video of the trainer (making references point)
 function CameraPoseDetect() {
-  // * Refs 
 
-  // Generalized refs and inital camera object
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   var camera = null;
 
-  // Generalized a state to show a timer or not
   const [timer, settimer] = useState(true);
 
-  // Generalized for specific purposes
   var ifStartingPointReached = false;
   var hitOn = "lower";
   var reps = 0;
@@ -71,28 +65,15 @@ function CameraPoseDetect() {
     );
 
     const elbow_curl = new Elbow_Curl(results.poseLandmarks, canvasElement, canvasCtx)
-    const [predictLeftWrist, predictRightWrist] = elbow_curl.getPredictedPoints();
     const anglebetweenrslslw = elbow_curl.getanglebetweenrslslw();
     const anglebetweenlsrsrw = elbow_curl.getanglebetweenlsrsrw();
-    var angleleft = elbow_curl.getangleleft()
-    var angleright = elbow_curl.getangleright()
-    const distanceBetweenleftWristleftElbow = elbow_curl.getdistanceBetweenleftWristleftElbow()
+    const angleleft = elbow_curl.getangleleft()
+    const angleright = elbow_curl.getangleright()
 
     // ! is starting point reached (buffer = 40deg)
 
-    if (
-      (anglebetweenrslslw > 160 &&
-        anglebetweenrslslw < 200 &&
-        anglebetweenlsrsrw > 160 &&
-        anglebetweenlsrsrw < 200 &&
-        angleleft > 160 &&
-        angleleft < 200 &&
-        angleright > 160 &&
-        angleright < 200) ||
-      ifStartingPointReached != false
-    ) {
+    if (elbow_curl.findifstartingPointIsReached(ifStartingPointReached)) {
       ifStartingPointReached = true;
-
       elbow_curl.addanarc();
       const [LPX, LPY, UPX, UPY] = elbow_curl.getSpecificPoints();
 

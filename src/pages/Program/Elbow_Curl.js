@@ -189,4 +189,25 @@ export class Elbow_Curl {
         );
     }
 
+    findifstartingPointIsReached = (ifStartingPointReached) => {
+        return (this.getanglebetweenrslslw() > 160 &&
+            this.getanglebetweenrslslw() < 200 &&
+            this.getanglebetweenlsrsrw() > 160 &&
+            this.getanglebetweenlsrsrw() < 200 &&
+            this.getangleleft() > 160 &&
+            this.getangleleft() < 200 &&
+            this.getangleright() > 160 &&
+            this.getangleright() < 200) ||
+            ifStartingPointReached != false
+    }
+
+    // drawhotpoint1 = (on) => {
+    //     this.canvasCtx.beginPath();
+    //     this.canvasCtx.strokeStyle = hitOn === on ? "#00ff00" : "#000000";
+    //     this.canvasCtx.lineWidth = 2;
+    //     if(on == "lower")
+    //     this.canvasCtx.arc(LPX, LPY, 10, 2 * Math.PI, false);
+    //     canvasCtx.stroke();
+    // }
 }
+    
