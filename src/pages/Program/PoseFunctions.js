@@ -1,17 +1,7 @@
 // export CAPACITOR_ANDROID_STUDIO_PATH="/snap/android-studio/current/android-studio/bin/studio.sh"
 // ionic capacitor build android
 
-// connecting points for Elbow Curl Only
-export const connectingPoints = [
-  [12, 14],
-  [14, 16],
-  [12, 11],
-  [11, 13],
-  [15, 13],
-  [12, 24],
-  [11, 23],
-  [23, 24],
-];
+
 
 // generalized for drawing a point on a canvas
 export const drawPoint = (context, x, y, label) => {
