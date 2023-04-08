@@ -1,6 +1,7 @@
 // export CAPACITOR_ANDROID_STUDIO_PATH="/snap/android-studio/current/android-studio/bin/studio.sh"
 // ionic capacitor build android
 
+// connecting points for Elbow Curl Only
 export const connectingPoints = [
   [12, 14],
   [14, 16],
@@ -12,6 +13,7 @@ export const connectingPoints = [
   [23, 24],
 ];
 
+// generalized for drawing a point on a canvas
 export const drawPoint = (context, x, y, label) => {
   context.beginPath();
   context.arc(x, y, 2.5, 0, 2 * Math.PI, false);
@@ -22,6 +24,7 @@ export const drawPoint = (context, x, y, label) => {
   context.stroke();
 };
 
+// generalzed for connection two points on canvas
 export function connectPoint(canvasCtx, results, pointA, pointB, canvasRef) {
 const gradient = canvasCtx.createLinearGradient(0, 0, canvasRef.current.width, canvasRef.current.height);
 gradient.addColorStop(0, "red");
@@ -44,6 +47,7 @@ gradient.addColorStop(1, "blue");
   canvasCtx.stroke();
 }
 
+// geneeralized to draw all the landmarks (which is itself an array of points)
 export const drawPointOnCanvas = (
   landmarks,
   allowedPoints,
@@ -69,3 +73,11 @@ export const drawLine = (color, from, to, canvasCtx) => {
   canvasCtx.lineTo(to[0], to[1]);
   canvasCtx.stroke();
 };
+
+// generalized to find the distance between two points (note that the distance lies in the range of 0 to 1)
+export function distance(x1, y1, x2, y2) {
+  var dx = x2 - x1;
+  var dy = y2 - y1;
+  var dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+  return dist;
+}

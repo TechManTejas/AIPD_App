@@ -9,38 +9,36 @@ import {
   drawPointOnCanvas,
   connectingPoints,
   drawLine,
+  distance
 } from "./PoseFunctions";
+import { Elbow_Curl } from "./Elbow_Curl";
 import { CountDownComponent } from "./CountDownComponent";
 
-function distance(x1, y1, x2, y2) {
-  var dx = x2 - x1;
-  var dy = y2 - y1;
-  var dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-  return dist;
-}
 
 // recording exercise directly from the video of the trainer (making references point)
-
 function CameraPoseDetect() {
-  // * Refs
+  // * Refs 
+
+  // Generalized refs and inital camera object
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   var camera = null;
 
+  // Generalized a state to show a timer or not
   const [timer, settimer] = useState(true);
-  const [timeD, settd] = useState(60);
 
+  // Generalized for specific purposes
   var ifStartingPointReached = false;
   var hitOn = "lower";
   var reps = 0;
 
- 
+
 
   function onResults(results) {
     // ^ check if landmarks are detected
     if (results.poseLandmarks == undefined) return;
 
-    // console.log(timer)
+    // the number of reps are hard coded which is different for each exercise
     if (reps === 3) {
       reps = 0;
       settimer(false);
@@ -48,15 +46,15 @@ function CameraPoseDetect() {
       return;
     }
 
-    // * getting the video Width
+    // * getting the video Width  | Generalized
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
 
-    // * Set canvas width
+    // * Set canvas width | Generalized
     canvasRef.current.width = videoWidth;
     canvasRef.current.height = videoHeight;
 
-    // * Canvas Initialize
+    // * Canvas Initialize | Generalized
     const canvasElement = canvasRef.current;
     const canvasCtx = canvasElement.getContext("2d");
     canvasCtx.save();
@@ -72,103 +70,13 @@ function CameraPoseDetect() {
       canvasElement.height
     );
 
-    // * Some Important points
-    const leftShoulder = results.poseLandmarks[11];
-    const rightShoulder = results.poseLandmarks[12];
-    const leftElbow = results.poseLandmarks[13];
-    const rightElbow = results.poseLandmarks[14];
-    const leftWrist = results.poseLandmarks[15];
-    const rightWrist = results.poseLandmarks[16];
-
-    const lefthip = results.poseLandmarks[23];
-    const righthip = results.poseLandmarks[24];
-
-    // * Predicted left Wrist
-    // ! Used Section Formula
-    const predictLeftWrist = {
-      x: 2.5 * leftShoulder.x - 1.5 * rightShoulder.x,
-      y: 2.5 * leftShoulder.y - 1.5 * rightShoulder.y,
-    };
-
-    // * Predicted Right Wrist
-    // ! Used Section Formula
-    const predictRightWrist = {
-      x: 2.5 * rightShoulder.x - 1.5 * leftShoulder.x,
-      y: 2.5 * rightShoulder.y - 1.5 * leftShoulder.y,
-    };
-
-    // ! Angle between right shoulder left shoulder and left wrist
-    var anglebetweenrslslw =
-      Math.atan2(
-        rightShoulder.y - leftShoulder.y,
-        rightShoulder.x - leftShoulder.x
-      ) -
-      Math.atan2(leftWrist.y - leftShoulder.y, leftWrist.x - leftShoulder.x);
-
-    anglebetweenrslslw *= 180 / Math.PI;
-
-    if (anglebetweenrslslw < 0) {
-      anglebetweenrslslw = 360 + anglebetweenrslslw;
-    }
-
-    // ! Angle between left shoulder right shoulder and right wrist
-    var anglebetweenlsrsrw =
-      Math.atan2(
-        leftShoulder.y - rightShoulder.y,
-        leftShoulder.x - rightShoulder.x
-      ) -
-      Math.atan2(
-        rightWrist.y - rightShoulder.y,
-        rightWrist.x - rightShoulder.x
-      );
-
-    anglebetweenlsrsrw *= 180 / Math.PI;
-
-    if (anglebetweenlsrsrw < 0) {
-      anglebetweenlsrsrw = 360 + anglebetweenlsrsrw;
-    }
-
-    // * Angle made at left elbow
-    var angleleft =
-      Math.atan2(leftShoulder.y - leftElbow.y, leftShoulder.x - leftElbow.x) -
-      Math.atan2(leftWrist.y - leftElbow.y, leftWrist.x - leftElbow.x);
-
-    // * Angle made at right elbow
-    var angleright =
-      Math.atan2(rightWrist.y - rightElbow.y, rightWrist.x - rightElbow.x) -
-      Math.atan2(
-        rightShoulder.y - rightElbow.y,
-        rightShoulder.x - rightElbow.x
-      );
-
-    angleleft = angleleft * (180 / Math.PI);
-    if (angleleft > 180) {
-      angleleft = 360 - angleleft;
-    }
-    if (angleleft < 0) {
-      angleleft = 360 + angleleft;
-    }
-
-    angleright = angleright * (180 / Math.PI);
-
-    if (angleright > 180) {
-      angleright = 360 - angleright;
-    }
-    if (angleright < 0) {
-      angleright = 360 + angleright;
-    }
-
-    const distanceBetweenleftWristleftElbow = Math.sqrt(
-      Math.pow(
-        leftElbow.x * canvasElement.width - leftWrist.x * canvasElement.width,
-        2
-      ) +
-        Math.pow(
-          leftElbow.y * canvasElement.height -
-            leftWrist.y * canvasElement.height,
-          2
-        )
-    );
+    const elbow_curl = new Elbow_Curl(results.poseLandmarks, canvasElement, canvasCtx)
+    const [predictLeftWrist, predictRightWrist] = elbow_curl.getPredictedPoints();
+    const anglebetweenrslslw = elbow_curl.getanglebetweenrslslw();
+    const anglebetweenlsrsrw = elbow_curl.getanglebetweenlsrsrw();
+    var angleleft = elbow_curl.getangleleft()
+    var angleright = elbow_curl.getangleright()
+    const distanceBetweenleftWristleftElbow = elbow_curl.getdistanceBetweenleftWristleftElbow()
 
     // ! is starting point reached (buffer = 40deg)
 
@@ -185,27 +93,8 @@ function CameraPoseDetect() {
     ) {
       ifStartingPointReached = true;
 
-      canvasCtx.setLineDash([5, 5]);
-      canvasCtx.beginPath();
-      canvasCtx.arc(
-        leftElbow.x * canvasElement.width,
-        leftShoulder.y * canvasElement.height,
-        distanceBetweenleftWristleftElbow,
-        (-2 / 3) * Math.PI,
-        0
-      );
-      canvasCtx.stroke();
-      canvasCtx.setLineDash([0, 0]);
-
-      let LPX =
-        leftElbow.x * canvasElement.width + distanceBetweenleftWristleftElbow;
-      let LPY = leftShoulder.y * canvasElement.height;
-      let UPX =
-        leftElbow.x * canvasElement.width -
-        distanceBetweenleftWristleftElbow * Math.cos((60 * Math.PI) / 180);
-      let UPY =
-        leftShoulder.y * canvasElement.height -
-        distanceBetweenleftWristleftElbow * Math.sin((60 * Math.PI) / 180);
+      elbow_curl.addanarc();
+      const [LPX, LPY, UPX, UPY] = elbow_curl.getSpecificPoints();
 
       canvasCtx.beginPath();
       canvasCtx.strokeStyle = hitOn === "lower" ? "#00ff00" : "#000000";
@@ -214,12 +103,7 @@ function CameraPoseDetect() {
       canvasCtx.stroke();
 
       if (
-        distance(
-          LPX,
-          LPY,
-          leftWrist.x * canvasElement.width,
-          leftWrist.y * canvasElement.height
-        ) < 10
+        elbow_curl.changeHitOnCondition1()
       ) {
         if (hitOn === "lower") hitOn = "upper";
       }
@@ -231,12 +115,7 @@ function CameraPoseDetect() {
       canvasCtx.stroke();
 
       if (
-        distance(
-          UPX,
-          UPY,
-          leftWrist.x * canvasElement.width,
-          leftWrist.y * canvasElement.height
-        ) < 10
+        elbow_curl.changeHitOnCondition2()
       ) {
         if (hitOn === "upper") reps++;
         hitOn = "lower";
@@ -246,59 +125,15 @@ function CameraPoseDetect() {
     // ^ Change the color of the line
     if (!ifStartingPointReached) {
       if (anglebetweenlsrsrw > 150 && anglebetweenlsrsrw < 210) {
-        canvasCtx.strokeStyle = "green";
-        canvasCtx.lineWidth = 5;
-        canvasCtx.beginPath();
-        canvasCtx.moveTo(
-          rightShoulder.x * canvasRef.current.width,
-          rightShoulder.y * canvasRef.current.height
-        );
-        canvasCtx.lineTo(
-          predictRightWrist.x * canvasRef.current.width,
-          predictRightWrist.y * canvasRef.current.height
-        );
-        canvasCtx.stroke();
+        elbow_curl.drawreflinewithcolor1("green", canvasRef)
       } else {
-        canvasCtx.strokeStyle = "white";
-        canvasCtx.lineWidth = 5;
-        canvasCtx.beginPath();
-        canvasCtx.moveTo(
-          rightShoulder.x * canvasRef.current.width,
-          rightShoulder.y * canvasRef.current.height
-        );
-        canvasCtx.lineTo(
-          predictRightWrist.x * canvasRef.current.width,
-          predictRightWrist.y * canvasRef.current.height
-        );
-        canvasCtx.stroke();
+        elbow_curl.drawreflinewithcolor1("white", canvasRef)
       }
 
       if (anglebetweenrslslw > 150 && anglebetweenrslslw < 210) {
-        drawLine(
-          "green",
-          [
-            leftShoulder.x * canvasRef.current.width,
-            leftShoulder.y * canvasRef.current.height,
-          ],
-          [
-            predictLeftWrist.x * canvasRef.current.width,
-            predictLeftWrist.y * canvasRef.current.height,
-          ],
-          canvasCtx
-        );
+        elbow_curl.drawreflinewithcolor2("green", canvasRef)
       } else {
-        drawLine(
-          "white",
-          [
-            leftShoulder.x * canvasRef.current.width,
-            leftShoulder.y * canvasRef.current.height,
-          ],
-          [
-            predictLeftWrist.x * canvasRef.current.width,
-            predictLeftWrist.y * canvasRef.current.height,
-          ],
-          canvasCtx
-        );
+        elbow_curl.drawreflinewithcolor2("white", canvasRef)
       }
     }
 
@@ -330,6 +165,21 @@ function CameraPoseDetect() {
   }
 
   useEffect(() => {
+    const startCamera = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: false,
+        });
+        if (webcamRef.current) {
+          webcamRef.current.video.srcObject = stream;
+        }
+      } catch (error) {
+        console.error("Failed to acquire camera feed:", error);
+      }
+    };
+    startCamera();
+
     const pose = new Pose({
       locateFile: (file) => {
         return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
