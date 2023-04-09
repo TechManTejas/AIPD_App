@@ -4,6 +4,7 @@ import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
 import { CountDownComponent } from "./CountDownComponent";
 import ElbowCurl from "./ElbowCurl";
+import NeckCurl from "./NeckCurl";
 
 
 function CameraPoseDetect() {
@@ -15,7 +16,7 @@ function CameraPoseDetect() {
   const [timer, settimer] = useState(true);
 
   function onResults(results) {
-    ElbowCurl({
+    NeckCurl({
       results: results,
       camera: camera,
       canvasRef: canvasRef,
