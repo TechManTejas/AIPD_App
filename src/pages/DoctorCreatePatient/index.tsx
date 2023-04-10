@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { OutlinedInput } from "@mui/material";
 import GradientButton from "../../components/GradientButton";
-import { Select, MenuItem } from '@material-ui/core';
 import DropdownInput from "../../components/DropdownInput";
 
 export const DoctorCreatePatient: React.FC = () => {
@@ -44,6 +43,13 @@ export const DoctorCreatePatient: React.FC = () => {
             });
     }, [])
 
+    function handleClick() {
+        //9423698938
+        const phoneNumber = username;
+        const message = `Hello User, thank you for choosing AIPD. Your exercise plan has been successfully setup by Dr. Siddharth, your login credentials for AIPD_App are:- \n username: ${username} \n password: as3faW`;
+        window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`);
+    }
+
     return (
         <>
             <DropdownInput
@@ -56,18 +62,18 @@ export const DoctorCreatePatient: React.FC = () => {
                 optionLabel={"name"}
             />
             <div className='space-y-2 my-4'>
-                <OutlinedInput fullWidth placeholder="Username"
+                <OutlinedInput fullWidth placeholder="Phonenumber"
                     value={username}
                     onChange={(e) => {
                         setUsername(e.target.value)
                     }}
                 />
-                <OutlinedInput fullWidth placeholder="Password"
+                {/* <OutlinedInput fullWidth placeholder="Password"
                     value={password}
                     onChange={(e) => {
                         setPassword(e.target.value)
                     }}
-                />
+                /> */}
                 <GradientButton
                     onClick={createNewPatient}
                     varient={"primary"}
@@ -78,6 +84,14 @@ export const DoctorCreatePatient: React.FC = () => {
                     </div>
                 </GradientButton>
             </div>
+            <GradientButton onClick={handleClick}
+                varient={"success"}
+                isFullWidth={true}>
+                <img alt="Chat on WhatsApp" src="WhatsAppButtonGreenLarge.svg" />
+                <div className="text-lg m-0.5">
+                    SEND THE USER A NOTIFICATION
+                </div>
+            </GradientButton>
         </>
     )
 }
