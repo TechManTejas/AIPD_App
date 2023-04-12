@@ -14,7 +14,12 @@ const config: CapacitorConfig = {
       ]
     }
   },
-  
+  server: {
+    androidScheme: "http",
+    allowNavigation: [
+      "http://13.232.102.80:8000"
+    ]
+  }
 };
 
 export default config;
