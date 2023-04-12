@@ -6,6 +6,7 @@ import { CountDownComponent } from "./CountDownComponent";
 import ElbowCurl from "./ElbowCurl";
 import NeckCurl from "./NeckCurl";
 
+var ex = 0
 
 function CameraPoseDetect() {
   // * Refs
@@ -16,13 +17,23 @@ function CameraPoseDetect() {
   const [timer, settimer] = useState(true);
 
   function onResults(results) {
-    NeckCurl({
-      results: results,
-      camera: camera,
-      canvasRef: canvasRef,
-      webcamRef: webcamRef,
-      settimer: settimer,
-    })
+    if (ex%2 == 1){
+      NeckCurl({
+        results: results,
+        camera: camera,
+        canvasRef: canvasRef,
+        webcamRef: webcamRef,
+        settimer: settimer,
+      })
+    }else{
+      ElbowCurl({
+        results: results,
+        camera: camera,
+        canvasRef: canvasRef,
+        webcamRef: webcamRef,
+        settimer: settimer,
+      })
+    }
   }
 
   useEffect(() => {
@@ -50,6 +61,8 @@ function CameraPoseDetect() {
         },
       });
       camera.start();
+      ex++
+      console.log(ex)
     }
   }, [timer]);
 

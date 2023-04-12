@@ -12,7 +12,7 @@ export const DoctorCreatePatient: React.FC = () => {
     const [password, setPassword] = useState("")
 
     async function createNewPatient() {
-        const url = "http://127.0.0.1:8000/patient/";
+        const url = "/patient/";
         const data = { user_data: { username: username }, condition_id: (selectedCondition as { id: number }).id };
         console.log(data)
         await axios.post(url, data, {
@@ -31,7 +31,7 @@ export const DoctorCreatePatient: React.FC = () => {
     }
 
     useEffect(() => {
-        axios.get("http://127.0.0.1:8000/condition/",
+        axios.get("/condition/",
             {
                 headers: {
                     'Authorization': `Token ${localStorage.getItem("aipd-doctor-access-token")}`

@@ -6,7 +6,7 @@ export const DoctorPatientsInfo: React.FC = () => {
     const [patientDetails, setPatientDetails] = useState([])
 
     useEffect(() => {
-        axios.get("http://127.0.0.1:8000/patient/",
+        axios.get("/patient/",
             {
                 headers: {
                     'Authorization': `Token ${localStorage.getItem("aipd-doctor-access-token")}`

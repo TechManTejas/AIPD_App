@@ -13,7 +13,7 @@ export const DoctorAuth: React.FC = () => {
     const [password, setPassword] = useState("")
 
     function authAndProceed(){
-        const url = "http://127.0.0.1:8000/auth/";
+        const url = "/auth/";
         const data = { username: username, password: password };
         axios.post(url, data, {
                 headers: {
