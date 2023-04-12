@@ -11,11 +11,11 @@ export const DoctorCreatePatient: React.FC = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
-    function createNewPatient() {
+    async function createNewPatient() {
         const url = "http://127.0.0.1:8000/patient/";
-        const data = { user_data: { username: username, password: password }, condition_id: (selectedCondition as { id: number }).id };
+        const data = { user_data: { username: username }, condition_id: (selectedCondition as { id: number }).id };
         console.log(data)
-        axios.post(url, data, {
+        await axios.post(url, data, {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export const DoctorCreatePatient: React.FC = () => {
         })
             .then((data: any) => {
                 console.log(data);
-
+                notifyOnWhatsapp(data.data.code)
             });
     }
 
@@ -43,11 +43,9 @@ export const DoctorCreatePatient: React.FC = () => {
             });
     }, [])
 
-    function handleClick() {
-        //9423698938
-        const phoneNumber = username;
-        const message = `Hello User, thank you for choosing AIPD. Your exercise plan has been successfully setup by Dr. Siddharth, your login credentials for AIPD_App are:- \n username: ${username} \n password: as3faW`;
-        window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`);
+    function notifyOnWhatsapp(password: string) {
+        const message = `Hello User, thank you for choosing AIPD. Your exercise plan has been successfully setup by Dr. Siddharth, your login credentials for AIPD_App are:- \n username: ${username} \n password: ${password}`;
+        window.open(`https://wa.me/${username}?text=${encodeURIComponent(message)}`);
     }
 
     return (
@@ -84,14 +82,14 @@ export const DoctorCreatePatient: React.FC = () => {
                     </div>
                 </GradientButton>
             </div>
-            <GradientButton onClick={handleClick}
+            {/* <GradientButton onClick={notifyOnWhatsapp}
                 varient={"success"}
                 isFullWidth={true}>
                 <img alt="Chat on WhatsApp" src="WhatsAppButtonGreenLarge.svg" />
                 <div className="text-lg m-0.5">
                     SEND THE USER A NOTIFICATION
                 </div>
-            </GradientButton>
+            </GradientButton> */}
         </>
     )
 }
