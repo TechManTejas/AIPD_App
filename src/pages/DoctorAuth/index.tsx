@@ -39,7 +39,7 @@ export const DoctorAuth: React.FC = () => {
                 <div className='bg-white flex flex-col flex-grow p-2 h-full'>
                     <div className='flex h-full  flex-col justify-center items-center'>
                         <div className='space-y-2 my-4'>
-                            <OutlinedInput fullWidth placeholder="Username" 
+                            <OutlinedInput fullWidth placeholder="Username/Phonenumber" 
                                 value={username}
                                 onChange={(e)=>{
                                     setUsername(e.target.value)

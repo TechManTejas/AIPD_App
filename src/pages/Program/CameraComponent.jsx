@@ -72,7 +72,7 @@ function CameraPoseDetect() {
         {timer ? (
           <>
             <Webcam ref={webcamRef} className="hidden w-screen" />
-            <canvas ref={canvasRef} className="w-screen" />
+            <canvas ref={canvasRef} className="w-screen h-screen" />
           </>
         ) : (
           <>

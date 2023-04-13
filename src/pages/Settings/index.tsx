@@ -43,6 +43,9 @@ const Settings: React.FC = () => {
               <div className='py-2'>
                   1.0.0
               </div>
+              <div className='py-2'>
+                  Logout
+              </div>
             </div>
           </div>
         </div>

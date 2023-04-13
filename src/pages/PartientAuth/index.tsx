@@ -41,14 +41,13 @@ export const Auth: React.FC = () => {
                 <div className='bg-white flex flex-col flex-grow p-2 h-full'>
                     <div className='flex h-full  flex-col justify-center items-center'>
                         <div className='space-y-2 my-4'>
-                            <OutlinedInput fullWidth placeholder="Phone number" 
+                            <OutlinedInput fullWidth placeholder="Phonenumber" 
                                 value={username}
                                 onChange={(e) => {
                                     setUsername(e.target.value)
                                 }}
                             />
                             <OutlinedInput fullWidth placeholder="Program code" 
-                                type="password"
                                 value={password}
                                 onChange={(e) => {
                                     setPassword(e.target.value)
@@ -72,7 +71,7 @@ export const Auth: React.FC = () => {
                             isFullWidth={true}
                         >
                             <div className="text-base">
-                                Doctor Login
+                                I Am A Doctor (Dr. ICON)
                             </div>
                         </GradientButton>
                     </Link>

@@ -44,7 +44,10 @@ export const DoctorCreatePatient: React.FC = () => {
     }, [])
 
     function notifyOnWhatsapp(password: string) {
-        const message = `Hello User, thank you for choosing AIPD. Your exercise plan has been successfully setup by Dr. Siddharth, your login credentials for AIPD_App are:- \n username: ${username} \n password: ${password}`;
+        const message = 
+        
+        `Hello User, thank you for choosing AIPD. Your exercise plan has been successfully setup by Dr. Siddharth, your login credentials for AIPD_App are:- \n username: ${username} \n password: ${password}`;
+        
         window.open(`https://wa.me/${username}?text=${encodeURIComponent(message)}`);
     }
 
@@ -78,7 +81,7 @@ export const DoctorCreatePatient: React.FC = () => {
                     isFullWidth={true}
                 >
                     <div className="text-base">
-                        Add Patient
+                        Create Patient
                     </div>
                 </GradientButton>
             </div>
