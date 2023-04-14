@@ -2,6 +2,8 @@ import { IonContent, IonPage } from "@ionic/react"
 import { OutlinedInput } from "@mui/material"
 import { useState } from "react"
 import { Link, useHistory } from "react-router-dom"
+import { ReactComponent as DoctorIcon } from "../../SVGs/doctor.svg"
+import AIPDLogo from "../../Images/aipdlogo.png"
 import GradientButton from "../../components/GradientButton"
 import axios from "axios"
 
@@ -38,16 +40,19 @@ export const Auth: React.FC = () => {
     return (
         <IonPage>
             <IonContent fullscreen>
-                <div className='bg-white flex flex-col flex-grow p-2 h-full'>
-                    <div className='flex h-full  flex-col justify-center items-center'>
-                        <div className='space-y-2 my-4'>
-                            <OutlinedInput fullWidth placeholder="Phonenumber" 
+                <div className='bg-white flex flex-col flex-grow p-2 h-full justify-between items-center'>
+                    <div>
+                        <img src={AIPDLogo}/>
+                    </div>
+                    <div className="mb-16"> 
+                        <div className='space-y-2 my-2'>
+                            <OutlinedInput fullWidth placeholder="Phone number"
                                 value={username}
                                 onChange={(e) => {
                                     setUsername(e.target.value)
                                 }}
                             />
-                            <OutlinedInput fullWidth placeholder="Program code" 
+                            <OutlinedInput fullWidth placeholder="Program code"
                                 value={password}
                                 onChange={(e) => {
                                     setPassword(e.target.value)
@@ -64,17 +69,24 @@ export const Auth: React.FC = () => {
                             </div>
                         </GradientButton>
                     </div>
-                    <Link to="/doctor-auth">
+                    <div>
                         <GradientButton
-                            onClick={() => { }}
+                            onClick={() => {
+                                history.push("/doctor-auth")
+                            }}
                             varient={"primary"}
                             isFullWidth={true}
                         >
-                            <div className="text-base">
-                                I Am A Doctor (Dr. ICON)
+                            <div className="text-base flex space-x-1">
+                                <div>
+                                    I'm A Doctor
+                                </div>
+                                <div>
+                                    <DoctorIcon />
+                                </div>
                             </div>
                         </GradientButton>
-                    </Link>
+                    </div>
                 </div>
             </IonContent>
         </IonPage>

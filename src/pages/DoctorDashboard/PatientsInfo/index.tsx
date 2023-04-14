@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 
-export const DoctorPatientsInfo: React.FC = () => {
+export const PatientsInfo: React.FC = () => {
 
     const [patientDetails, setPatientDetails] = useState([])
 
@@ -19,15 +19,20 @@ export const DoctorPatientsInfo: React.FC = () => {
 
 
     return (
-        <>
+        <div className="pb-16">
             {
                 patientDetails.map((details) => {
                     return (
-                        <div className="border m-1 p-2 border-gray-900 mb-4 bg-slate-50">
-                            <div className="text-2xl font-bold text-green-600 bg-green-50">
-                                {(details as { user: { username: string } }).user.username}
+                        <div className="border shadow-xl rounded m-1 p-2 mb-4 bg-slate-50">
+                            <div className="flex justify-between">
+                                <div className="text-2xl font-bold text-green-600 bg-green-50">
+                                    {(details as { user: { username: string } }).user.username}
+                                </div>
+                                <div className="text-base">
+                                    1/4/23 - 1/7/23
+                                </div>
                             </div>
-                            <div className="text-lg font-semibold text-red-500 bg-red-50">
+                            <div className="text-lg font-semibold text-red-500 bg-red-50 rounded">
                                 {(details as { condition: { name: string } }).condition.name}
                             </div>
                             {(details as { condition: { exercises: [] } }).condition.exercises.map((exercise: { name: string }) => {
@@ -37,11 +42,10 @@ export const DoctorPatientsInfo: React.FC = () => {
                                     </div>
                                 );
                             })}
-
                         </div>
                     )
                 })
             }
-        </>
+        </div>
     )
 }
