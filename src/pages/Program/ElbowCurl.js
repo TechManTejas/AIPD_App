@@ -1,5 +1,7 @@
 import { connectPoint, drawLine, drawPointOnCanvas } from "./PoseFunctions";
 
+var sets = 0;
+
 const connectingPoints = [
     [12, 14],
     [14, 16],
@@ -28,6 +30,7 @@ export default function ElbowCurl({
     canvasRef: canvasRef,
     webcamRef: webcamRef,
     settimer: settimer,
+    repref : repref
 }) {
     // ^ check if landmarks are detected
     if (results.poseLandmarks == undefined) return;
@@ -35,6 +38,7 @@ export default function ElbowCurl({
     // console.log(timer)
     if (reps === 3) {
         reps = 0;
+        sets++;
         settimer(false);
         camera.stop();
         return;
@@ -294,15 +298,17 @@ export default function ElbowCurl({
         }
     }
 
-    canvasCtx.font = "30px Arial";
-    if (ifStartingPointReached) {
-        canvasCtx.scale(-1, 1);
-        canvasCtx.translate(-canvasElement.width, 0);
-        canvasCtx.fillText("Starting point reached", 10, 50);
-        canvasCtx.fillText(`Reps:- ${reps}`, 10, 100);
-        canvasCtx.scale(-1, 1);
-        canvasCtx.translate(-canvasElement.width, 0);
-    }
+    // canvasCtx.font = "30px Arial";
+    // if (ifStartingPointReached) {
+    //     canvasCtx.scale(-1, 1);
+    //     canvasCtx.translate(-canvasElement.width, 0);
+    //     canvasCtx.fillText("Starting point reached", 10, 50);
+    //     canvasCtx.fillText(`Reps:- ${reps}`, 10, 100);
+    //     canvasCtx.scale(-1, 1);
+    //     canvasCtx.translate(-canvasElement.width, 0);
+    // }
+
+    repref.current.innerHTML = `Reps :- ${reps} <br> Sets :- ${sets}`   
 
     // ^ Points that needs to be shown in the canvas
     const allowedPoints = [11, 12, 13, 14, 15, 16, 23, 24];

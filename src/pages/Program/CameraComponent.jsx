@@ -8,7 +8,7 @@ import NeckCurl from "./NeckCurl";
 
 var ex = 0
 
-function CameraPoseDetect() {
+function CameraPoseDetect({repref}) {
   // * Refs
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -17,23 +17,23 @@ function CameraPoseDetect() {
   const [timer, settimer] = useState(true);
 
   function onResults(results) {
-    if (ex%2 == 1){
-      NeckCurl({
-        results: results,
-        camera: camera,
-        canvasRef: canvasRef,
-        webcamRef: webcamRef,
-        settimer: settimer,
-      })
-    }else{
+      // NeckCurl({
+      //   results: results,
+      //   camera: camera,
+      //   canvasRef: canvasRef,
+      //   webcamRef: webcamRef,
+      //   settimer: settimer,
+      //   repref : repref
+      // })
+
       ElbowCurl({
         results: results,
         camera: camera,
         canvasRef: canvasRef,
         webcamRef: webcamRef,
         settimer: settimer,
+        repref : repref
       })
-    }
   }
 
   useEffect(() => {
@@ -60,9 +60,11 @@ function CameraPoseDetect() {
           await pose.send({ image: webcamRef.current.video });
         },
       });
-      camera.start();
-      ex++
-      console.log(ex)
+      camera.start().then(() => {
+        repref.current.innerHTML = "Loading..."
+      })
+      // ex++
+      // console.log(ex)
     }
   }, [timer]);
 
@@ -72,7 +74,7 @@ function CameraPoseDetect() {
         {timer ? (
           <>
             <Webcam ref={webcamRef} className="hidden w-screen" />
-            <canvas ref={canvasRef} className="w-screen h-screen" />
+            <canvas ref={canvasRef} className=" -ml-[100px] w-[600px] h-screen" />
           </>
         ) : (
           <>

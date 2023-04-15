@@ -20,6 +20,7 @@ function distance(x1, y1, x2, y2) {
 
 var hitOn = 1;
 var reps = 0;
+var sets = 0;
 
 export default function NeckCurl({
     results: results,
@@ -27,6 +28,7 @@ export default function NeckCurl({
     canvasRef: canvasRef,
     webcamRef: webcamRef,
     settimer: settimer,
+    repref : repref
 }) {
     // ^ check if landmarks are detected
     if (results.poseLandmarks == undefined) return;
@@ -34,6 +36,7 @@ export default function NeckCurl({
     // console.log(timer)
     if (reps === 3) {
         reps = 0;
+        sets++;
         settimer(false);
         camera.stop();
         return;
@@ -158,12 +161,14 @@ export default function NeckCurl({
         }
     }
 
-    canvasCtx.font = "30px Arial";
-    canvasCtx.scale(-1, 1);
-    canvasCtx.translate(-canvasElement.width, 0);
-    canvasCtx.fillText(`Reps:- ${reps}`, 10, 50);
-    canvasCtx.scale(-1, 1);
-    canvasCtx.translate(-canvasElement.width, 0);
+    // canvasCtx.font = "60px Arial";
+    // canvasCtx.scale(-1, 1);
+    // canvasCtx.translate(-canvasElement.width, 0);
+    // canvasCtx.fillText(`Reps:- ${reps}`, 10, 50);
+    // canvasCtx.scale(-1, 1);
+    // canvasCtx.translate(-canvasElement.width, 0);
+
+    repref.current.innerHTML = `Reps :- ${reps} <br> Sets :- ${sets}`
 
     // ^ Points that needs to be shown in the canvas
     const allowedPoints = [0, 1, 2, 3, 4, 5, 6, 7, 8];
