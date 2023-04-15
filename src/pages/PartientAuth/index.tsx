@@ -6,10 +6,13 @@ import { ReactComponent as DoctorIcon } from "../../SVGs/doctor.svg"
 import AIPDLogo from "../../Images/aipdlogo.png"
 import GradientButton from "../../components/GradientButton"
 import axios from "axios"
+import { GlobalDataState } from "../../Context/global"
 
 export const Auth: React.FC = () => {
 
     const history = useHistory()
+
+    const { setAuthenticated } = GlobalDataState()
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -31,7 +34,8 @@ export const Auth: React.FC = () => {
                 if (data.data.token) {
                     localStorage.setItem("aipd-patient-access-token", data.data.token)
                     console.log(data.data.token)
-                    history.push("/program")
+                    setAuthenticated(true)
+                    window.location.href = "/";
                 }
             });
     }

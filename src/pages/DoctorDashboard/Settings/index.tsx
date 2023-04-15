@@ -1,6 +1,10 @@
 import GradientButton from "../../../components/GradientButton";
+import { GlobalDataState } from "../../../Context/global";
 import AIPDLogoName from "../../../Images/aipdlogoname.png"
+
 export const Settings: React.FC = () => {
+
+    const { setAuthenticated } = GlobalDataState()
 
     return (
         <div className="pb-16">
@@ -13,7 +17,9 @@ export const Settings: React.FC = () => {
                 </div>
                 <GradientButton
                     onClick={()=>{
-
+                        localStorage.removeItem("aipd-doctor-access-token")
+                        setAuthenticated(false)
+                        window.location.href = "/";
                     }}
                     varient={"primary"}
                     isFullWidth={false}

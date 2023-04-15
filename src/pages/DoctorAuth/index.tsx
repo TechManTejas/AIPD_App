@@ -5,10 +5,13 @@ import { useHistory } from "react-router-dom"
 import GradientButton from "../../components/GradientButton"
 import AIPDLogo from "../../Images/aipdlogo.png"
 import axios from "axios"
+import { GlobalDataState } from "../../Context/global"
 
 export const DoctorAuth: React.FC = () => {
 
     const history = useHistory()
+
+    const { setAuthenticated } = GlobalDataState()
 
     const [username, setUsername] = useState("") 
     const [password, setPassword] = useState("")
@@ -29,7 +32,8 @@ export const DoctorAuth: React.FC = () => {
                 if(data.data.token){
                     localStorage.setItem("aipd-doctor-access-token", data.data.token)
                     console.log(data.data.token)
-                    history.push("/doctor-dashboard")
+                    setAuthenticated(true)
+                    window.location.href = "/";
                 }
             });
     }
