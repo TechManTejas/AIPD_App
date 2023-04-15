@@ -8,7 +8,7 @@ import NeckCurl from "./NeckCurl";
 
 var ex = 0
 
-function CameraPoseDetect({repref}) {
+function CameraPoseDetect({repref, setref}) {
   // * Refs
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -23,7 +23,8 @@ function CameraPoseDetect({repref}) {
       //   canvasRef: canvasRef,
       //   webcamRef: webcamRef,
       //   settimer: settimer,
-      //   repref : repref
+      //   repref : repref,
+      //   setref : setref
       // })
 
       ElbowCurl({
@@ -32,7 +33,8 @@ function CameraPoseDetect({repref}) {
         canvasRef: canvasRef,
         webcamRef: webcamRef,
         settimer: settimer,
-        repref : repref
+        repref : repref,
+        setref : setref
       })
   }
 
@@ -60,9 +62,7 @@ function CameraPoseDetect({repref}) {
           await pose.send({ image: webcamRef.current.video });
         },
       });
-      camera.start().then(() => {
-        repref.current.innerHTML = "Loading..."
-      })
+      camera.start()
       // ex++
       // console.log(ex)
     }
