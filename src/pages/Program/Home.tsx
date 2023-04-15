@@ -1,6 +1,7 @@
 import { Box, styled, Tab, Tabs } from "@mui/material"
 import { useEffect, useState } from "react"
 import { ExerciseCard } from "./Components/ExerciseCard"
+import AIPDLogoName from "../../Images/aipdlogoname.png"
 import axios from "axios"
 
 export const Home: React.FC = () => {
@@ -37,7 +38,7 @@ export const Home: React.FC = () => {
     );
 
     useEffect(() => {
-        axios.get("http://127.0.0.1:8000/patient/",
+        axios.get("/patient/",
             {
                 headers: {
                     'Authorization': `Token ${localStorage.getItem("aipd-patient-access-token")}`
@@ -71,12 +72,12 @@ export const Home: React.FC = () => {
                 </Box>
 
             </div>
-            <div className="text-center text-2xl font-roboto">
-                Product name and logo
+            <div className="m-24">
+                <img src={AIPDLogoName}/>
             </div>
             <div>
                 <div className="border-2 rounded border-green-600 m-2 bg-green-50">
-                    <div className="bg-green-500 h-2 w-28" style={{
+                    <div className="bg-green-500 h-2 w-[50%]" style={{
                         backgroundImage: "linear-gradient(195deg, rgb(102, 187, 106), rgb(67, 160, 71))"
                     }} />
                 </div>

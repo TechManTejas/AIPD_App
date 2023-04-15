@@ -3,17 +3,21 @@ import { OutlinedInput } from "@mui/material"
 import { useState } from "react"
 import { useHistory } from "react-router-dom"
 import GradientButton from "../../components/GradientButton"
+import AIPDLogo from "../../Images/aipdlogo.png"
 import axios from "axios"
+import { GlobalDataState } from "../../Context/global"
 
 export const DoctorAuth: React.FC = () => {
 
     const history = useHistory()
 
+    const { setAuthenticated } = GlobalDataState()
+
     const [username, setUsername] = useState("") 
     const [password, setPassword] = useState("")
 
     function authAndProceed(){
-        const url = "http://127.0.0.1:8000/auth/";
+        const url = "/auth/";
         const data = { username: username, password: password };
         axios.post(url, data, {
                 headers: {
@@ -28,7 +32,8 @@ export const DoctorAuth: React.FC = () => {
                 if(data.data.token){
                     localStorage.setItem("aipd-doctor-access-token", data.data.token)
                     console.log(data.data.token)
-                    history.push("/doctor-dashboard")
+                    setAuthenticated(true)
+                    window.location.href = "/";
                 }
             });
     }
@@ -36,10 +41,13 @@ export const DoctorAuth: React.FC = () => {
     return (
         <IonPage>
             <IonContent fullscreen>
-                <div className='bg-white flex flex-col flex-grow p-2 h-full'>
-                    <div className='flex h-full  flex-col justify-center items-center'>
-                        <div className='space-y-2 my-4'>
-                            <OutlinedInput fullWidth placeholder="Username" 
+                <div className='bg-white flex flex-col flex-grow p-2 h-full justify-between items-center'>
+                    <div>
+                        <img src={AIPDLogo} />
+                    </div>
+                    <div className='mb-16'>
+                        <div className='space-y-2 my-2'>
+                            <OutlinedInput fullWidth placeholder="Username / Phonenumber" 
                                 value={username}
                                 onChange={(e)=>{
                                     setUsername(e.target.value)
@@ -60,6 +68,21 @@ export const DoctorAuth: React.FC = () => {
                         >
                             <div className="text-base">
                                 Login
+                            </div>
+                        </GradientButton>
+                    </div>
+                    <div>
+                        <GradientButton
+                            onClick={() => {
+                                history.goBack()
+                            }}
+                            varient={"success"}
+                            isFullWidth={true}
+                        >
+                            <div className="text-base flex space-x-1">
+                                <div>
+                                    I'm A Patient
+                                </div>
                             </div>
                         </GradientButton>
                     </div>

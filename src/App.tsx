@@ -11,16 +11,20 @@ import { BottomNavigationBar } from "./components/BottomNavigationBar";
 import { DemoVideo } from "./pages/Program/DemoVideo";
 import { DemoVideoAndLogs } from "./pages/Program/DemoVideoAndLogs";
 import { CameraRendering } from "./pages/Program/CameraRendering";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Auth } from "./pages/PartientAuth";
 import { DoctorAuth } from "./pages/DoctorAuth";
 import { DoctorDashboard } from "./pages/DoctorDashboard";
+import { GlobalDataState } from "./Context/global";
 setupIonicReact();
 
-const authenticatedRoutes = () => {
+const patientRoutes = () => {
   return (
     <IonReactRouter>
       <IonRouterOutlet>
+        <Route exact path="/">
+          <Redirect to="/program" />
+        </Route>
         <Route exact path="/program">
           <Program />
         </Route>
@@ -42,41 +46,42 @@ const authenticatedRoutes = () => {
         <Route path="/settings">
           <Settings />
         </Route>
-        <Route exact path="/auth">
-          <Auth />
-        </Route>
-        <Route exact path="/doctor-auth">
-          <DoctorAuth />
-        </Route>
-        <Route exact path="/doctor-dashboard">
-          <DoctorDashboard />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/camera-rendering" />
-        </Route>
       </IonRouterOutlet>
       <Switch>
         <Route exact path="/camera-rendering" />
-        <Route exact path="/auth" />
-        <Route exact path="/doctor-auth" />
-        <Route exact path="/doctor-dashboard" />
         <Route path="/" component={BottomNavigationBar} />
       </Switch>
     </IonReactRouter>
   )
 }
-const unAuthenticatedRoutes = () => {
+
+const doctorRoutes = () => {
   return (
     <IonReactRouter>
       <IonRouterOutlet>
+        <Route exact path="/">
+          <Redirect to="/doctor-dashboard" />
+        </Route>
+        <Route exact path="/doctor-dashboard">
+          <DoctorDashboard />
+        </Route>
+      </IonRouterOutlet>
+    </IonReactRouter>
+  )
+}
+
+const unauthenticatedRoutes = () => {
+  return (
+    <IonReactRouter>
+      <IonRouterOutlet>
+        <Route exact path="/">
+          <Redirect to="/auth" />
+        </Route>
         <Route exact path="/auth">
           <Auth />
         </Route>
         <Route exact path="/doctor-auth"> 
           <DoctorAuth />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/camera-rendering" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
@@ -84,21 +89,24 @@ const unAuthenticatedRoutes = () => {
 }
 
 const App: React.FC = () => {
+  
+  const{authenticated} = GlobalDataState()
 
-  const [authenticated, isAuthenticated] = useState(
-    // !!localStorage.getItem("aipd-access-token")
-    true
-  )
+  const [routes, setRoutes] = useState<() => JSX.Element>(unauthenticatedRoutes)
+
+  useEffect(() => {
+    if (!!localStorage.getItem("aipd-patient-access-token"))
+      setRoutes(() => patientRoutes)
+    else if (localStorage.getItem("aipd-doctor-access-token"))
+      setRoutes(() => doctorRoutes)
+    else
+      setRoutes(() => unauthenticatedRoutes)
+  
+  }, [authenticated])
 
   return (
     <IonApp>
-      {
-        authenticated
-          ?
-          authenticatedRoutes()
-          :
-          unAuthenticatedRoutes()
-      }
+      {typeof routes === "function" && routes()}
     </IonApp>
   )
 

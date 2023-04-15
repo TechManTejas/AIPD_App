@@ -1,17 +1,3 @@
-// export CAPACITOR_ANDROID_STUDIO_PATH="/snap/android-studio/current/android-studio/bin/studio.sh"
-// ionic capacitor build android
-
-export const connectingPoints = [
-  [12, 14],
-  [14, 16],
-  [12, 11],
-  [11, 13],
-  [15, 13],
-  [12, 24],
-  [11, 23],
-  [23, 24],
-];
-
 export const drawPoint = (context, x, y, label) => {
   context.beginPath();
   context.arc(x, y, 2.5, 0, 2 * Math.PI, false);

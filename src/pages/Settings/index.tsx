@@ -1,6 +1,11 @@
 import { IonContent, IonPage } from '@ionic/react';
+import GradientButton from '../../components/GradientButton';
+import { GlobalDataState } from '../../Context/global';
 
 const Settings: React.FC = () => {
+  
+  const { setAuthenticated } = GlobalDataState()
+
   return (
     <IonPage>
       <IonContent fullscreen>
@@ -42,6 +47,21 @@ const Settings: React.FC = () => {
               </div>
               <div className='py-2'>
                   1.0.0
+              </div>
+              <div className='py-2'>
+                <GradientButton
+                  onClick={() => {
+                    localStorage.removeItem("aipd-patient-access-token")
+                    setAuthenticated(false)
+                    window.location.href = "/";
+                  }}
+                  varient={"primary"}
+                  isFullWidth={false}
+                >
+                  <div className="text-base">
+                    Logout
+                  </div>
+                </GradientButton>
               </div>
             </div>
           </div>

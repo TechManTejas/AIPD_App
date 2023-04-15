@@ -43,7 +43,6 @@ const GradientButton: React.FC<GradientButtonProps> = (
                 onClick={onClick}
                 fullWidth={!!isFullWidth}
                 style={{
-                    "fontFamily": "Fredoka One",
                     "letterSpacing": "0.02857em",
                     "minWidth": "64px",
                     "borderRadius": "0.5rem",
