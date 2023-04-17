@@ -26,11 +26,16 @@ export const PatientsInfo: React.FC = () => {
                         <div className="border shadow-xl rounded m-1 p-2 mb-4 bg-slate-50">
                             <div className="flex justify-between">
                                 <div className="text-2xl font-bold text-green-600 bg-green-50">
-                                    {(details as { user: { username: string } }).user.username}
+                                    {(details as { user: { first_name: string } }).user.first_name} 
+                                    &nbsp;
+                                    {(details as { user: { last_name: string } }).user.last_name}
                                 </div>
                                 <div className="text-base">
                                     1/4/23 - 1/7/23
                                 </div>
+                            </div>
+                            <div className="text-lg font-semibold bg-green-50 rounded">
+                                {(details as { user: { username: string } }).user.username}
                             </div>
                             <div className="text-lg font-semibold text-red-500 bg-red-50 rounded">
                                 {(details as { condition: { name: string } }).condition.name}

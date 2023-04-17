@@ -15,8 +15,17 @@ export const CreatePatient: React.FC = () => {
 
     async function createNewPatient() {
         const url = "/patient/";
-        const data = { user_data: { username: username }, condition_id: (selectedCondition as { id: number }).id };
-        console.log(data)
+
+        const data = { 
+            user_data: { 
+                username: username,
+                first_name: firstname,
+                last_name: lastname
+            }, 
+            condition_id: (selectedCondition as { id: number }).id,
+            duration: duration
+        };
+        
         await axios.post(url, data, {
             headers: {
                 Accept: "application/json",
