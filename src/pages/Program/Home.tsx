@@ -89,7 +89,7 @@ export const Home: React.FC = () => {
                             <div key={(exercise as {id: number}).id}>
                                 <ExerciseCard 
                                     image={(exercise as { image: string }).image} 
-                                    text={(exercise as { description: string }).description} 
+                                    text={(exercise as { name: string }).name} 
                                 />
                             </div>
                         )
