@@ -31,7 +31,9 @@ export const PatientsInfo: React.FC = () => {
                                     {(details as { user: { last_name: string } }).user.last_name}
                                 </div>
                                 <div className="text-base">
-                                    1/4/23 - 1/7/23
+                                    {(details as { start_date: string }).start_date}
+                                    &nbsp; - &nbsp;
+                                    {(details as { end_date: string }).end_date}
                                 </div>
                             </div>
                             <div className="text-lg font-semibold bg-green-50 rounded">
