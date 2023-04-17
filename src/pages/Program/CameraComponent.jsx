@@ -6,8 +6,6 @@ import { CountDownComponent } from "./CountDownComponent";
 import ElbowCurl from "./ElbowCurl";
 import NeckCurl from "./NeckCurl";
 
-var ex = 0
-
 function CameraPoseDetect({repref, setref}) {
   // * Refs
   const webcamRef = useRef(null);
