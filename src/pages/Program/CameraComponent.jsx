@@ -5,6 +5,7 @@ import Webcam from "react-webcam";
 import { CountDownComponent } from "./CountDownComponent";
 import ElbowCurl from "./ElbowCurl";
 import NeckCurl from "./NeckCurl";
+import PendulumSideways from "./PendulumSideways";
 
 function CameraPoseDetect({repref, setref}) {
   // * Refs
@@ -25,7 +26,17 @@ function CameraPoseDetect({repref, setref}) {
       //   setref : setref
       // })
 
-      ElbowCurl({
+      // ElbowCurl({
+      //   results: results,
+      //   camera: camera,
+      //   canvasRef: canvasRef,
+      //   webcamRef: webcamRef,
+      //   settimer: settimer,
+      //   repref : repref,
+      //   setref : setref
+      // })
+
+      PendulumSideways({
         results: results,
         camera: camera,
         canvasRef: canvasRef,
