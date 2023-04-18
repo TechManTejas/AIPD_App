@@ -6,6 +6,7 @@ import { CountDownComponent } from "./CountDownComponent";
 import ElbowCurl from "./ElbowCurl";
 import NeckCurl from "./NeckCurl";
 import PendulumSideways from "./PendulumSideways";
+import PendulumStraight from "./PendulumStraight";
 
 function CameraPoseDetect({repref, setref}) {
   // * Refs
@@ -36,7 +37,7 @@ function CameraPoseDetect({repref, setref}) {
       //   setref : setref
       // })
 
-      PendulumSideways({
+      PendulumStraight({
         results: results,
         camera: camera,
         canvasRef: canvasRef,

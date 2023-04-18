@@ -168,7 +168,7 @@ export default function PendulumSideways({
             right_knee.y * canvasElement.height,
             WristX,
             WristY
-        ) < 40) {
+        ) < 60) {
             hitOn++
             if (hitOn === 6) {
                 hitOn = 1
@@ -183,7 +183,7 @@ export default function PendulumSideways({
             RPY,
             WristX,
             WristY
-        ) < 40) {
+        ) < 60) {
             hitOn++
         }
     }
@@ -194,7 +194,7 @@ export default function PendulumSideways({
             LPY,
             WristX,
             WristY
-        ) < 40) {
+        ) < 60) {
             hitOn++
         }
     }
