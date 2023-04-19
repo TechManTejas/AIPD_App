@@ -16,6 +16,8 @@ function CameraPoseDetect({repref, setref}) {
 
   const [timer, settimer] = useState(true);
 
+  var exercise;
+
   function onResults(results) {
       // NeckCurl({
       //   results: results,
@@ -37,7 +39,7 @@ function CameraPoseDetect({repref, setref}) {
       //   setref : setref
       // })
 
-      PendulumStraight({
+      exercise({
         results: results,
         camera: camera,
         canvasRef: canvasRef,
@@ -49,6 +51,16 @@ function CameraPoseDetect({repref, setref}) {
   }
 
   useEffect(() => {
+    exercise = localStorage.getItem("exercise");
+
+    if(exercise === 'PendulumStraight'){
+      exercise = PendulumStraight
+    } else if (exercise === 'PendulumSideways'){
+      exercise = PendulumSideways
+    } else if (exercise === 'ElbowCurl'){
+      exercise = ElbowCurl
+    }
+
     const pose = new Pose({
       locateFile: (file) => {
         return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;

@@ -124,10 +124,10 @@ export default function PendulumStraight({
 
     let LPX =
         rightShoulder.x * canvasElement.width -
-        (distanceRightShoulderRightWrist) * Math.cos((30 * Math.PI) / 180);
+        (distanceRightShoulderRightWrist) * Math.cos((45 * Math.PI) / 180);
     let LPY =
         rightShoulder.y * canvasElement.height +
-        (distanceRightShoulderRightWrist) * Math.sin((30 * Math.PI) / 180);
+        (distanceRightShoulderRightWrist) * Math.sin((45 * Math.PI) / 180);
 
     let RPX =
         rightShoulder.x * canvasElement.width +

@@ -4,6 +4,10 @@ import { ExerciseCard } from "./Components/ExerciseCard"
 import AIPDLogoName from "../../Images/aipdlogoname.png"
 import axios from "axios"
 
+interface ExerciseNames {
+    [key: number]: string;
+}
+
 export const Home: React.FC = () => {
 
     const [value, setValue] = useState<number>(3);
@@ -49,6 +53,11 @@ export const Home: React.FC = () => {
             });
     }, [])
     
+    const exerciseNames: ExerciseNames = {
+        0:"PendulumStraight",
+        1:"PendulumSideways",
+        2:"ElbowCurl"
+    }
 
     return (
         <div className="space-y-4">
@@ -84,9 +93,11 @@ export const Home: React.FC = () => {
             </div>
             <div className="grid grid-cols-2">
                 {
-                    exerciseDetails.map((exercise) => {
+                    exerciseDetails.map((exercise, index:number) => {
                         return(
-                            <div key={(exercise as {id: number}).id}>
+                            <div key={(exercise as {id: number}).id} onClick={()=>{
+                                localStorage.setItem("exercise",exerciseNames[index])
+                            }}>
                                 <ExerciseCard 
                                     image={(exercise as { image: string }).image} 
                                     text={(exercise as { name: string }).name} 
