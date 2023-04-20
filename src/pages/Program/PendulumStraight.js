@@ -122,8 +122,8 @@ export default function PendulumStraight({
         canvasCtx.strokeStyle = "#ff0000"
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
-            right_knee.x * canvasElement.width,
-            right_knee.y * canvasElement.height,
+            (right_knee.x * canvasElement.width),
+            ((right_knee.y + (rightShoulder.y - right_knee.y)*0.15) * canvasElement.height),
             40,
             2 * Math.PI, false
         );
@@ -233,7 +233,7 @@ export default function PendulumStraight({
 
 
     repref.current.innerHTML = `Reps :- ${reps}`;
-    setref.current.innerHTML = `Sets :- ${anglebetweenrslslw}`;
+    setref.current.innerHTML = `Sets :- ${sets}`;
 
     // ^ Points that needs to be shown in the canvas
     const allowedPoints = [11, 12, 13, 14, 15, 16, 23, 24];
