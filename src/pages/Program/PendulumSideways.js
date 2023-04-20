@@ -80,6 +80,17 @@ export default function PendulumSideways({
     const right_hip = results.poseLandmarks[24];
     const right_knee = results.poseLandmarks[26];
 
+    var anglebetweenrslslw =
+        Math.atan2(
+            rightWrist.y - rightShoulder.y,
+            rightWrist.x - rightShoulder.x
+        ) - 
+        Math.atan2(
+            rightShoulder.y - right_hip.y, 
+            rightShoulder.x - right_hip.x
+        );
+    anglebetweenrslslw *= 180 / Math.PI;
+
     const distanceRightHipRightKnee = Math.sqrt(
         Math.pow(
             right_hip.x * canvasElement.width - right_knee.x * canvasElement.width,
@@ -174,6 +185,12 @@ export default function PendulumSideways({
                 hitOn = 1
                 reps++
             }
+        } else if (anglebetweenrslslw < 190 && anglebetweenrslslw > 170) {
+            hitOn++
+            if (hitOn === 6) {
+                hitOn = 1
+                reps++
+            }
         }
     }
 
@@ -184,6 +201,8 @@ export default function PendulumSideways({
             WristX,
             WristY
         ) < 60) {
+            hitOn++
+        }else if (anglebetweenrslslw < 150){
             hitOn++
         }
     }
@@ -196,12 +215,14 @@ export default function PendulumSideways({
             WristY
         ) < 60) {
             hitOn++
+        } else if (anglebetweenrslslw > 210) {
+            hitOn++
         }
     }
 
 
     repref.current.innerHTML = `Reps :- ${reps}`;
-    setref.current.innerHTML = `Sets :- ${sets}`;
+    setref.current.innerHTML = `Sets :- ${anglebetweenrslslw}`;
 
     // ^ Points that needs to be shown in the canvas
     const allowedPoints = [11, 12, 13, 14, 15, 16, 23, 24];

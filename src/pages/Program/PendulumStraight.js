@@ -80,6 +80,17 @@ export default function PendulumStraight({
     const right_hip = results.poseLandmarks[24];
     const right_knee = results.poseLandmarks[26];
 
+    var anglebetweenrslslw =
+        Math.atan2(
+            rightWrist.y - rightShoulder.y,
+            rightWrist.x - rightShoulder.x
+        ) -
+        Math.atan2(
+            rightShoulder.y - right_hip.y,
+            rightShoulder.x - right_hip.x
+        );
+    anglebetweenrslslw *= 180 / Math.PI;
+
     const distanceRightShoulderRightWrist = Math.sqrt(
         Math.pow(
             rightShoulder.x * canvasElement.width - rightWrist.x * canvasElement.width,
@@ -171,6 +182,8 @@ export default function PendulumStraight({
     // anglerHipShoulderWrist *= 180 / Math.PI;
     // console.log(anglerHipShoulderWrist)
 
+    console.log(hitOn)
+
     if (hitOn === 1 || hitOn === 3 || hitOn === 5) {
         if (distance(
             right_knee.x * canvasElement.width,
@@ -178,6 +191,12 @@ export default function PendulumStraight({
             WristX,
             WristY
         ) < 60) {
+            hitOn++
+            if (hitOn === 6) {
+                hitOn = 1
+                reps++
+            }
+        } else if (anglebetweenrslslw < 190 && anglebetweenrslslw > 170) {
             hitOn++
             if (hitOn === 6) {
                 hitOn = 1
@@ -194,6 +213,8 @@ export default function PendulumStraight({
             WristY
         ) < 60) {
             hitOn++
+        } else if (anglebetweenrslslw < 120) {
+            hitOn++
         }
     }
 
@@ -205,12 +226,14 @@ export default function PendulumStraight({
             WristY
         ) < 60) {
             hitOn++
+        } else if (anglebetweenrslslw > 200) {
+            hitOn++
         }
     }
 
 
     repref.current.innerHTML = `Reps :- ${reps}`;
-    setref.current.innerHTML = `Sets :- ${sets}`;
+    setref.current.innerHTML = `Sets :- ${anglebetweenrslslw}`;
 
     // ^ Points that needs to be shown in the canvas
     const allowedPoints = [11, 12, 13, 14, 15, 16, 23, 24];
