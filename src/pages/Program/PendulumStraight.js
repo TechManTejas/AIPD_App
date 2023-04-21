@@ -20,6 +20,15 @@ function distance(x1, y1, x2, y2) {
     return dist;
 }
 
+function distance3D(x1, y1, z1, x2, y2, z2) {
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+    var dz = z2 - z1;
+    var dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2) + Math.pow(dz, 2));
+    return dist;
+}
+
+var start = 0;
 var hitOn = 1;
 var reps = 0;
 var sets = 0;
@@ -82,6 +91,11 @@ export default function PendulumStraight({
     const right_hip = results.poseLandmarks[24];
     const right_knee = results.poseLandmarks[26];
 
+    let circleRadius = distance3D(
+        leftShoulder.x, leftShoulder.y, leftShoulder.z,
+        rightShoulder.x, rightShoulder.y, rightShoulder.z
+    ) * 100
+
     var anglebetweenrslslw =
         Math.atan2(
             rightWrist.y - rightShoulder.y,
@@ -104,24 +118,26 @@ export default function PendulumStraight({
         )
     );
 
-    canvasCtx.setLineDash([5, 5]);
-    canvasCtx.beginPath();
-    canvasCtx.arc(
-        (rightShoulder.x * canvasElement.width ),
-        (rightShoulder.y * canvasElement.height ),
-        (distanceRightShoulderRightWrist),
-        (1 / 6) * Math.PI,
-        (5 / 6) * Math.PI
-    );
+    if (start) {
+        canvasCtx.setLineDash([5, 5]);
+        canvasCtx.beginPath();
+        canvasCtx.arc(
+            (rightShoulder.x * canvasElement.width),
+            (rightShoulder.y * canvasElement.height),
+            (distanceRightShoulderRightWrist),
+            (1 / 6) * Math.PI,
+            (5 / 6) * Math.PI
+        );
 
-    canvasCtx.stroke();
-    canvasCtx.setLineDash([0, 0]);
+        canvasCtx.stroke();
+        canvasCtx.setLineDash([0, 0]);
+    }
 
 
     //center
     if (hitOn === 1 || hitOn === 3 || hitOn === 5) {
         canvasCtx.beginPath();
-        
+
         canvasCtx.beginPath();
         if (hitOn === 1) {
             canvasCtx.strokeStyle = "#FF0000"
@@ -134,8 +150,8 @@ export default function PendulumStraight({
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             (right_knee.x * canvasElement.width),
-            ((right_knee.y + (rightShoulder.y - right_knee.y)*0.15) * canvasElement.height),
-            60,
+            ((right_knee.y + (rightShoulder.y - right_knee.y) * 0.15) * canvasElement.height),
+            circleRadius,
             2 * Math.PI, false
         );
 
@@ -172,7 +188,7 @@ export default function PendulumStraight({
         canvasCtx.arc(
             RPX,
             RPY,
-            60,
+            circleRadius,
             2 * Math.PI, false
         );
 
@@ -192,7 +208,7 @@ export default function PendulumStraight({
         canvasCtx.arc(
             LPX,
             LPY,
-            60,
+            circleRadius,
             2 * Math.PI, false
         );
 
@@ -201,7 +217,7 @@ export default function PendulumStraight({
         canvasCtx.fillText(hitOn, LPX, LPY);
         // canvasCtx.scale(-1, 1);
         // canvasCtx.translate(-canvasElement.width, 0);
-        
+
         canvasCtx.stroke();
     }
 
@@ -214,21 +230,22 @@ export default function PendulumStraight({
     // anglerHipShoulderWrist *= 180 / Math.PI;
     // console.log(anglerHipShoulderWrist)
 
-    console.log(hitOn)
-
     if (hitOn === 1 || hitOn === 3 || hitOn === 5) {
         if (distance(
             right_knee.x * canvasElement.width,
             right_knee.y * canvasElement.height,
             WristX,
             WristY
-        ) < 60) {
+        ) < circleRadius) {
+
+            start = 1
+
             hitOn++
             if (hitOn === 6) {
                 hitOn = 1
                 reps++
             }
-        } else if (anglebetweenrslslw < 190 && anglebetweenrslslw > 170) {
+        } else if (start === 1 && anglebetweenrslslw < 190 && anglebetweenrslslw > 170) {
             hitOn++
             if (hitOn === 6) {
                 hitOn = 1
@@ -243,7 +260,7 @@ export default function PendulumStraight({
             RPY,
             WristX,
             WristY
-        ) < 60) {
+        ) < circleRadius) {
             hitOn++
         } else if (anglebetweenrslslw < 120) {
             hitOn++
@@ -256,7 +273,7 @@ export default function PendulumStraight({
             LPY,
             WristX,
             WristY
-        ) < 60) {
+        ) < circleRadius) {
             hitOn++
         } else if (anglebetweenrslslw > 200) {
             hitOn++

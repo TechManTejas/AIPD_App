@@ -28,7 +28,7 @@ function distance3D(x1, y1, z1, x2, y2, z2) {
     return dist;
 }
 
-
+var start = 0;
 var hitOn = 1;
 var reps = 0;
 var sets = 0;
@@ -118,18 +118,21 @@ export default function PendulumSideways({
         )
     );
 
-    canvasCtx.setLineDash([5, 5]);
-    canvasCtx.beginPath();
-    canvasCtx.arc(
-        (right_hip.x * canvasElement.width + rightShoulder.x * canvasElement.width) / 2,
-        (right_hip.y * canvasElement.height + rightShoulder.y * canvasElement.height) / 2,
-        (distanceRightHipRightKnee * 1.25),
-        (1 / 6) * Math.PI,
-        (5 / 6) * Math.PI
-    );
+    if (start){
+        canvasCtx.setLineDash([5, 5]);
+        canvasCtx.beginPath();
+        canvasCtx.arc(
+            (right_hip.x * canvasElement.width + rightShoulder.x * canvasElement.width) / 2,
+            (right_hip.y * canvasElement.height + rightShoulder.y * canvasElement.height) / 2,
+            (distanceRightHipRightKnee * 1.25),
+            (1 / 6) * Math.PI,
+            (5 / 6) * Math.PI
+        );
 
-    canvasCtx.stroke();
-    canvasCtx.setLineDash([0, 0]);
+        canvasCtx.stroke();
+        canvasCtx.setLineDash([0, 0]);
+    }
+    
 
 
     //center
@@ -226,12 +229,16 @@ export default function PendulumSideways({
             WristX,
             WristY
         ) < circleRadius) {
+
+            start = 1
+
             hitOn++
             if (hitOn === 6) {
                 hitOn = 1
                 reps++
             }
-        } else if (anglebetweenrslslw < 190 && anglebetweenrslslw > 170) {
+
+        } else if (start === 1 && anglebetweenrslslw < 190 && anglebetweenrslslw > 170) {
             hitOn++
             if (hitOn === 6) {
                 hitOn = 1
