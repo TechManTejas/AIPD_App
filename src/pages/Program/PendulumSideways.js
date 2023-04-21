@@ -20,6 +20,15 @@ function distance(x1, y1, x2, y2) {
     return dist;
 }
 
+function distance3D(x1, y1, z1, x2, y2, z2) {
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+    var dz = z2 - z1;
+    var dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2) + Math.pow(dz, 2));
+    return dist;
+}
+
+
 var hitOn = 1;
 var reps = 0;
 var sets = 0;
@@ -82,6 +91,11 @@ export default function PendulumSideways({
     const right_hip = results.poseLandmarks[24];
     const right_knee = results.poseLandmarks[26];
 
+    let circleRadius = distance3D(
+        leftShoulder.x, leftShoulder.y, leftShoulder.z,
+        rightShoulder.x, rightShoulder.y, rightShoulder.z
+    )*100
+
     var anglebetweenrslslw =
         Math.atan2(
             rightWrist.y - rightShoulder.y,
@@ -135,7 +149,7 @@ export default function PendulumSideways({
         canvasCtx.arc(
             right_knee.x * canvasElement.width,
             right_knee.y * canvasElement.height,
-            60,
+            circleRadius,
             2 * Math.PI, false
         );
 
@@ -172,7 +186,7 @@ export default function PendulumSideways({
         canvasCtx.arc(
             RPX,
             RPY,
-            60,
+            circleRadius,
             2 * Math.PI, false
         );
 
@@ -192,7 +206,7 @@ export default function PendulumSideways({
         canvasCtx.arc(
             LPX,
             LPY,
-            60,
+            circleRadius,
             2 * Math.PI, false
         );
 
@@ -211,7 +225,7 @@ export default function PendulumSideways({
             right_knee.y * canvasElement.height,
             WristX,
             WristY
-        ) < 60) {
+        ) < circleRadius) {
             hitOn++
             if (hitOn === 6) {
                 hitOn = 1
@@ -232,7 +246,7 @@ export default function PendulumSideways({
             RPY,
             WristX,
             WristY
-        ) < 60) {
+        ) < circleRadius) {
             hitOn++
         } else if (anglebetweenrslslw < 150) {
             hitOn++
@@ -245,7 +259,7 @@ export default function PendulumSideways({
             LPY,
             WristX,
             WristY
-        ) < 60) {
+        ) < circleRadius) {
             hitOn++
         } else if (anglebetweenrslslw > 210) {
             hitOn++
