@@ -69,6 +69,8 @@ export default function PendulumStraight({
         canvasElement.height
     );
 
+    canvasCtx.font = "30px Arial";
+
     // * Some Important points
     const leftShoulder = results.poseLandmarks[11];
     const rightShoulder = results.poseLandmarks[12];
@@ -136,6 +138,13 @@ export default function PendulumStraight({
             60,
             2 * Math.PI, false
         );
+
+        // canvasCtx.scale(-1, 1);
+        // canvasCtx.translate(-canvasElement.width, 0);
+        canvasCtx.fillText(hitOn, right_knee.x * canvasElement.width, right_knee.y * canvasElement.height);
+        // canvasCtx.scale(-1, 1);
+        // canvasCtx.translate(-canvasElement.width, 0);
+
         canvasCtx.stroke();
     }
 
@@ -166,6 +175,13 @@ export default function PendulumStraight({
             60,
             2 * Math.PI, false
         );
+
+        // canvasCtx.scale(-1, 1);
+        // canvasCtx.translate(-canvasElement.width, 0);
+        canvasCtx.fillText(hitOn, RPX, RPY);
+        // canvasCtx.scale(-1, 1);
+        // canvasCtx.translate(-canvasElement.width, 0);
+
         canvasCtx.stroke();
     }
 
@@ -179,6 +195,13 @@ export default function PendulumStraight({
             60,
             2 * Math.PI, false
         );
+
+        // canvasCtx.scale(-1, 1);
+        // canvasCtx.translate(-canvasElement.width, 0);
+        canvasCtx.fillText(hitOn, LPX, LPY);
+        // canvasCtx.scale(-1, 1);
+        // canvasCtx.translate(-canvasElement.width, 0);
+        
         canvasCtx.stroke();
     }
 
