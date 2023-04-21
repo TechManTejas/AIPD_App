@@ -1,9 +1,9 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.technopolis.aipd',
   // linuxAndroidStudioPath: "/snap/android-s tudio/current/android-studio/bin/studio.sh",
-  appName: 'APID_App',
+  appName: 'APID',
   webDir: 'build',
   bundledWebRuntime: false,
   plugins: {
