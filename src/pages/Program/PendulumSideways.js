@@ -69,6 +69,8 @@ export default function PendulumSideways({
         canvasElement.height
     );
 
+    canvasCtx.font = "30px Arial";
+
     // * Some Important points
     const leftShoulder = results.poseLandmarks[11];
     const rightShoulder = results.poseLandmarks[12];
@@ -84,9 +86,9 @@ export default function PendulumSideways({
         Math.atan2(
             rightWrist.y - rightShoulder.y,
             rightWrist.x - rightShoulder.x
-        ) - 
+        ) -
         Math.atan2(
-            rightShoulder.y - right_hip.y, 
+            rightShoulder.y - right_hip.y,
             rightShoulder.x - right_hip.x
         );
     anglebetweenrslslw *= 180 / Math.PI;
@@ -105,8 +107,8 @@ export default function PendulumSideways({
     canvasCtx.setLineDash([5, 5]);
     canvasCtx.beginPath();
     canvasCtx.arc(
-        (right_hip.x * canvasElement.width + rightShoulder.x * canvasElement.width)/2,
-        (right_hip.y * canvasElement.height + rightShoulder.y * canvasElement.height)/2,
+        (right_hip.x * canvasElement.width + rightShoulder.x * canvasElement.width) / 2,
+        (right_hip.y * canvasElement.height + rightShoulder.y * canvasElement.height) / 2,
         (distanceRightHipRightKnee * 1.25),
         (1 / 6) * Math.PI,
         (5 / 6) * Math.PI
@@ -119,14 +121,30 @@ export default function PendulumSideways({
     //center
     if (hitOn === 1 || hitOn === 3 || hitOn === 5) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#ff0000"
+
+        if (hitOn === 1) {
+            canvasCtx.strokeStyle = "#FF0000"
+        }else if (hitOn === 3) {
+            canvasCtx.strokeStyle = "#0000FF"
+        }else if (hitOn === 5) {
+            canvasCtx.strokeStyle = "#008000"
+        }
+
         canvasCtx.lineWidth = 2;
+
         canvasCtx.arc(
             right_knee.x * canvasElement.width,
             right_knee.y * canvasElement.height,
-            40,
+            60,
             2 * Math.PI, false
         );
+
+        // canvasCtx.scale(-1, 1);
+        // canvasCtx.translate(-canvasElement.width, 0);
+        canvasCtx.fillText(hitOn, right_knee.x * canvasElement.width, right_knee.y * canvasElement.height);
+        // canvasCtx.scale(-1, 1);
+        // canvasCtx.translate(-canvasElement.width, 0);
+
         canvasCtx.stroke();
     }
 
@@ -149,27 +167,41 @@ export default function PendulumSideways({
 
     if (hitOn === 2) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#ff0000";
+        canvasCtx.strokeStyle = "#800080";
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             RPX,
             RPY,
-            40,
+            60,
             2 * Math.PI, false
         );
+
+        // canvasCtx.scale(-1, 1);
+        // canvasCtx.translate(-canvasElement.width, 0);
+        canvasCtx.fillText(hitOn, RPX, RPY);
+        // canvasCtx.scale(-1, 1);
+        // canvasCtx.translate(-canvasElement.width, 0);
+
         canvasCtx.stroke();
     }
 
     if (hitOn === 4) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#ff0000";
+        canvasCtx.strokeStyle = "#FFFF00";
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             LPX,
             LPY,
-            40,
+            60,
             2 * Math.PI, false
         );
+
+        // canvasCtx.scale(-1, 1);
+        // canvasCtx.translate(-canvasElement.width, 0);
+        canvasCtx.fillText(hitOn, LPX, LPY);
+        // canvasCtx.scale(-1, 1);
+        // canvasCtx.translate(-canvasElement.width, 0);
+
         canvasCtx.stroke();
     }
 
@@ -202,7 +234,7 @@ export default function PendulumSideways({
             WristY
         ) < 60) {
             hitOn++
-        }else if (anglebetweenrslslw < 150){
+        } else if (anglebetweenrslslw < 150) {
             hitOn++
         }
     }

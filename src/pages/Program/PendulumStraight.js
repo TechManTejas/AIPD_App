@@ -119,12 +119,21 @@ export default function PendulumStraight({
     //center
     if (hitOn === 1 || hitOn === 3 || hitOn === 5) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#ff0000"
+        
+        canvasCtx.beginPath();
+        if (hitOn === 1) {
+            canvasCtx.strokeStyle = "#FF0000"
+        } else if (hitOn === 3) {
+            canvasCtx.strokeStyle = "#0000FF"
+        } else if (hitOn === 5) {
+            canvasCtx.strokeStyle = "#008000"
+        }
+
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             (right_knee.x * canvasElement.width),
             ((right_knee.y + (rightShoulder.y - right_knee.y)*0.15) * canvasElement.height),
-            40,
+            60,
             2 * Math.PI, false
         );
         canvasCtx.stroke();
@@ -149,12 +158,12 @@ export default function PendulumStraight({
 
     if (hitOn === 2) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#ff0000";
+        canvasCtx.strokeStyle = "#800080";
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             RPX,
             RPY,
-            40,
+            60,
             2 * Math.PI, false
         );
         canvasCtx.stroke();
@@ -162,12 +171,12 @@ export default function PendulumStraight({
 
     if (hitOn === 4) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#ff0000";
+        canvasCtx.strokeStyle = "#FFFF00";
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             LPX,
             LPY,
-            40,
+            60,
             2 * Math.PI, false
         );
         canvasCtx.stroke();
