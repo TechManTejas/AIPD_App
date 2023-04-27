@@ -46,7 +46,7 @@ export default function PendulumSideways({
     if (results.poseLandmarks == undefined) return;
 
     // console.log(timer)
-    if (reps === 10) {
+    if (reps === 5) {
         reps = 0;
         sets++;
         settimer(false);
