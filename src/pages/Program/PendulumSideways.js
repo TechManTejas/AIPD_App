@@ -29,7 +29,7 @@ function distance3D(x1, y1, z1, x2, y2, z2) {
 }
 
 var start = 0;
-var hitOn = 1;
+var hitOn = 0;
 var reps = 0;
 var sets = 0;
 
@@ -46,7 +46,7 @@ export default function PendulumSideways({
     if (results.poseLandmarks == undefined) return;
 
     // console.log(timer)
-    if (reps === 3) {
+    if (reps === 10) {
         reps = 0;
         sets++;
         settimer(false);
@@ -107,61 +107,43 @@ export default function PendulumSideways({
         );
     anglebetweenrslslw *= 180 / Math.PI;
 
-    const distanceRightHipRightKnee = Math.sqrt(
+    const distanceRightShoulderRightWrist = Math.sqrt(
         Math.pow(
-            right_hip.x * canvasElement.width - right_knee.x * canvasElement.width,
+            rightShoulder.x * canvasElement.width - rightWrist.x * canvasElement.width,
             2
         ) +
         Math.pow(
-            right_hip.y * canvasElement.height - right_knee.y * canvasElement.height,
+            rightShoulder.y * canvasElement.height - rightWrist.y * canvasElement.height,
             2
         )
     );
 
-    if (start){
+    if (start) {
         canvasCtx.setLineDash([5, 5]);
         canvasCtx.beginPath();
         canvasCtx.arc(
-            (right_hip.x * canvasElement.width + rightShoulder.x * canvasElement.width) / 2,
-            (right_hip.y * canvasElement.height + rightShoulder.y * canvasElement.height) / 2,
-            (distanceRightHipRightKnee * 1.25),
+            (rightShoulder.x * canvasElement.width),
+            (rightShoulder.y * canvasElement.height),
+            (distanceRightShoulderRightWrist),
             (1 / 6) * Math.PI,
             (5 / 6) * Math.PI
         );
-
         canvasCtx.stroke();
         canvasCtx.setLineDash([0, 0]);
     }
-    
-
 
     //center
-    if (hitOn === 1 || hitOn === 3 || hitOn === 5) {
+    if (!start) {
         canvasCtx.beginPath();
-
-        if (hitOn === 1) {
-            canvasCtx.strokeStyle = "#FF0000"
-        }else if (hitOn === 3) {
-            canvasCtx.strokeStyle = "#0000FF"
-        }else if (hitOn === 5) {
-            canvasCtx.strokeStyle = "#008000"
-        }
-
+        canvasCtx.strokeStyle = "#FF0000"
         canvasCtx.lineWidth = 2;
-
         canvasCtx.arc(
             right_knee.x * canvasElement.width,
             right_knee.y * canvasElement.height,
             circleRadius,
             2 * Math.PI, false
         );
-
-        // canvasCtx.scale(-1, 1);
-        // canvasCtx.translate(-canvasElement.width, 0);
         canvasCtx.fillText(hitOn, right_knee.x * canvasElement.width, right_knee.y * canvasElement.height);
-        // canvasCtx.scale(-1, 1);
-        // canvasCtx.translate(-canvasElement.width, 0);
-
         canvasCtx.stroke();
     }
 
@@ -169,20 +151,20 @@ export default function PendulumSideways({
     let WristY = rightWrist.y * canvasElement.height;
 
     let LPX =
-        right_hip.x * canvasElement.width -
-        (distanceRightHipRightKnee * 1.25) * Math.cos((30 * Math.PI) / 180);
+        rightShoulder.x * canvasElement.width -
+        (distanceRightShoulderRightWrist) * Math.cos((30 * Math.PI) / 180);
     let LPY =
-        right_hip.y * canvasElement.height +
-        (distanceRightHipRightKnee * 1.25) * Math.sin((30 * Math.PI) / 180);
+        rightShoulder.y * canvasElement.height +
+        (distanceRightShoulderRightWrist) * Math.sin((30 * Math.PI) / 180);
 
     let RPX =
-        right_hip.x * canvasElement.width +
-        (distanceRightHipRightKnee * 1.25) * Math.cos((30 * Math.PI) / 180);
+        rightShoulder.x * canvasElement.width +
+        (distanceRightShoulderRightWrist) * Math.cos((30 * Math.PI) / 180);
     let RPY =
-        right_hip.y * canvasElement.height +
-        (distanceRightHipRightKnee * 1.25) * Math.sin((30 * Math.PI) / 180);
+        rightShoulder.y * canvasElement.height +
+        (distanceRightShoulderRightWrist) * Math.sin((30 * Math.PI) / 180);
 
-    if (hitOn === 2) {
+    if (hitOn === 1) {
         canvasCtx.beginPath();
         canvasCtx.strokeStyle = "#800080";
         canvasCtx.lineWidth = 2;
@@ -192,17 +174,11 @@ export default function PendulumSideways({
             circleRadius,
             2 * Math.PI, false
         );
-
-        // canvasCtx.scale(-1, 1);
-        // canvasCtx.translate(-canvasElement.width, 0);
         canvasCtx.fillText(hitOn, RPX, RPY);
-        // canvasCtx.scale(-1, 1);
-        // canvasCtx.translate(-canvasElement.width, 0);
-
         canvasCtx.stroke();
     }
 
-    if (hitOn === 4) {
+    if (hitOn === 2) {
         canvasCtx.beginPath();
         canvasCtx.strokeStyle = "#FFFF00";
         canvasCtx.lineWidth = 2;
@@ -212,66 +188,51 @@ export default function PendulumSideways({
             circleRadius,
             2 * Math.PI, false
         );
-
-        // canvasCtx.scale(-1, 1);
-        // canvasCtx.translate(-canvasElement.width, 0);
         canvasCtx.fillText(hitOn, LPX, LPY);
-        // canvasCtx.scale(-1, 1);
-        // canvasCtx.translate(-canvasElement.width, 0);
-
         canvasCtx.stroke();
     }
 
-    if (hitOn === 1 || hitOn === 3 || hitOn === 5) {
+    if (!start) {
         if (distance(
             right_knee.x * canvasElement.width,
             right_knee.y * canvasElement.height,
             WristX,
             WristY
         ) < circleRadius) {
-
             start = 1
-
-            hitOn++
-            if (hitOn === 6) {
-                hitOn = 1
-                reps++
-            }
-
-        } else if (start === 1 && anglebetweenrslslw < 190 && anglebetweenrslslw > 170) {
-            hitOn++
-            if (hitOn === 6) {
-                hitOn = 1
-                reps++
-            }
-        }
+            hitOn = 1
+        } 
     }
 
-    if (hitOn === 2) {
+    if (hitOn === 1) {
         if (distance(
             RPX,
             RPY,
             WristX,
             WristY
         ) < circleRadius) {
-            hitOn++
+            hitOn = 2
         } else if (anglebetweenrslslw < 150) {
-            hitOn++
+            hitOn = 2
         }
     }
 
-    if (hitOn === 4) {
+    if (hitOn === 2) {
         if (distance(
             LPX,
             LPY,
             WristX,
             WristY
         ) < circleRadius) {
-            hitOn++
+            hitOn = 1
+            reps++
         } else if (anglebetweenrslslw > 210) {
-            hitOn++
+            hitOn = 1
+            reps++
         }
     }
+
+    console.log(hitOn)
 
 
     repref.current.innerHTML = `Reps :- ${reps}`;
