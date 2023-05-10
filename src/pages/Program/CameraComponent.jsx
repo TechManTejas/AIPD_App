@@ -7,6 +7,7 @@ import ElbowCurl from "./ElbowCurl";
 import NeckCurl from "./NeckCurl";
 import PendulumSideways from "./PendulumSideways";
 import PendulumStraight from "./PendulumStraight";
+import Butterfly from "./Butterfly";
 
 function CameraPoseDetect({repref, setref}) {
   // * Refs
@@ -57,8 +58,8 @@ function CameraPoseDetect({repref, setref}) {
       exercise = PendulumStraight
     } else if (exercise === 'PendulumSideways'){
       exercise = PendulumSideways
-    } else if (exercise === 'ElbowCurl'){
-      exercise = ElbowCurl
+    } else if (exercise === 'Butterfly'){
+      exercise = Butterfly
     }
 
     const pose = new Pose({

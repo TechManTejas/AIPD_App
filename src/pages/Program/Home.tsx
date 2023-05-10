@@ -56,7 +56,8 @@ export const Home: React.FC = () => {
     const exerciseNames: ExerciseNames = {
         0:"PendulumStraight",
         1:"PendulumSideways",
-        2:"ElbowCurl"
+        2:"Butterfly"
+        // 2:"ElbowCurl"
     }
 
     return (
