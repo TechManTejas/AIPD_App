@@ -28,10 +28,11 @@ function distance3D(x1, y1, z1, x2, y2, z2) {
     return dist;
 }
 
+var start = 0;
 var hitOn = 0;
 var reps = 0;
 var sets = 0;
-var message = ''
+var message = 'Bring your elbows to the circles'
 
 export default function Butterfly({
     results: results,
@@ -46,7 +47,7 @@ export default function Butterfly({
     // ^ check if landmarks are detected
     if (results.poseLandmarks == undefined) return;
 
-    
+
 
     // console.log(timer)
     if (reps === 5) {
@@ -112,7 +113,7 @@ export default function Butterfly({
         );
     anglebetweenrelslsr *= 180 / Math.PI;
 
-    console.log('l', anglebetweenrelslsr)
+    // console.log('l', anglebetweenrelslsr)
 
     var anglebetweenrersrsl =
         Math.atan2(
@@ -125,17 +126,17 @@ export default function Butterfly({
         );
     anglebetweenrersrsl *= 180 / Math.PI;
 
-    console.log('r', anglebetweenrersrsl)
+    // console.log('r', anglebetweenrersrsl)
 
     //reference point
-    {
+    if (start === 0) {
         canvasCtx.beginPath();
         canvasCtx.strokeStyle = "#FF0000"
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
-            (rightEar.x * canvasElement.width) - 50,
-            (rightEar.y * canvasElement.height) - 20,
-            circleRadius,
+            (rightShoulder.x * canvasElement.width),
+            (rightEar.y * canvasElement.height),
+            100,
             2 * Math.PI, false
         );
         canvasCtx.fillText(hitOn, right_knee.x * canvasElement.width, right_knee.y * canvasElement.height);
@@ -145,30 +146,55 @@ export default function Butterfly({
         canvasCtx.strokeStyle = "#FF0000"
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
-            (leftEar.x * canvasElement.width) + 50,
-            (leftEar.y * canvasElement.height) - 20,
-            circleRadius,
+            (leftShoulder.x * canvasElement.width),
+            (leftEar.y * canvasElement.height),
+            100,
             2 * Math.PI, false
         );
         canvasCtx.fillText(hitOn, right_knee.x * canvasElement.width, right_knee.y * canvasElement.height);
         canvasCtx.stroke();
     }
 
-    if (hitOn === 0) {
-        if (Math.abs(anglebetweenrelslsr) < 50 && anglebetweenrersrsl < 50) {
-            hitOn = 1
-            message = 'Relax'
-        }
-    }
+    
 
-    if (hitOn === 1) {
-        if (Math.abs(anglebetweenrelslsr) > 60 && anglebetweenrersrsl > 60) {
-            reps++
-            hitOn = 0
+    if (start === 0) {
+        if
+        (
+        (
+            distance(
+                leftElbow.x * canvasElement.width, leftElbow.y * canvasElement.height,
+                leftShoulder.x * canvasElement.width, leftEar.y * canvasElement.height
+            ) < 100
+        )
+        && 
+        (
+            distance(
+                rightElbow.x * canvasElement.width, rightElbow.y * canvasElement.height,
+                rightShoulder.x * canvasElement.width, rightEar.y * canvasElement.height
+            ) < 100
+        )
+        ){
+            start = 1
             message = 'Push Back'
         }
     }
 
+    if (start === 1) {
+        if (hitOn === 0) {
+            if (Math.abs(anglebetweenrelslsr) < 50 && anglebetweenrersrsl < 50) {
+                hitOn = 1
+                message = 'Relax'
+            }
+        }
+
+        if (hitOn === 1) {
+            if (Math.abs(anglebetweenrelslsr) > 60 && anglebetweenrersrsl > 60) {
+                reps++
+                hitOn = 0
+                message = 'Push Back'
+            }
+        }
+    }
 
     repref.current.innerHTML = `Reps :- ${reps}`;
     setref.current.innerHTML = `Sets :- ${sets}`;
