@@ -31,6 +31,7 @@ function distance3D(x1, y1, z1, x2, y2, z2) {
 var hitOn = 0;
 var reps = 0;
 var sets = 0;
+var message = ''
 
 export default function Butterfly({
     results: results,
@@ -40,9 +41,12 @@ export default function Butterfly({
     settimer: settimer,
     repref: repref,
     setref: setref,
+    messageRef: messageRef,
 }) {
     // ^ check if landmarks are detected
     if (results.poseLandmarks == undefined) return;
+
+    
 
     // console.log(timer)
     if (reps === 5) {
@@ -97,16 +101,31 @@ export default function Butterfly({
         rightShoulder.x, rightShoulder.y, rightShoulder.z
     ) * 100
 
-    var anglebetweenrslslw =
+    var anglebetweenrelslsr =
         Math.atan2(
-            rightWrist.y - rightShoulder.y,
-            rightWrist.x - rightShoulder.x
+            leftElbow.y - leftShoulder.y,
+            leftElbow.x - leftShoulder.x
         ) -
         Math.atan2(
-            rightShoulder.y - right_hip.y,
-            rightShoulder.x - right_hip.x
+            leftShoulder.y - rightShoulder.y,
+            leftShoulder.x - rightShoulder.x
         );
-    anglebetweenrslslw *= 180 / Math.PI;
+    anglebetweenrelslsr *= 180 / Math.PI;
+
+    console.log('l', anglebetweenrelslsr)
+
+    var anglebetweenrersrsl =
+        Math.atan2(
+            rightElbow.y - rightShoulder.y,
+            rightElbow.x - rightShoulder.x
+        ) -
+        Math.atan2(
+            rightShoulder.y - leftShoulder.y,
+            rightShoulder.x - leftShoulder.x
+        );
+    anglebetweenrersrsl *= 180 / Math.PI;
+
+    console.log('r', anglebetweenrersrsl)
 
     //reference point
     {
@@ -136,21 +155,24 @@ export default function Butterfly({
     }
 
     if (hitOn === 0) {
-        if (leftElbow.y > leftEar.y && rightElbow.y > rightEar.y) {
+        if (Math.abs(anglebetweenrelslsr) < 50 && anglebetweenrersrsl < 50) {
             hitOn = 1
+            message = 'Relax'
         }
     }
 
     if (hitOn === 1) {
-        if (leftElbow.y < leftEar.y && rightElbow.y < rightEar.y) {
+        if (Math.abs(anglebetweenrelslsr) > 60 && anglebetweenrersrsl > 60) {
             reps++
             hitOn = 0
+            message = 'Push Back'
         }
     }
 
 
     repref.current.innerHTML = `Reps :- ${reps}`;
     setref.current.innerHTML = `Sets :- ${sets}`;
+    messageRef.current.innerHTML = `${message}`;
 
     // ^ Points that needs to be shown in the canvas
     const allowedPoints = [11, 12, 13, 14, 15, 16, 23, 24];

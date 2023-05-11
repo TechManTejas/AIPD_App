@@ -9,7 +9,7 @@ import PendulumSideways from "./PendulumSideways";
 import PendulumStraight from "./PendulumStraight";
 import Butterfly from "./Butterfly";
 
-function CameraPoseDetect({repref, setref}) {
+function CameraPoseDetect({ repref, setref, messageRef }) {
   // * Refs
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -20,26 +20,6 @@ function CameraPoseDetect({repref, setref}) {
   var exercise;
 
   function onResults(results) {
-      // NeckCurl({
-      //   results: results,
-      //   camera: camera,
-      //   canvasRef: canvasRef,
-      //   webcamRef: webcamRef,
-      //   settimer: settimer,
-      //   repref : repref,
-      //   setref : setref
-      // })
-
-      // ElbowCurl({
-      //   results: results,
-      //   camera: camera,
-      //   canvasRef: canvasRef,
-      //   webcamRef: webcamRef,
-      //   settimer: settimer,
-      //   repref : repref,
-      //   setref : setref
-      // })
-
       exercise({
         results: results,
         camera: camera,
@@ -47,7 +27,8 @@ function CameraPoseDetect({repref, setref}) {
         webcamRef: webcamRef,
         settimer: settimer,
         repref : repref,
-        setref : setref
+        setref : setref,
+        messageRef: messageRef
       })
   }
 

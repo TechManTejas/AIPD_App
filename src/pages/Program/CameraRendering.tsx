@@ -7,6 +7,8 @@ import { useRef } from "react";
 export const CameraRendering: React.FC = () => {
   const repref = useRef<HTMLDivElement>(null);
   const setref = useRef<HTMLDivElement>(null);
+  const messageRef = useRef<HTMLDivElement>(null);
+
   return (
     <IonPage>
       <IonContent fullscreen>
@@ -15,10 +17,11 @@ export const CameraRendering: React.FC = () => {
             <div className="p-1 absolute w-full top-0">
               <div className="border text-2xl bg-white font-semibold p-1 flex justify-around">
                 <p ref={repref}></p>
+                <p ref={messageRef}></p>
                 <p ref={setref}></p>
               </div>
             </div>
-            <CameraPoseDetect repref={repref} setref={setref} />
+            <CameraPoseDetect repref={repref} setref={setref} messageRef={messageRef}/>
             <div className="p-1 absolute w-full bottom-0">
               <Link to="/demo-video-logs">
                 <CardActionArea>
