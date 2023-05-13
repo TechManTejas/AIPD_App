@@ -3,6 +3,8 @@ import { useEffect, useState } from "react"
 import { ExerciseCard } from "./Components/ExerciseCard"
 import AIPDLogoName from "../../Images/aipdlogoname.png"
 import axios from "axios"
+import mesh from "../../Images/mesh-113.png"
+import { PerviousDate } from "../../utils/DateTime"
 
 interface ExerciseNames {
     [key: number]: string;
@@ -10,7 +12,7 @@ interface ExerciseNames {
 
 export const Home: React.FC = () => {
 
-    const [value, setValue] = useState<number>(3);
+    const [value, setValue] = useState<number>(6);
     const [exerciseDetails, setExerciseDetails] = useState([])
 
     const handleChange = (event: any, newValue: number) => {
@@ -52,67 +54,77 @@ export const Home: React.FC = () => {
                 console.log(data.data[0]['condition']['exercises'])
             });
     }, [])
-    
+
     const exerciseNames: ExerciseNames = {
-        0:"PendulumStraight",
-        1:"PendulumSideways",
-        2:"ElbowCurl"
+        0: "PendulumStraight",
+        1: "PendulumSideways",
+        2: "ElbowCurl"
     }
 
     return (
         <div className="space-y-4">
-            <div className="sticky top-0 z-20 bg-slate-50 p-2">
-                <Box display="flex" justifyContent="center" width="100%">
-                    <StyledTabs
-                        selectionFollowsFocus
-                        value={value}
-                        onChange={handleChange}
-                        variant="scrollable"
-                        scrollButtons="auto"
-                    >
-                        <StyledTab label="13/03" />
-                        <StyledTab label="14/03" />
-                        <StyledTab label="15/03" />
-                        <StyledTab label="Today" />
-                        <StyledTab label="17/03" />
-                        <StyledTab label="18/03" />
-                        <StyledTab label="19/03" />
-                    </StyledTabs>
-                </Box>
+            <img className="absolute h-full" src={mesh}></img>
+            <div className="relative z-10">
+                <div className="sticky top-0 z-20 bg-slate-50 p-2">
+                    <Box display="flex" justifyContent="center" width="100%">
+                        <StyledTabs
+                            selectionFollowsFocus
+                            value={value}
+                            onChange={handleChange}
+                            variant="scrollable"
+                            scrollButtons="auto"
+                        >
 
-            </div>
-            <div className="m-24">
-                <img src={AIPDLogoName}/>
-            </div>
-            <div>
-                <div className="border-2 rounded border-green-600 m-2 bg-green-50">
-                    <div className="bg-green-500 h-2 w-[50%]" style={{
-                        backgroundImage: "linear-gradient(195deg, rgb(102, 187, 106), rgb(67, 160, 71))"
-                    }} />
+                            <StyledTab label={PerviousDate(6)} />
+                            <StyledTab label={PerviousDate(5)} />
+                            <StyledTab label={PerviousDate(4)} />
+                            <StyledTab label={PerviousDate(3)} />
+                            <StyledTab label={PerviousDate(2)} />
+                            <StyledTab label={PerviousDate(1)} />
+                            <StyledTab label="Today" />
+                            <StyledTab label={PerviousDate(-1)} />
+                            <StyledTab label={PerviousDate(-2)} />
+                            <StyledTab label={PerviousDate(-3)} />
+                            <StyledTab label={PerviousDate(-4)} />
+                            <StyledTab label={PerviousDate(-5)} />
+                            <StyledTab label={PerviousDate(-6)} />
+                        </StyledTabs>
+                    </Box>
                 </div>
-            </div>
-            <div className="grid grid-cols-2">
-                {
-                    exerciseDetails.map((exercise, index:number) => {
-                        return(
-                            <div key={(exercise as {id: number}).id} onClick={()=>{
-                                localStorage.setItem("exercise",exerciseNames[index])
-                            }}>
-                                <ExerciseCard 
-                                    image={(exercise as { image: string }).image} 
-                                    text={(exercise as { name: string }).name} 
-                                />
-                            </div>
-                        )
-                    })
-                }
-                {/* <ExerciseCard image="exercise2_new_webp.webp" text="Upper trapezius to levator scapulae s..." />
+                <div className="m-12 bg-white p-6">
+                    <img src={AIPDLogoName} />
+                </div>
+                <div>
+                    <div className="border-2 rounded border-green-600 m-2 bg-green-50">
+                        <div className="bg-green-500 h-2 w-[50%]" style={{
+                            backgroundImage: "linear-gradient(195deg, rgb(102, 187, 106), rgb(67, 160, 71))"
+                        }} />
+                    </div>
+                </div>
+                <div className="h-80 grid grid-cols-2 overflow-auto">
+                    {
+                        exerciseDetails.map((exercise, index: number) => {
+                            return (
+                                <div key={(exercise as { id: number }).id} onClick={() => {
+                                    localStorage.setItem("exercise", exerciseNames[index])
+                                }}>
+                                    <ExerciseCard
+                                        image={(exercise as { image: string }).image}
+                                        text={(exercise as { name: string }).name}
+                                    />
+                                </div>
+                            )
+                        })
+                    }
+                    {/* <ExerciseCard image="exercise2_new_webp.webp" text="Upper trapezius to levator scapulae s..." />
                 <ExerciseCard image="exercise3_new_webp.webp" text="Scapular protraction/retraction " />
                 <ExerciseCard image="exercise4_new_webp.webp" text="Upper trunk rotation AROM, arms cros..." />
                 <ExerciseCard image="exercise5_new_webp.webp" text="Cervical/thoracic rotation AROM, rot..." />
                 <ExerciseCard image="exercise6_new_webp.webp" text="Rhomboids/middle trapezius stretch, ..." />
                 <ExerciseCard image="exercise7_new_webp.webp" text="Pectoralis stretch, middle fibers arm ..." /> */}
+                </div>
             </div>
+
         </div>
     )
 }

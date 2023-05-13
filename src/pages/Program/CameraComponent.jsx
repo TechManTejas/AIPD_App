@@ -8,7 +8,7 @@ import NeckCurl from "./NeckCurl";
 import PendulumSideways from "./PendulumSideways";
 import PendulumStraight from "./PendulumStraight";
 
-function CameraPoseDetect({repref, setref}) {
+function CameraPoseDetect({setloading, repref, setref}) {
   // * Refs
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -76,12 +76,14 @@ function CameraPoseDetect({repref, setref}) {
       minTrackingConfidence: 0.5,
     });
 
-    pose.onResults(onResults);
+    pose.onResults(onResults)
 
     if (webcamRef.current !== "undefined" && webcamRef.current !== null) {
       camera = new cam.Camera(webcamRef.current.video, {
         onFrame: async () => {
-          await pose.send({ image: webcamRef.current.video });
+          await pose.send({ image: webcamRef.current.video }).then(() => {
+            setloading(false)
+          }) ;
         },
       });
       camera.start()
