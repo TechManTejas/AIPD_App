@@ -6,7 +6,9 @@ import { CountDownComponent } from "./CountDownComponent";
 import ElbowCurl from "./ElbowCurl";
 import NeckCurl from "./NeckCurl";
 import PendulumSideways from "./PendulumSideways";
+import PendulumCircles from "./PendulumCircles";
 import PendulumStraight from "./PendulumStraight";
+import LyingArms from "./LyingArms";
 import Butterfly from "./Butterfly";
 
 function CameraPoseDetect({ repref, setref, messageRef }) {
@@ -41,6 +43,10 @@ function CameraPoseDetect({ repref, setref, messageRef }) {
       exercise = PendulumSideways
     } else if (exercise === 'Butterfly'){
       exercise = Butterfly
+    } else if (exercise === 'PendulumCircles') {
+      exercise = PendulumCircles
+    } else if (exercise === 'LyingArms') {
+      exercise = LyingArms
     }
 
     const pose = new Pose({

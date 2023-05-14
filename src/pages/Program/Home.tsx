@@ -54,10 +54,11 @@ export const Home: React.FC = () => {
     }, [])
     
     const exerciseNames: ExerciseNames = {
-        0:"PendulumStraight",
-        1:"PendulumSideways",
-        2:"Butterfly"
-        // 2:"ElbowCurl"
+        1:"PendulumStraight",
+        2:"PendulumSideways",
+        8:"Butterfly",
+        6:"PendulumCircles",
+        7:"LyingArms",
     }
 
     return (
@@ -97,7 +98,7 @@ export const Home: React.FC = () => {
                     exerciseDetails.map((exercise, index:number) => {
                         return(
                             <div key={(exercise as {id: number}).id} onClick={()=>{
-                                localStorage.setItem("exercise",exerciseNames[index])
+                                localStorage.setItem("exercise", exerciseNames[(exercise as { id: number }).id])
                             }}>
                                 <ExerciseCard 
                                     image={(exercise as { image: string }).image} 
