@@ -1,4 +1,4 @@
-import { connectPoint, drawLine, drawPointOnCanvas } from "./PoseFunctions";
+import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 
 var sets = 0;
 
@@ -20,7 +20,6 @@ function distance(x1, y1, x2, y2) {
     return dist;
 }
 
-var ifStartingPointReached = false;
 var hitOn = "lower";
 var reps = 0;
 
@@ -76,23 +75,6 @@ export default function ElbowCurl({
     const rightElbow = results.poseLandmarks[14];
     const leftWrist = results.poseLandmarks[15];
     const rightWrist = results.poseLandmarks[16];
-
-    const lefthip = results.poseLandmarks[23];
-    const righthip = results.poseLandmarks[24];
-
-    // * Predicted left Wrist
-    // ! Used Section Formula
-    const predictLeftWrist = {
-        x: 2.5 * leftShoulder.x - 1.5 * rightShoulder.x,
-        y: 2.5 * leftShoulder.y - 1.5 * rightShoulder.y,
-    };
-
-    // * Predicted Right Wrist
-    // ! Used Section Formula
-    const predictRightWrist = {
-        x: 2.5 * rightShoulder.x - 1.5 * leftShoulder.x,
-        y: 2.5 * rightShoulder.y - 1.5 * leftShoulder.y,
-    };
 
     // ! Angle between right shoulder left shoulder and left wrist
     var anglebetweenrslslw =
@@ -150,29 +132,18 @@ export default function ElbowCurl({
 
     const distanceBetweenleftWristleftElbow = Math.sqrt(
         Math.pow(
-            leftElbow.x * canvasElement.width - leftWrist.x * canvasElement.width,
+            leftShoulder.x * canvasElement.width - leftWrist.x * canvasElement.width,
             2
         ) +
         Math.pow(
-            leftElbow.y * canvasElement.height - leftWrist.y * canvasElement.height,
+            leftShoulder.y * canvasElement.height - leftWrist.y * canvasElement.height,
             2
         )
     );
 
     // ! is starting point reached (buffer = 40deg)
 
-    if (
-        (anglebetweenrslslw > 160 &&
-            anglebetweenrslslw < 200 &&
-            anglebetweenlsrsrw > 160 &&
-            anglebetweenlsrsrw < 200 &&
-            angleleft > 160 &&
-            angleleft < 200 &&
-            angleright > 160 &&
-            angleright < 200) ||
-        ifStartingPointReached != false
-    ) {
-        ifStartingPointReached = true;
+    {
 
         canvasCtx.setLineDash([5, 5]);
         canvasCtx.beginPath();
@@ -180,26 +151,21 @@ export default function ElbowCurl({
             leftElbow.x * canvasElement.width,
             leftShoulder.y * canvasElement.height,
             distanceBetweenleftWristleftElbow,
-            (-2 / 3) * Math.PI,
-            0
+            (1) * Math.PI,
+            (-1/2) * Math.PI
         );
         canvasCtx.stroke();
         canvasCtx.setLineDash([0, 0]);
 
-        let LPX =
-            leftElbow.x * canvasElement.width + distanceBetweenleftWristleftElbow;
+        let LPX = leftElbow.x * canvasElement.width - distanceBetweenleftWristleftElbow;
         let LPY = leftShoulder.y * canvasElement.height;
-        let UPX =
-            leftElbow.x * canvasElement.width -
-            distanceBetweenleftWristleftElbow * Math.cos((60 * Math.PI) / 180);
-        let UPY =
-            leftShoulder.y * canvasElement.height -
-            distanceBetweenleftWristleftElbow * Math.sin((60 * Math.PI) / 180);
+        let UPX = leftElbow.x * canvasElement.width;
+        let UPY = leftShoulder.y * canvasElement.height - distanceBetweenleftWristleftElbow ;
 
         canvasCtx.beginPath();
         canvasCtx.strokeStyle = hitOn === "lower" ? "#00ff00" : "#000000";
         canvasCtx.lineWidth = 2;
-        canvasCtx.arc(LPX, LPY, 10, 2 * Math.PI, false);
+        canvasCtx.arc(LPX, LPY, 100, 2 * Math.PI, false);
         canvasCtx.stroke();
 
         if (
@@ -208,7 +174,7 @@ export default function ElbowCurl({
                 LPY,
                 leftWrist.x * canvasElement.width,
                 leftWrist.y * canvasElement.height
-            ) < 10
+            ) < 100
         ) {
             if (hitOn === "lower") hitOn = "upper";
         }
@@ -216,7 +182,7 @@ export default function ElbowCurl({
         canvasCtx.beginPath();
         canvasCtx.strokeStyle = hitOn === "upper" ? "#00ff00" : "#000000";
         canvasCtx.lineWidth = 2;
-        canvasCtx.arc(UPX, UPY, 10, 2 * Math.PI, false);
+        canvasCtx.arc(UPX, UPY, 60, 2 * Math.PI, false);
         canvasCtx.stroke();
 
         if (
@@ -225,81 +191,12 @@ export default function ElbowCurl({
                 UPY,
                 leftWrist.x * canvasElement.width,
                 leftWrist.y * canvasElement.height
-            ) < 10
+            ) < 60
         ) {
             if (hitOn === "upper") reps++;
             hitOn = "lower";
         }
     }
-
-    // ^ Change the color of the line
-    if (!ifStartingPointReached) {
-        if (anglebetweenlsrsrw > 150 && anglebetweenlsrsrw < 210) {
-            canvasCtx.strokeStyle = "green";
-            canvasCtx.lineWidth = 5;
-            canvasCtx.beginPath();
-            canvasCtx.moveTo(
-                rightShoulder.x * canvasRef.current.width,
-                rightShoulder.y * canvasRef.current.height
-            );
-            canvasCtx.lineTo(
-                predictRightWrist.x * canvasRef.current.width,
-                predictRightWrist.y * canvasRef.current.height
-            );
-            canvasCtx.stroke();
-        } else {
-            canvasCtx.strokeStyle = "white";
-            canvasCtx.lineWidth = 5;
-            canvasCtx.beginPath();
-            canvasCtx.moveTo(
-                rightShoulder.x * canvasRef.current.width,
-                rightShoulder.y * canvasRef.current.height
-            );
-            canvasCtx.lineTo(
-                predictRightWrist.x * canvasRef.current.width,
-                predictRightWrist.y * canvasRef.current.height
-            );
-            canvasCtx.stroke();
-        }
-
-        if (anglebetweenrslslw > 150 && anglebetweenrslslw < 210) {
-            drawLine(
-                "green",
-                [
-                    leftShoulder.x * canvasRef.current.width,
-                    leftShoulder.y * canvasRef.current.height,
-                ],
-                [
-                    predictLeftWrist.x * canvasRef.current.width,
-                    predictLeftWrist.y * canvasRef.current.height,
-                ],
-                canvasCtx
-            );
-        } else {
-            drawLine(
-                "white",
-                [
-                    leftShoulder.x * canvasRef.current.width,
-                    leftShoulder.y * canvasRef.current.height,
-                ],
-                [
-                    predictLeftWrist.x * canvasRef.current.width,
-                    predictLeftWrist.y * canvasRef.current.height,
-                ],
-                canvasCtx
-            );
-        }
-    }
-
-    // canvasCtx.font = "30px Arial";
-    // if (ifStartingPointReached) {
-    //     canvasCtx.scale(-1, 1);
-    //     canvasCtx.translate(-canvasElement.width, 0);
-    //     canvasCtx.fillText("Starting point reached", 10, 50);
-    //     canvasCtx.fillText(`Reps:- ${reps}`, 10, 100);
-    //     canvasCtx.scale(-1, 1);
-    //     canvasCtx.translate(-canvasElement.width, 0);
-    // }
 
     repref.current.innerHTML = `Reps :- ${reps}`;
     setref.current.innerHTML = `Sets :- ${sets}`;
