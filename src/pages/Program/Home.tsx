@@ -59,6 +59,7 @@ export const Home: React.FC = () => {
         8:"Butterfly",
         6:"PendulumCircles",
         7:"LyingArms",
+        9:"ArmsLock",
     }
 
     return (

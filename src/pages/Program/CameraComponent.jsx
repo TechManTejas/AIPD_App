@@ -10,6 +10,7 @@ import PendulumCircles from "./PendulumCircles";
 import PendulumStraight from "./PendulumStraight";
 import LyingArms from "./LyingArms";
 import Butterfly from "./Butterfly";
+import ArmsLock from "./ArmsLock";
 
 function CameraPoseDetect({ repref, setref, messageRef }) {
   // * Refs
@@ -47,6 +48,8 @@ function CameraPoseDetect({ repref, setref, messageRef }) {
       exercise = PendulumCircles
     } else if (exercise === 'LyingArms') {
       exercise = LyingArms
+    } else if (exercise === 'ArmsLock') {
+      exercise = ArmsLock
     }
 
     const pose = new Pose({
