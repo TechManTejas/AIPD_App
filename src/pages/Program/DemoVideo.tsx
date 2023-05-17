@@ -10,15 +10,16 @@ export const DemoVideo: React.FC = () => {
         <IonPage>
             <IonContent fullscreen>
                 <div className='bg-white flex flex-col flex-grow pb-16'>
-                    <div>
-                        <video controls>
+                    <p className='text-center p-3 text-xl text-bold'>Demo Video</p>
+                    <div className='p-3'>
+                        <video className='rounded-xl' controls>
                             <source src={fittlyf_pcos_hero} type="video/mp4" />
                         </video>
                     </div>
                     <div className="border-2 border-x-0 border-black p-2">
                         <div className='flex space-x-2 items-center'>
                             <div className="text-xl font-semibold">
-                                Exercise 1 Name
+                                {localStorage.getItem("exercise")}
                             </div>
                         </div>
                         <div>
@@ -27,10 +28,10 @@ export const DemoVideo: React.FC = () => {
 
                     </div>
                     <div className="p-2">
-                        <div className="p-1 my-8">
+                        <div className="p-1 my-4">
                             <Link to="/camera-rendering">
                                 <CardActionArea>
-                                    <div className="border bg-blue-600 text-white font-semibold p-1 text-center">
+                                    <div className=" rounded-xl shadow-black shadow-lg border bg-blue-600 text-white font-semibold p-1 text-center">
                                         Start Exercise
                                     </div>
                                 </CardActionArea>

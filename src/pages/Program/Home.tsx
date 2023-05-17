@@ -1,5 +1,5 @@
 import { Box, styled, Tab, Tabs } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { ExerciseCard } from "./Components/ExerciseCard"
 import AIPDLogoName from "../../Images/aipdlogoname.png"
 import axios from "axios"
@@ -63,8 +63,7 @@ export const Home: React.FC = () => {
 
     return (
         <div className="space-y-4">
-            <img className="absolute h-full" src={mesh}></img>
-            <div className="relative z-10">
+            <div className="">
                 <div className="sticky top-0 z-20 bg-slate-50 p-2">
                     <Box display="flex" justifyContent="center" width="100%">
                         <StyledTabs
@@ -73,6 +72,7 @@ export const Home: React.FC = () => {
                             onChange={handleChange}
                             variant="scrollable"
                             scrollButtons="auto"
+                            className = "snap-center"
                         >
 
                             <StyledTab label={PerviousDate(6)} />
@@ -91,7 +91,7 @@ export const Home: React.FC = () => {
                         </StyledTabs>
                     </Box>
                 </div>
-                <div className="m-12 bg-white p-6">
+                <div className="m-3 bg-white p-6">
                     <img src={AIPDLogoName} />
                 </div>
                 <div>
