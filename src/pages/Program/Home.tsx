@@ -101,7 +101,7 @@ export const Home: React.FC = () => {
                         }} />
                     </div>
                 </div>
-                <div className="h-80 grid grid-cols-2 overflow-auto">
+                <div className="grid grid-cols-2 overflow-auto">
                     {
                         exerciseDetails.map((exercise, index: number) => {
                             return (
