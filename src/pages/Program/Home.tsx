@@ -11,6 +11,7 @@ interface ExerciseNames {
 
 export const Home: React.FC = () => {
 
+    const w = window.innerWidth
     const [value, setValue] = useState<number>(0);
     const [exerciseDetails, setExerciseDetails] = useState([])
 
@@ -20,6 +21,8 @@ export const Home: React.FC = () => {
 
 
     useEffect(() => {
+
+
         document.getElementById("scroll-top")?.scrollBy(-1000, 0)
         if ([-6, -5, -4].includes(value)) {
 
@@ -142,7 +145,7 @@ export const Home: React.FC = () => {
                         }} />
                     </div>
                 </div>
-                <div className="grid grid-cols-2 overflow-auto">
+                <div id = "exercises-grid" className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"}  grid grid-cols-2 overflow-auto`}>
                     {
                         exerciseDetails.map((exercise, index: number) => {
                             return (
