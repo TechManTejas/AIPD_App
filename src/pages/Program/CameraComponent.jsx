@@ -12,7 +12,7 @@ import LyingArms from "./LyingArms";
 import Butterfly from "./Butterfly";
 import ArmsLock from "./ArmsLock";
 
-function CameraPoseDetect({ repref, setref, messageRef }) {
+function CameraPoseDetect({setloading, repref, setref, messageRef}) {
   // * Refs
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -67,12 +67,14 @@ function CameraPoseDetect({ repref, setref, messageRef }) {
       minTrackingConfidence: 0.5,
     });
 
-    pose.onResults(onResults);
+    pose.onResults(onResults)
 
     if (webcamRef.current !== "undefined" && webcamRef.current !== null) {
       camera = new cam.Camera(webcamRef.current.video, {
         onFrame: async () => {
-          await pose.send({ image: webcamRef.current.video });
+          await pose.send({ image: webcamRef.current.video }).then(() => {
+            setloading(false)
+          }) ;
         },
       });
       camera.start()

@@ -16,7 +16,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     return (
         <Link to="/demo-video">
             <CardActionArea>
-                <div className="m-1.5 rounded" style={{
+                <div className="m-1.5 rounded bg-[#333333]" style={{
                     boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 3px"
                 }}>
                     {(completed) &&
@@ -29,7 +29,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                         <div className={`p-1 ${(completed) ? 'opacity-50' : ''}`}>
                             <img className="rounded w-[180px] h-[180px] object-cover" src={image} />
                         </div>
-                        <div className="p-1 text-md font-robotomedium">
+                        <div className="text-white text-center p-1 text-md font-robotomedium">
                             {text}
                         </div>
                     </div>
