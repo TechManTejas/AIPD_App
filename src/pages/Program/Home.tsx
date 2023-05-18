@@ -66,8 +66,7 @@ export const Home: React.FC = () => {
   );
 
   useEffect(() => {
-    axios
-      .get("/patient/", {
+    axios.get("/patient/", {
         headers: {
           Authorization: `Token ${localStorage.getItem(
             "aipd-patient-access-token"
@@ -119,7 +118,7 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-2">
+      <div className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"}  grid grid-cols-2 overflow-auto`}>
         {exerciseDetails.map((exercise, index: number) => {
           return (
             <div
