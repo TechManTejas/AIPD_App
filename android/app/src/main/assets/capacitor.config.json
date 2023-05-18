@@ -1,0 +1,20 @@
+{
+	"appId": "com.technopolis.aipd",
+	"appName": "APID",
+	"webDir": "build",
+	"bundledWebRuntime": false,
+	"plugins": {
+		"Camera": {
+			"permissions": [
+				"camera",
+				"microphone"
+			]
+		}
+	},
+	"server": {
+		"androidScheme": "http",
+		"allowNavigation": [
+			"http://13.232.102.80:8000"
+		]
+	}
+}

@@ -1,0 +1,126 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.technopolis.aipd"
+4    android:versionCode="3"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="22"
+8-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="32" />
+9-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml
+10
+11    <!-- Permissions -->
+12
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:42:5-67
+13-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:42:22-64
+14    <uses-permission android:name="android.permission.CAMERA" />
+14-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:43:5-65
+14-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:43:22-62
+15
+16    <uses-feature android:name="android.hardware.camera" />
+16-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:44:5-60
+16-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:44:19-57
+17    <uses-feature android:name="android.hardware.camera.autofocus" />
+17-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:45:5-70
+17-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:45:19-67
+18
+19    <queries>
+19-->[:capacitor-camera] C:\Users\Tejas\Documents\GitHub\AIPD_App\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-13:15
+20        <intent>
+20-->[:capacitor-camera] C:\Users\Tejas\Documents\GitHub\AIPD_App\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:10:9-12:18
+21            <action android:name="android.media.action.IMAGE_CAPTURE" />
+21-->[:capacitor-camera] C:\Users\Tejas\Documents\GitHub\AIPD_App\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-73
+21-->[:capacitor-camera] C:\Users\Tejas\Documents\GitHub\AIPD_App\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:11:21-70
+22        </intent>
+23    </queries>
+24
+25    <uses-permission android:name="android.permission.VIBRATE" />
+25-->[:capacitor-haptics] C:\Users\Tejas\Documents\GitHub\AIPD_App\node_modules\@capacitor\haptics\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:9:5-66
+25-->[:capacitor-haptics] C:\Users\Tejas\Documents\GitHub\AIPD_App\node_modules\@capacitor\haptics\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:9:22-63
+26
+27    <application
+27-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:5:5-38:19
+28        android:allowBackup="true"
+28-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:6:9-35
+29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+29-->[androidx.core:core:1.8.0] C:\Users\Tejas\.gradle\caches\transforms-3\fe0dba67bfac75aa58e7b93d33808165\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
+30        android:icon="@mipmap/ic_launcher"
+30-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:7:9-43
+31        android:label="@string/app_name"
+31-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:8:9-41
+32        android:roundIcon="@mipmap/ic_launcher_round"
+32-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:9:9-54
+33        android:supportsRtl="true"
+33-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:10:9-35
+34        android:theme="@style/AppTheme"
+34-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:11:9-40
+35        android:usesCleartextTraffic="true" >
+35-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:12:9-44
+36        <activity
+36-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:14:9-27:20
+37            android:name="io.ionic.starter.MainActivity"
+37-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:16:13-57
+38            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
+38-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:15:13-129
+39            android:exported="true"
+39-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:20:13-36
+40            android:label="@string/title_activity_main"
+40-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:17:13-56
+41            android:launchMode="singleTask"
+41-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:19:13-44
+42            android:theme="@style/AppTheme.NoActionBarLaunch" >
+42-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:18:13-62
+43            <intent-filter>
+43-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:22:13-25:29
+44                <action android:name="android.intent.action.MAIN" />
+44-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:23:17-69
+44-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:23:25-66
+45
+46                <category android:name="android.intent.category.LAUNCHER" />
+46-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:24:17-77
+46-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:24:27-74
+47            </intent-filter>
+48        </activity>
+49
+50        <provider
+51            android:name="androidx.core.content.FileProvider"
+51-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:30:13-62
+52            android:authorities="com.technopolis.aipd.fileprovider"
+52-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:31:13-64
+53            android:exported="false"
+53-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:32:13-37
+54            android:grantUriPermissions="true" >
+54-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:33:13-47
+55            <meta-data
+55-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:34:13-36:64
+56                android:name="android.support.FILE_PROVIDER_PATHS"
+56-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:35:17-67
+57                android:resource="@xml/file_paths" />
+57-->C:\Users\Tejas\Documents\GitHub\AIPD_App\android\app\src\main\AndroidManifest.xml:36:17-51
+58        </provider>
+59        <provider
+59-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Tejas\.gradle\caches\transforms-3\8876b0ef355d9d3e8b47dae2b38cca4c\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
+60            android:name="androidx.startup.InitializationProvider"
+60-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Tejas\.gradle\caches\transforms-3\8876b0ef355d9d3e8b47dae2b38cca4c\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:27:13-67
+61            android:authorities="com.technopolis.aipd.androidx-startup"
+61-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Tejas\.gradle\caches\transforms-3\8876b0ef355d9d3e8b47dae2b38cca4c\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:28:13-68
+62            android:exported="false" >
+62-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Tejas\.gradle\caches\transforms-3\8876b0ef355d9d3e8b47dae2b38cca4c\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:29:13-37
+63            <meta-data
+63-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Tejas\.gradle\caches\transforms-3\8876b0ef355d9d3e8b47dae2b38cca4c\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+64                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+64-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Tejas\.gradle\caches\transforms-3\8876b0ef355d9d3e8b47dae2b38cca4c\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:32:17-75
+65                android:value="androidx.startup" />
+65-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Tejas\.gradle\caches\transforms-3\8876b0ef355d9d3e8b47dae2b38cca4c\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:33:17-49
+66            <meta-data
+66-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Tejas\.gradle\caches\transforms-3\31fc96d9881c54f9b47ddec530ec8052\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+67                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+67-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Tejas\.gradle\caches\transforms-3\31fc96d9881c54f9b47ddec530ec8052\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+68                android:value="androidx.startup" />
+68-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Tejas\.gradle\caches\transforms-3\31fc96d9881c54f9b47ddec530ec8052\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+69        </provider>
+70    </application>
+71
+72</manifest>
