@@ -9,10 +9,18 @@ interface ExerciseCardProps {
 }
 
 export const ExerciseCard: React.FC<ExerciseCardProps> = ({
-    completed = false,
+    completed,
     image = "exercise_image.webp",
-    text = "Exercise Name"
+    text = "Exercise Name",
 }) => {
+
+    // const ExerciseMap = ["Pendulum stretch", "Towel stretch" , "Finger walk" , "Cross-body reach", "Armpit stretch", ""]
+
+    // console.log(dateSelected)
+    // console.log(completedExercise)'
+
+    console.log(completed)
+
     return (
         <Link to="/demo-video">
             <CardActionArea>

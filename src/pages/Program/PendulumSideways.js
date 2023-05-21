@@ -232,7 +232,7 @@ export default function PendulumSideways({
         }
     }
 
-    console.log(hitOn)
+    // console.log(hitOn)
 
 
     repref.current.innerHTML = `Reps :- ${reps}`;

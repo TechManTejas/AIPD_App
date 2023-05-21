@@ -1,7 +1,5 @@
 import { IonContent, IonPage } from '@ionic/react';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { Link } from 'react-router-dom';
-import { CardActionArea } from '@mui/material';
 import fittlyf_pcos_hero from "../../Videos/Fittlyf_pcos_hero.mp4"
 
 
@@ -38,9 +36,9 @@ export const DemoVideoAndLogs: React.FC = () => {
                             Completions highlighted in Green
                         </div>
                     </div>
-                    <Link to = "/" className='flex absolute bottom-20 w-full justify-center items-center'>
+                    <a href="/" className='flex absolute bottom-20 w-full justify-center items-center'>
                         <div className='bg-blue-600 w-8/12 text-3xl text-center text-white px-3 py-1 rounded'>Home Page</div>
-                    </Link>
+                    </a>
                 </div>
             </IonContent>
         </IonPage>

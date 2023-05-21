@@ -11,31 +11,46 @@ interface ExerciseNames {
 
 export const Home: React.FC = () => {
   const [value, setValue] = useState<number>(0);
-  const [exerciseDetails, setExerciseDetails] = useState([]);
+  const [exerciseDetails, setExerciseDetails] = useState<{id : number, name : string, image : string}[]>([]);
+  const [completedExercise, setCompletedExercise] = useState<number[]>([]);
 
-  const handleChange = (event: any, newValue: number) => {
-    setValue(newValue);
-  };
+  const checkdate = (dateObj : any) => {
+    return ((parseInt(dateObj.date.split("-")[1]) === parseInt(PerviousDate(value).split("/")[1])) && parseInt(dateObj.date.split("-")[2]) === parseInt(PerviousDate(value).split("/")[0]))
+  }
+
+  useEffect(() => {
+    axios.get("/exercise_record/", {
+      headers: {
+        Authorization: `Token ${localStorage.getItem(
+          "aipd-patient-access-token"
+        )}`,
+      },
+    }).then((data: any) => {
+      console.log(data.data)
+      const todaysExercise = data.data.filter(checkdate)
+      setCompletedExercise(todaysExercise.map((e : any) => {return e.exercise}))
+    })
+  }, [value])
 
   useEffect(() => {
     document.getElementById("scroll-top")?.scrollBy(-32 * 13, 0);
     if (![-6, -5, -4].includes(value)) {
       if ([4, 5, 6].includes(value)) {
-        document.getElementById("scroll-top")?.scrollBy(32*13, 0);
+        document.getElementById("scroll-top")?.scrollBy(32 * 13, 0);
       } else if (value == -3)
-          document.getElementById("scroll-top")?.scrollBy(16 * 1, 0);
+        document.getElementById("scroll-top")?.scrollBy(16 * 1, 0);
       else if (value == -2)
-          document.getElementById("scroll-top")?.scrollBy(16 * 5, 0);
+        document.getElementById("scroll-top")?.scrollBy(16 * 5, 0);
       else if (value == -1)
-          document.getElementById("scroll-top")?.scrollBy(16 * 9, 0);
+        document.getElementById("scroll-top")?.scrollBy(16 * 9, 0);
       else if (value == 0)
-          document.getElementById("scroll-top")?.scrollBy(16 * 13, 0);
+        document.getElementById("scroll-top")?.scrollBy(16 * 13, 0);
       else if (value == 1)
-          document.getElementById("scroll-top")?.scrollBy(16 * 17, 0);
+        document.getElementById("scroll-top")?.scrollBy(16 * 17, 0);
       else if (value == 2)
-          document.getElementById("scroll-top")?.scrollBy(16 * 21, 0);
+        document.getElementById("scroll-top")?.scrollBy(16 * 21, 0);
       else if (value == 3)
-          document.getElementById("scroll-top")?.scrollBy(16 * 25, 0);
+        document.getElementById("scroll-top")?.scrollBy(16 * 25, 0);
     }
   }, [value]);
 
@@ -67,12 +82,12 @@ export const Home: React.FC = () => {
 
   useEffect(() => {
     axios.get("/patient/", {
-        headers: {
-          Authorization: `Token ${localStorage.getItem(
-            "aipd-patient-access-token"
-          )}`,
-        },
-      })
+      headers: {
+        Authorization: `Token ${localStorage.getItem(
+          "aipd-patient-access-token"
+        )}`,
+      },
+    })
       .then((data: any) => {
         setExerciseDetails(data.data[0]["condition"]["exercises"]);
         console.log(data.data[0]["condition"]["exercises"]);
@@ -105,9 +120,8 @@ export const Home: React.FC = () => {
                       onClick={() => {
                         setValue(val);
                       }}
-                      className={`w-16 p-2 ${
-                        value === val ? "border-b-2 border-green-500" : ""
-                      }`}
+                      className={`w-16 p-2 ${value === val ? "border-b-2 border-green-500" : ""
+                        }`}
                     >
                       {val == 0 ? "TODAY" : PerviousDate(val)}
                     </section>
@@ -119,7 +133,8 @@ export const Home: React.FC = () => {
         </div>
       </div>
       <div className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"}  grid grid-cols-2 overflow-auto`}>
-        {exerciseDetails.map((exercise, index: number) => {
+        {exerciseDetails.map((exercise) => {
+          console.log(completedExercise, exercise.id)
           return (
             <div
               key={(exercise as { id: number }).id}
@@ -130,8 +145,9 @@ export const Home: React.FC = () => {
                 );
               }}
             >
-              <ExerciseCard 
-                image={(exercise as { image: string }).image}
+              <ExerciseCard
+                completed = {completedExercise.indexOf(exercise.id) !== -1}
+                image={exercise.image}
                 text={(exercise as { name: string }).name}
               />
             </div>

@@ -6,16 +6,7 @@ import axios from "axios"
 
 const Program: React.FC = () => {
 
-  axios.get("/exercise_record/", {
-    headers: {
-      Authorization: `Token ${localStorage.getItem(
-        "aipd-patient-access-token"
-      )}`,
-    },
-  }).then((data: any) => {
-    console.log(data.data)
-  })
-
+  
   
 
 
