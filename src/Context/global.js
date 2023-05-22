@@ -7,9 +7,7 @@ const GlobalDataContext = ({children}) => {
     const [authenticated, setAuthenticated] = useState(false);
 
     return (
-        <GlobalData.Provider value={{
-            authenticated, setAuthenticated
-        }}>
+        <GlobalData.Provider value={{authenticated, setAuthenticated}}>
             {children}
         </GlobalData.Provider>
     )
