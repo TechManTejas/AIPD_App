@@ -1,6 +1,5 @@
 import { IonContent, IonPage } from '@ionic/react';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import fittlyf_pcos_hero from "../../Videos/Fittlyf_pcos_hero.mp4"
 
 
 export const DemoVideoAndLogs: React.FC = () => {
@@ -8,11 +7,11 @@ export const DemoVideoAndLogs: React.FC = () => {
         <IonPage>
             <IonContent fullscreen>
                 <div className='bg-white flex flex-col flex-grow pb-16'>
-                    <div>
+                    {/* <div>
                         <video controls>
                             <source src={fittlyf_pcos_hero} type="video/mp4" />
                         </video>
-                    </div>
+                    </div> */}
                     <div className="border-2 border-x-0 border-black p-2">
                         <div className='flex space-x-2 items-center'>
                             <div className="text-xl font-semibold">

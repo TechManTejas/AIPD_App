@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.6d05a70c.css",
-    "main.js": "/static/js/main.ba38fc1b.js",
+    "main.css": "/static/css/main.487e03a1.css",
+    "main.js": "/static/js/main.eee5d9d5.js",
     "static/js/738.383c888e.chunk.js": "/static/js/738.383c888e.chunk.js",
     "static/js/572.6674e7fd.chunk.js": "/static/js/572.6674e7fd.chunk.js",
     "static/js/372.5c7206b4.chunk.js": "/static/js/372.5c7206b4.chunk.js",
@@ -13,14 +13,13 @@
     "static/js/573.3279f95e.chunk.js": "/static/js/573.3279f95e.chunk.js",
     "static/js/225.9c33a584.chunk.js": "/static/js/225.9c33a584.chunk.js",
     "static/js/883.88341f42.chunk.js": "/static/js/883.88341f42.chunk.js",
-    "static/media/Fittlyf_pcos_hero.mp4": "/static/media/Fittlyf_pcos_hero.4cb1e0adf0cde9278f7a.mp4",
     "static/media/mesh-113.png": "/static/media/mesh-113.ed01ac84ffb98294c4bb.png",
     "static/media/aipdlogoname.png": "/static/media/aipdlogoname.565f7e776a5586f5002e.png",
     "static/media/aipdlogo.png": "/static/media/aipdlogo.8a35a35f2528c2844978.png",
     "static/media/doctor.svg": "/static/media/doctor.3402832519cc3a72f352671ba4b8bad2.svg",
     "index.html": "/index.html",
-    "main.6d05a70c.css.map": "/static/css/main.6d05a70c.css.map",
-    "main.ba38fc1b.js.map": "/static/js/main.ba38fc1b.js.map",
+    "main.487e03a1.css.map": "/static/css/main.487e03a1.css.map",
+    "main.eee5d9d5.js.map": "/static/js/main.eee5d9d5.js.map",
     "738.383c888e.chunk.js.map": "/static/js/738.383c888e.chunk.js.map",
     "572.6674e7fd.chunk.js.map": "/static/js/572.6674e7fd.chunk.js.map",
     "372.5c7206b4.chunk.js.map": "/static/js/372.5c7206b4.chunk.js.map",
@@ -34,7 +33,7 @@
     "883.88341f42.chunk.js.map": "/static/js/883.88341f42.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6d05a70c.css",
-    "static/js/main.ba38fc1b.js"
+    "static/css/main.487e03a1.css",
+    "static/js/main.eee5d9d5.js"
   ]
 }
