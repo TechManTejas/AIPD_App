@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 
 export const DemoVideo: React.FC = () => {
 
-    const [exerciseData, setExerciseData] = useState<{ link: string, name: string, image: string, id: number, data: object }>()
+    const [exerciseData, setExerciseData] = useState<{description: string, link: string, name: string, image: string, id: number, data: object }>()
 
     const ExerciseToID: string[] = ["PendulumStraight", "PendulumSideways", "", "CrossBodyReach", "ArmpitStretch", "" , "LyingArms", "Butterfly",   "ArmsLock"]
 
@@ -61,7 +61,7 @@ export const DemoVideo: React.FC = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    Exercise details including the movement, possible wrong movement chances
+                                    {exerciseData.description}
                                 </div>
                             </div>
                             <div className="p-2">
