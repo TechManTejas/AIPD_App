@@ -7,6 +7,7 @@ import AIPDLogo from "../../Images/aipdlogo.png"
 import GradientButton from "../../components/GradientButton"
 import axios from "axios"
 import { GlobalDataState } from "../../Context/global"
+import { message } from "antd"
 
 export const Auth: React.FC = () => {
 
@@ -26,18 +27,25 @@ export const Auth: React.FC = () => {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
-        }).catch(function (error: any) {
-            console.log(error);
         })
             .then((data: any) => {
                 console.log(data);
-                if (data.data.token) {
-                    localStorage.setItem("aipd-patient-access-token", data.data.token)
-                    console.log(data.data.token)
-                    setAuthenticated(true)
-                    window.location.href = "/";
+                if (data.status === 200) {
+                    if (data.data.token) {
+                        localStorage.setItem("aipd-patient-access-token", data.data.token)
+                        console.log(data.data.token)
+                        setAuthenticated(true)
+                        window.location.href = "/";
+                    }
                 }
-            });
+                
+
+            }).catch(function (error: any) {
+                console.log(error);
+                if (error.response.status === 400) {
+                    message.error(error.response.data.non_field_errors[0])
+                }
+            })
     }
 
 
@@ -46,9 +54,9 @@ export const Auth: React.FC = () => {
             <IonContent fullscreen>
                 <div className='bg-white flex flex-col flex-grow p-2 h-full justify-between items-center'>
                     <div>
-                        <img src={AIPDLogo}/>
+                        <img src={AIPDLogo} />
                     </div>
-                    <div className="mb-16"> 
+                    <div className="mb-16">
                         <div className='space-y-2 my-2'>
                             <OutlinedInput fullWidth placeholder="Phone number"
                                 value={username}
