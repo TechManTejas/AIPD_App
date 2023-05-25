@@ -34,7 +34,7 @@ export default function NeckCurl({
     if (results.poseLandmarks == undefined) return;
 
     // console.log(timer)
-    if (reps === 3) {
+    if (reps === localStorage.getItem('sets')) {
         reps = 0;
         sets++;
         settimer(false);
