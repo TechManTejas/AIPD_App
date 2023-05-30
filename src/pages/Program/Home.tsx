@@ -16,7 +16,7 @@ export const Home: React.FC = () => {
   const [value, setValue] = useState<number>(0);
   // * The Exercise that needs to be done by the patients logined
   // ^ id => the id of the exercise, name => name of the exercise, image => url of the image of the exercise
-  const [exerciseDetails, setExerciseDetails] = useState<{ id: number, name: string, image: string }[]>([]);
+  const [exerciseDetails, setExerciseDetails] = useState<{ id: number, name: string, image: string; sets: number }[]>([]);
   // * The Array of Exercise that are completed by the patient
   const [completedExercise, setCompletedExercise] = useState<number[]>([]);
 
@@ -147,6 +147,10 @@ export const Home: React.FC = () => {
             <div
               key={(exercise as { id: number }).id}
               onClick={() => {
+                localStorage.setItem(
+                  "sets",
+                  exercise.sets.toString(),
+                );
                 localStorage.setItem(
                   "exercise",
                   exerciseNames[(exercise as { id: number }).id]

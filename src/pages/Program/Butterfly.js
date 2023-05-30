@@ -50,7 +50,7 @@ export default function Butterfly({
 
 
     // console.log(timer)
-    if (reps === 5) {
+    if (reps === localStorage.getItem('sets')) {
         reps = 0;
         sets++;
         settimer(false);
