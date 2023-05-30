@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">APID</string>
-    <string name="title_activity_main">APID</string>
-    <string name="package_name">com.technopolis.aipd</string>
-    <string name="custom_url_scheme">com.technopolis.aipd</string>
-</resources>

@@ -28,11 +28,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                     boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 3px"
                 }}>
                     {(completed) &&
-                        <div className="absolute top-2 right-2 z-10 text-green-600">
-                            <CheckCircleIcon />
+                        <div className="absolute top-2 right-2 z-10 text-white-600">
+                            <CheckCircleIcon fontSize="large" sx = {{color : "green"}} />
                         </div>
                     }
-
                     <div className={`p-1 ${(completed) ? 'bg-green-50' : ''}`}>
                         <div className={`p-1 ${(completed) ? 'opacity-50' : ''}`}>
                             <img className="rounded w-[180px] h-[180px] object-cover" src={image} />
@@ -41,6 +40,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             {text}
                         </div>
                     </div>
+                    
                 </div>
             </CardActionArea>
         </Link>

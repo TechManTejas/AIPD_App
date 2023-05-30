@@ -4,6 +4,7 @@ import { ExerciseCard } from "./Components/ExerciseCard";
 import AIPDLogoName from "../../Images/aipdlogoname.png";
 import axios from "axios";
 import { PerviousDate } from "../../utils/DateTime";
+import { message } from "antd";
 
 // * The Types of Exercise
 interface ExerciseNames {
@@ -19,9 +20,15 @@ export const Home: React.FC = () => {
   // * The Array of Exercise that are completed by the patient
   const [completedExercise, setCompletedExercise] = useState<number[]>([]);
 
+
+
   // * function to check whether the date selected is present in the data fetch in above state
   const checkdate = (dateObj: any) => {
-    return ((parseInt(dateObj.date.split("-")[1]) === parseInt(PerviousDate(value).split("/")[1])) && parseInt(dateObj.date.split("-")[2]) === parseInt(PerviousDate(value).split("/")[0]))
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      return ((parseInt(dateObj.date.split("-")[1]) === parseInt(PerviousDate(value).split("/")[0])) && parseInt(dateObj.date.split("-")[2]) === parseInt(PerviousDate(value).split("/")[1]))
+    } else {
+      return ((parseInt(dateObj.date.split("-")[1]) === parseInt(PerviousDate(value).split("/")[1])) && parseInt(dateObj.date.split("-")[2]) === parseInt(PerviousDate(value).split("/")[0]))
+    }
   }
 
   // * an axios post to fetch the completed exercise, reloads whenever the value (state) changes
@@ -36,13 +43,14 @@ export const Home: React.FC = () => {
       const todaysExercise = data.data.filter(checkdate)
       // * extracts the index of the done exercise
       setCompletedExercise(todaysExercise.map((e: any) => { return e.exercise }))
+    }).catch((e) => {
+      message.error(e.toString())
     })
   }, [value])
 
   // ^ for the top navbar scroll, reloads after the value (state) changes
   // ! is not 100% accurate needs perfection
   useEffect(() => {
-    console.log(value)
     document.getElementById("scroll-top")?.scrollBy(-32 * 13, 0);
     if (![-6, -5, -4].includes(value)) {
       if ([4, 5, 6].includes(value)) {
@@ -50,7 +58,7 @@ export const Home: React.FC = () => {
       } else if (value == -3)
         document.getElementById("scroll-top")?.scrollBy(16 * 1, 0);
       else if (value == -2)
-        document.getElementById("scroll-top")?.scrollBy(16 * 5, 0);    
+        document.getElementById("scroll-top")?.scrollBy(16 * 5, 0);
       else if (value == -1)
         document.getElementById("scroll-top")?.scrollBy(16 * 9, 0);
       else if (value == 0)
@@ -91,11 +99,19 @@ export const Home: React.FC = () => {
   };
 
   // * initial scroll for todays date
-  document.getElementById("scroll-top")?.scrollBy(16 * 13 - 4, 0);
   // document.getElementById("scroll-top")?.scrollBy(-208, 0)
 
+  let initalDrag = 0
+  const initDrag = () => {
+    if(initalDrag != 0) return;
+    else{
+      document.getElementById("scroll-top")?.scrollBy(16 * 13 - 4, 0)
+      initalDrag = 1
+    }
+  }
+
   return (
-    <div className="space-y-4">
+    <div onLoad={() =>  {document.getElementById("scroll-top")?.scrollBy(-1000, 0);  document.getElementById("scroll-top")?.scrollBy(16 * 13 - 4, 0)}} className="space-y-4">
       <div className="">
         <div className="sticky top-0 z-20 bg-slate-50 p-2">
           <div className="overflow-hidden">
@@ -104,6 +120,7 @@ export const Home: React.FC = () => {
                 (val) => {
                   return (
                     <section
+                      onLoad={() => console.log("loaded")}
                       id={val.toString()}
                       onClick={() => {
                         setValue(val);
@@ -119,6 +136,9 @@ export const Home: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <img className="p-6" src={AIPDLogoName}></img>
       </div>
       <div className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"}  grid grid-cols-2 overflow-auto`}>
         {exerciseDetails.map((exercise) => {
