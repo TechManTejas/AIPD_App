@@ -12,6 +12,7 @@ import LyingArms from "./LyingArms";
 import Butterfly from "./Butterfly";
 import ArmsLock from "./ArmsLock";
 import RecordRTC from 'recordrtc';
+import { uploadFile } from "../../utils/firebase";
 
 function CameraPoseDetect({ setloading, repref, setref, messageRef }) {
   // * Refs
@@ -51,12 +52,16 @@ function CameraPoseDetect({ setloading, repref, setref, messageRef }) {
     if (recorder) {
       recorder.stopRecording(() => {
         const blob = recorder.getBlob();
+
+
+        uploadFile(blob);
+
         const videoURL = URL.createObjectURL(blob);
 
-        const a = document.createElement("a");
-        a.href = videoURL;
-        a.download = "recorded_video.webm";
-        a.click();
+        // const a = document.createElement("a");
+        // a.href = videoURL;
+        // a.download = "recorded_video.webm";
+        // a.click();
 
         URL.revokeObjectURL(videoURL);
       });
