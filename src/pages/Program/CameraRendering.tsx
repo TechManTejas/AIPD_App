@@ -6,9 +6,15 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 export const CameraRendering: React.FC = () => {
+
+  
+
+
   const repref = useRef<HTMLDivElement>(null);
   const setref = useRef<HTMLDivElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);
+
+  
 
   const [loading, setloading] = useState(true)
 
@@ -25,17 +31,17 @@ export const CameraRendering: React.FC = () => {
   const ExerciseId = () => {
     const exercise = localStorage.getItem("exercise")
     if(exercise === 'PendulumStraight'){
-      return 1
+      return 11
     } else if (exercise === 'PendulumSideways'){
-      return 2
+      return 10
     } else if (exercise === 'Butterfly'){
-      return 8
-    } else if (exercise === 'PendulumCircles') {
-      return 6
-    } else if (exercise === 'LyingArms') {
       return 7
-    } else if (exercise === 'ArmsLock') {
+    } else if (exercise === 'PendulumCircles') {
       return 9
+    } else if (exercise === 'LyingArms') {
+      return 8
+    } else if (exercise === 'ArmsLock') {
+      return 6
     }
   }
 
@@ -82,7 +88,7 @@ export const CameraRendering: React.FC = () => {
             {!loading && <div className="p-1 absolute w-full bottom-0">
               <Link to="/demo-video-logs">
                 <CardActionArea>
-                  <div onClick={addExerciseDataToDatabase} className="border bg-blue-600 text-white font-semibold p-1 text-center">
+                  <div id = "done-exercise" onClick={addExerciseDataToDatabase} className="border bg-blue-600 text-white font-semibold p-1 text-center">
                     Done
                   </div>
                 </CardActionArea>

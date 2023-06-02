@@ -20,14 +20,14 @@ export const BottomNavigationBar: React.FC = () => {
                         </div>
                     </Link>
                 </CardActionArea>
-                <CardActionArea onClick={() => setPage("results")}>
+                {/* <CardActionArea onClick={() => setPage("results")}>
                     <Link to="/results">
                         <div className={`text-xs flex flex-col items-center p-1 py-1.5 ${(page === "results") ? 'text-green-600' : 'opacity-50 text-gray-500'}`}>
                             <BarChartIcon />
                             Results
                         </div>
                     </Link>
-                </CardActionArea>
+                </CardActionArea> */}
                 <CardActionArea onClick={() => setPage("settings")}>
                     <Link to="/settings">
                         <div className={`text-xs flex flex-col items-center p-1 py-1.5 ${(page === "settings") ? 'text-green-600' : 'opacity-50 text-gray-500'}`}>

@@ -19,7 +19,21 @@ export const Home: React.FC = () => {
   const [exerciseDetails, setExerciseDetails] = useState<{ id: number, name: string, image: string; sets: number }[]>([]);
   // * The Array of Exercise that are completed by the patient
   const [completedExercise, setCompletedExercise] = useState<number[]>([]);
+  const [individualSetReps, setIndivisualSetsReps] = useState<{id : number, patient : number, exercise : number, sets : number, reps : number}[]>([])
 
+  useEffect(() => {
+    axios.get("/patient_exercise/", {
+      headers: {
+        Authorization: `Token ${localStorage.getItem(
+          "aipd-patient-access-token"
+        )}`,
+      },
+    }).then((data: any) => {
+      setIndivisualSetsReps(data.data)
+    }).catch((e) => {
+      message.error(e.toString())
+    })
+  }, [])
 
 
   // * function to check whether the date selected is present in the data fetch in above state
@@ -83,35 +97,37 @@ export const Home: React.FC = () => {
     })
       .then((data: any) => {
         setExerciseDetails(data.data[0]["condition"]["exercises"]);
-        console.log(data.data[0]["condition"]["exercises"]);
+        // console.log(data.data[0]["condition"]["exercises"]);
       });
   }, []);
 
   const exerciseNames: ExerciseNames = {
-    1: "PendulumStraight",
-    2: "PendulumSideways",
-    4: "CrossBodyReach",
-    5: "ArmpitStretch",
-    8: "Butterfly",
-    6: "PendulumCircles",
-    7: "LyingArms",
-    9: "ArmsLock",
+    6: "ArmsLock",
+    7: "Butterfly",
+    8: "LyingArms",
+    9: "PendulumCircles",
+    10: "PendulumSideways",
+    11: "PendulumStraight",
   };
 
   // * initial scroll for todays date
   // document.getElementById("scroll-top")?.scrollBy(-208, 0)
 
-  let initalDrag = 0
-  const initDrag = () => {
-    if(initalDrag != 0) return;
-    else{
-      document.getElementById("scroll-top")?.scrollBy(16 * 13 - 4, 0)
-      initalDrag = 1
-    }
+  interface DataEntry {
+    id: number;
+    patient: number;
+    exercise: number;
+    sets: number;
+    reps: number;
+  }
+
+  function findEntryByExercise(data: DataEntry[], exercise: number): DataEntry | null {
+    const entry = data.find((entry) => entry.exercise === exercise);
+    return entry || null;
   }
 
   return (
-    <div onLoad={() =>  {document.getElementById("scroll-top")?.scrollBy(-1000, 0);  document.getElementById("scroll-top")?.scrollBy(16 * 13 - 4, 0)}} className="space-y-4">
+    <div onLoad={() => { document.getElementById("scroll-top")?.scrollBy(-1000, 0); document.getElementById("scroll-top")?.scrollBy(16 * 13 - 4, 0) }} className="space-y-4">
       <div className="">
         <div className="sticky top-0 z-20 bg-slate-50 p-2">
           <div className="overflow-hidden">
@@ -142,14 +158,19 @@ export const Home: React.FC = () => {
       </div>
       <div className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"}  grid grid-cols-2 overflow-auto`}>
         {exerciseDetails.map((exercise) => {
-          console.log(completedExercise, exercise.id)
+          // console.log(.sets, exercise.id)
+          const entry = findEntryByExercise(individualSetReps, exercise.id)
           return (
             <div
               key={(exercise as { id: number }).id}
               onClick={() => {
                 localStorage.setItem(
                   "sets",
-                  exercise.sets.toString(),
+                  entry ? entry.sets.toString() : "",
+                );
+                localStorage.setItem(
+                  "reps",
+                  entry ? entry.reps.toString() : "",
                 );
                 localStorage.setItem(
                   "exercise",

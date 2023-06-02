@@ -8,10 +8,24 @@ import { useEffect, useState } from 'react';
 
 export const DemoVideo: React.FC = () => {
 
-    const [exerciseData, setExerciseData] = useState<{description: string, link: string, name: string, image: string, id: number, data: object }>()
+    const [exerciseData, setExerciseData] = useState<{ description: string, link: string, name: string, image: string, id: number, data: object }>()
 
-    const ExerciseToID: string[] = ["PendulumStraight", "PendulumSideways", "", "CrossBodyReach", "ArmpitStretch", "" , "LyingArms", "Butterfly",   "ArmsLock"]
+    interface ExerciseNames {
+        [key: number]: string;
+    }
 
+    const exerciseNames: ExerciseNames = {
+        6: "ArmsLock",
+        7: "Butterfly",
+        8: "LyingArms",
+        9: "PendulumCircles",
+        10: "PendulumSideways",
+        11: "PendulumStraight",
+    };
+
+    function findKeyByValue(object: ExerciseNames, value: string): number | undefined {
+        return Object.keys(object).find((key) => object[Number(key)] === value) as number | undefined;
+      }
 
     useEffect(() => {
         axios.get("/exercise/", {
@@ -21,7 +35,7 @@ export const DemoVideo: React.FC = () => {
                 )}`,
             },
         }).then((data: any) => {
-            console.log(data.data)
+            // console.log(data.data)
             getInfoOfSelectedExercise(data.data)
         }).catch((e) => console.log(e))
 
@@ -36,8 +50,12 @@ export const DemoVideo: React.FC = () => {
 
     const getInfoOfSelectedExercise = (data: any) => {
         const exercise = localStorage.getItem("exercise")
-        if (exercise !== null)
-            setExerciseData(data[ExerciseToID.indexOf(exercise)])
+        // console.log(data)
+        if (exercise !== null) {
+            const key = findKeyByValue(exerciseNames, exercise);
+            // console.log(data, typeof Number(key));
+            setExerciseData(data[Number(key)-1])
+        }
     }
 
 

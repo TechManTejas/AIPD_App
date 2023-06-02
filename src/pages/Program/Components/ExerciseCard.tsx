@@ -19,7 +19,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     // console.log(dateSelected)
     // console.log(completedExercise)'
 
-    console.log(completed)
+    // console.log(completed)
 
     return (
         <Link to="/demo-video">
@@ -36,7 +36,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                         <div className={`p-1 ${(completed) ? 'opacity-50' : ''}`}>
                             <img className="rounded w-[180px] h-[180px] object-cover" src={image} />
                         </div>
-                        <div className="text-white text-center p-1 text-md font-robotomedium">
+                        <div className={` ${completed ? "text-black" : "text-white"} text-center p-1 text-md font-robotomedium`}>
                             {text}
                         </div>
                     </div>

@@ -51,7 +51,21 @@ export default function ArmsLock({
 
     if (results.poseLandmarks == undefined) return;
 
-    if (reps === localStorage.getItem('sets')) {
+    if(sets == localStorage.getItem("sets")){
+        document.getElementById("done-exercise").click()
+        window.location.href = "/demo-video-logs"
+        sets = 0
+        return;
+    }
+
+    if(reps == localStorage.getItem("reps") && sets === Number(localStorage.getItem("sets")) - 1){
+        reps = 0
+        sets++;
+        return;
+    }
+
+    // console.log(reps, Number(localStorage.getItem("reps")))
+    if (reps == localStorage.getItem("reps")) {
         reps = 0;
         sets++;
         settimer(false);
