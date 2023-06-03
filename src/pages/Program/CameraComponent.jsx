@@ -3,8 +3,6 @@ import { useRef, useEffect, useState } from "react";
 import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
 import { CountDownComponent } from "./CountDownComponent";
-import ElbowCurl from "./ElbowCurl";
-import NeckCurl from "./NeckCurl";
 import PendulumSideways from "./PendulumSideways";
 import PendulumCircles from "./PendulumCircles";
 import PendulumStraight from "./PendulumStraight";
@@ -23,8 +21,6 @@ function CameraPoseDetect({ setloading, repref, setref, messageRef }) {
   var camera = null;
 
   const [timer, settimer] = useState(true);
-  const [screenshots, setScreenshots] = useState([]);
-  const [stopInterval, setStopInterval] = useState(false);
 
   var exercise;
 
@@ -52,17 +48,8 @@ function CameraPoseDetect({ setloading, repref, setref, messageRef }) {
     if (recorder) {
       recorder.stopRecording(() => {
         const blob = recorder.getBlob();
-
-
         uploadFile(blob);
-
         const videoURL = URL.createObjectURL(blob);
-
-        // const a = document.createElement("a");
-        // a.href = videoURL;
-        // a.download = "recorded_video.webm";
-        // a.click();
-
         URL.revokeObjectURL(videoURL);
       });
     }
@@ -125,38 +112,8 @@ function CameraPoseDetect({ setloading, repref, setref, messageRef }) {
         },
       });
       camera.start()
-      // ex++
-      // console.log(ex)
     }
   }, [timer]);
-
-  // var size = 0
-  // useEffect(() => {
-  //   // Start capturing the screenshot every 3 seconds
-  //   const interval = setInterval(() => {
-  //     // Capture the screenshot with a specific quality (e.g., 0.8 for 80% quality)
-  //     const image = canvasRef.current.toDataURL("image/png", 0.1);
-
-  //     // Calculate the size of the screenshot in bytes
-  //     const sizeInBytes = image.length;
-
-  //     // Convert the size to megabytes (MB)
-  //     const sizeInMB = sizeInBytes / (1024 * 1024);
-  //     size += sizeInMB;
-  //     console.log(size);
-
-  //     // Store the screenshot in the state variable
-  //     setScreenshots(prevScreenshots => [...prevScreenshots, image]);
-  //   }, 100);
-
-  //   // Stop the interval if stopInterval is true
-  //   if (stopInterval) {
-  //     clearInterval(interval);
-  //   }
-
-  //   // Clean up the interval when the component unmounts or when the timer state changes
-  //   return () => clearInterval(interval);
-  // }, [stopInterval]);
 
   return (
     <center>
@@ -177,13 +134,6 @@ function CameraPoseDetect({ setloading, repref, setref, messageRef }) {
 
         {/* Button to stop recording */}
         <button onClick={stopRecording}>Stop Recording</button>
-
-        {/* <div>
-          <h2>Captured Screenshots:</h2>
-          {screenshots.map((screenshot, index) => (
-            <img key={index} src={screenshot} alt={`Screenshot ${index}`} />
-          ))}
-        </div> */}
       </div>
     </center>
   );
