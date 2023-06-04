@@ -28,6 +28,7 @@ export const uploadFile = (file : File) => {
     const storageRef = ref(storage, new Date().toUTCString())
     uploadBytes(storageRef, file).then((snapshot) => {
         console.log(snapshot);
+        console.log(file);
     });
 }
 
