@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL  } from "firebase/storage";
 
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -30,3 +30,16 @@ export const uploadFile = (file : File) => {
         console.log(snapshot);
     });
 }
+
+export const getVideoURL = async (filename: string): Promise<string> => {
+  const fileRef = ref(storage, filename);
+  
+  try {
+    const downloadURL = await getDownloadURL(fileRef);
+    console.log('Video URL:', downloadURL);
+    return downloadURL;
+  } catch (error) {
+    console.log('Error retrieving video:', error);
+    throw error; // Rethrow the error or handle it as needed
+  }
+};
