@@ -11,10 +11,10 @@ INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.x
 	android:name
 		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:30:13-62
 manifest
-ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-46:12
-INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-46:12
-INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-46:12
-INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-46:12
+ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-53:12
+INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-53:12
+INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-53:12
+INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-53:12
 MERGED from [:capacitor-app] D:\code\Internship\AIPD_App\node_modules\@capacitor\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:capacitor-camera] D:\code\Internship\AIPD_App\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-13:12
 MERGED from [:capacitor-haptics] D:\code\Internship\AIPD_App\node_modules\@capacitor\haptics\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
@@ -66,20 +66,20 @@ MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\User
 MERGED from [androidx.print:print:1.0.0] C:\Users\SHRI\.gradle\caches\transforms-3\398baf266ef250ead0da237bd4414c09\transformed\print-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [org.apache.cordova:framework:10.1.1] C:\Users\SHRI\.gradle\caches\transforms-3\cca50991fd2a97ebfe8daab4258a490c\transformed\jetified-framework-10.1.1\AndroidManifest.xml:20:1-27:12
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\SHRI\.gradle\caches\transforms-3\b3ac95868ecc505ad921c83cd2c5151c\transformed\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:17:1-24:12
-INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-46:12
-INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-46:12
-INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-46:12
+INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-53:12
+INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-53:12
+INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-53:12
 	package
 		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:3:5-35
 		INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml
 		INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-46:12
+		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-53:12
 		INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml
-		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-46:12
+		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:1-53:12
 		INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:2:11-69
@@ -157,6 +157,30 @@ uses-permission#android.permission.CAMERA
 ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:45:5-65
 	android:name
 		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:45:22-62
+uses-permission#android.permission.WRITE_SECURE_SETTINGS
+ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:46:5-80
+	android:name
+		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:46:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:47:5-81
+	android:name
+		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:47:22-78
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:48:5-71
+	android:name
+		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:48:22-68
+uses-permission#android.permission.MEDIA_CONTENT_CONTROL
+ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:49:5-80
+	android:name
+		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:49:22-77
+uses-feature#android.hardware.screen.landscape
+ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:51:5-70
+	android:name
+		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:51:19-67
+uses-feature#android.hardware.screen.portrait
+ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:52:5-69
+	android:name
+		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:52:19-66
 uses-sdk
 INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml

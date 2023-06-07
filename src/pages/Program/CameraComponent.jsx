@@ -12,7 +12,7 @@ import ArmsLock from "./ArmsLock";
 import RecordRTC from 'recordrtc';
 import { uploadFile } from "../../APIs/storage";
 import { message } from "antd";
-import {Modal} from "antd";
+import { Modal } from "antd";
 
 function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
   // * Refs
@@ -28,6 +28,23 @@ function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
 
   var exercise;
 
+  async function getPermissionStatus() {
+    try {
+      const videoPermissionStatus = await navigator.permissions.query({ name: 'camera' });
+      const audioPermissionStatus = await navigator.permissions.query({ name: 'microphone' });
+  
+      message.info('Video permission status: ' + videoPermissionStatus.state.toString());
+      message.info('Audio permission status: ' + audioPermissionStatus.state.toString());
+
+      console.log('Video permission status:', videoPermissionStatus.state.toString());
+      console.log('Audio permission status:', audioPermissionStatus.state.toString());
+    } catch (error) {
+      console.error('Error retrieving permission status:', error);
+    }
+  }
+  
+  getPermissionStatus();
+  
   useEffect(() => {
     if (!loading) {
       startRecording();
@@ -39,10 +56,11 @@ function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
   }, [loading])
 
   const startRecording = () => {
+    
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
-
+        
         recorder = RecordRTC(stream, {
           type: "video",
           mimeType: "video/webm",
@@ -61,13 +79,19 @@ function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
   const stopRecordingAndUploadFileToFirebase = async () => {
     if (recorder) {
       await recorder.stopRecording(async () => {
-        const blob = recorder.getBlob();
-        const videoURL = URL.createObjectURL(blob);
-        URL.revokeObjectURL(videoURL);
-        await uploadFile(blob).then(() => {
-          setIsModalOpen(false)
-          window.location.href = "/demo-video-logs"
-        });
+        try {
+          const blob = recorder.getBlob();
+          const videoURL = URL.createObjectURL(blob);
+          URL.revokeObjectURL(videoURL);
+          console.log(blob)
+          await uploadFile(blob).then(() => {
+            setIsModalOpen(false)
+            window.location.href = "/demo-video-logs"
+          });
+        } catch (error){
+          console.log("--------------------------------> ", error)
+        }
+        
       });
     }
   };
@@ -147,7 +171,7 @@ function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
         )}
       </div>
       <div>
-        <Modal  closable = {false} title="" footer={null} open={isModalOpen}>
+        <Modal closable={false} title="" footer={null} open={isModalOpen}>
           <p>Adding Data to Database</p>
         </Modal>
       </div>
