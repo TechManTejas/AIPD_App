@@ -27,24 +27,8 @@ function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
   const [timer, settimer] = useState(true);
 
   var exercise;
+  
 
-  async function getPermissionStatus() {
-    try {
-      const videoPermissionStatus = await navigator.permissions.query({ name: 'camera' });
-      const audioPermissionStatus = await navigator.permissions.query({ name: 'microphone' });
-  
-      message.info('Video permission status: ' + videoPermissionStatus.state.toString());
-      message.info('Audio permission status: ' + audioPermissionStatus.state.toString());
-
-      console.log('Video permission status:', videoPermissionStatus.state.toString());
-      console.log('Audio permission status:', audioPermissionStatus.state.toString());
-    } catch (error) {
-      console.error('Error retrieving permission status:', error);
-    }
-  }
-  
-  getPermissionStatus();
-  
   useEffect(() => {
     if (!loading) {
       startRecording();
