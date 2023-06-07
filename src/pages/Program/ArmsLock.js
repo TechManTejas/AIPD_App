@@ -53,7 +53,6 @@ export default function ArmsLock({
 
     if(sets == localStorage.getItem("sets")){
         document.getElementById("done-exercise").click()
-        window.location.href = "/demo-video-logs"
         sets = 0
         return;
     }

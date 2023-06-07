@@ -4,7 +4,17 @@
             "outputFile": "com.technopolis.aipd.app-mergeDebugResources-25:/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Tejas\\.gradle\\caches\\transforms-3\\a8e52a507448d4b845688b4ff42bab35\\transformed\\appcompat-1.4.2\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\SHRI\\.gradle\\caches\\transforms-3\\c03efd9a0015437520d15a440f54260f\\transformed\\core-1.8.0\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\SHRI\\.gradle\\caches\\transforms-3\\1af3cfb2b5d4c9dffdc0193f81dbff22\\transformed\\appcompat-1.4.2\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -20,16 +30,6 @@
                         "endLines": "6",
                         "endColumns": "12",
                         "endOffsets": "289"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Tejas\\.gradle\\caches\\transforms-3\\fe0dba67bfac75aa58e7b93d33808165\\transformed\\core-1.8.0\\res\\values-v16\\values-v16.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "65",
-                        "endOffsets": "116"
                     }
                 }
             ]

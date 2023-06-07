@@ -1,6 +1,5 @@
 import { IonContent, IonPage } from "@ionic/react";
 import { CardActionArea } from "@mui/material";
-import { Link } from "react-router-dom";
 import CameraPoseDetect from "./CameraComponent";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
@@ -9,58 +8,12 @@ export const CameraRendering: React.FC = () => {
 
   
 
-
   const repref = useRef<HTMLDivElement>(null);
   const setref = useRef<HTMLDivElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);
 
-  
-
   const [loading, setloading] = useState(true)
-
-  const getDateWithFormat = () => {
-    var currentDate = new Date();
-    var year = currentDate.getFullYear();
-    var month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    var day = String(currentDate.getDate()).padStart(2, '0');
-    var formattedDate = year + '-' + month + '-' + day;
-    return formattedDate
-  }
-
-
-  const ExerciseId = () => {
-    const exercise = localStorage.getItem("exercise")
-    if(exercise === 'PendulumStraight'){
-      return 11
-    } else if (exercise === 'PendulumSideways'){
-      return 10
-    } else if (exercise === 'Butterfly'){
-      return 7
-    } else if (exercise === 'PendulumCircles') {
-      return 9
-    } else if (exercise === 'LyingArms') {
-      return 8
-    } else if (exercise === 'ArmsLock') {
-      return 6
-    }
-  }
-
-  
-
-  const addExerciseDataToDatabase = () => {
-    axios.post("/exercise_record/", {
-      date: getDateWithFormat(),
-      exercise: ExerciseId(),
-      patient: 43
-    }, {
-      headers: {
-        Authorization: `Token ${localStorage.getItem(
-          "aipd-patient-access-token"
-        )}`,
-      }
-    }).then(() => console.log("Data Added to Database")).catch((e) => console.error(e))
-  }
-
+ 
   return (
     <IonPage>
       <IonContent fullscreen>
@@ -83,16 +36,18 @@ export const CameraRendering: React.FC = () => {
               </div>
             </div>
             <div>
-              <CameraPoseDetect setloading={setloading} repref={repref} setref={setref} messageRef={messageRef} />
+            </div>
+            <div>
+              <CameraPoseDetect loading = {loading} setloading={setloading} repref={repref} setref={setref} messageRef={messageRef} />
             </div>
             {!loading && <div className="p-1 absolute w-full bottom-0">
-              <Link to="/demo-video-logs">
+              <div>
                 <CardActionArea>
-                  <div id = "done-exercise" onClick={addExerciseDataToDatabase} className="border bg-blue-600 text-white font-semibold p-1 text-center">
+                  <div id = "done-exercise" className="border bg-blue-600 text-white font-semibold p-1 text-center">
                     Done
                   </div>
                 </CardActionArea>
-              </Link>
+              </div>
             </div>}
           </div>
         </div>

@@ -1,5 +1,4 @@
-import { Box, styled, Tab, Tabs } from "@mui/material";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState} from "react";
 import { ExerciseCard } from "./Components/ExerciseCard";
 import AIPDLogoName from "../../Images/aipdlogoname.png";
 import axios from "axios";
@@ -68,21 +67,21 @@ export const Home: React.FC = () => {
     document.getElementById("scroll-top")?.scrollBy(-32 * 13, 0);
     if (![-6, -5, -4].includes(value)) {
       if ([4, 5, 6].includes(value)) {
-        document.getElementById("scroll-top")?.scrollBy(32 * 13, 0);
+        document.getElementById("scroll-top")?.scrollBy(32 * 14, 0);
       } else if (value == -3)
-        document.getElementById("scroll-top")?.scrollBy(16 * 1, 0);
+        document.getElementById("scroll-top")?.scrollBy(16 * 2, 0);
       else if (value == -2)
-        document.getElementById("scroll-top")?.scrollBy(16 * 5, 0);
+        document.getElementById("scroll-top")?.scrollBy(16 * 6, 0);
       else if (value == -1)
-        document.getElementById("scroll-top")?.scrollBy(16 * 9, 0);
+        document.getElementById("scroll-top")?.scrollBy(16 * 10, 0);
       else if (value == 0)
-        document.getElementById("scroll-top")?.scrollBy(16 * 13, 0);
+        document.getElementById("scroll-top")?.scrollBy(16 * 14, 0);
       else if (value == 1)
-        document.getElementById("scroll-top")?.scrollBy(16 * 17, 0);
+        document.getElementById("scroll-top")?.scrollBy(16 * 18, 0);
       else if (value == 2)
-        document.getElementById("scroll-top")?.scrollBy(16 * 21, 0);
+        document.getElementById("scroll-top")?.scrollBy(16 * 22, 0);
       else if (value == 3)
-        document.getElementById("scroll-top")?.scrollBy(16 * 25, 0);
+        document.getElementById("scroll-top")?.scrollBy(16 * 26, 0);
     }
   }, [value]);
 
@@ -131,7 +130,7 @@ export const Home: React.FC = () => {
       <div className="">
         <div className="sticky top-0 z-20 bg-slate-50 p-2">
           <div className="overflow-hidden">
-            <div id="scroll-top" className="flex overflow-auto gap-3">
+            <div id="scroll-top" className="flex overflow-auto">
               {Array.from({ length: 13 }, (_, index) => index - 6).map(
                 (val) => {
                   return (
@@ -141,7 +140,8 @@ export const Home: React.FC = () => {
                       onClick={() => {
                         setValue(val);
                       }}
-                      className={`w-16 p-2 ${value === val ? "border-b-2 border-green-500" : ""
+                      style = {{minWidth : "65px"}}
+                      className={`text-center p-2 ${value === val ? "border-b-2 border-green-500" : ""
                         }`}
                     >
                       {val == 0 ? "TODAY" : PerviousDate(val)}

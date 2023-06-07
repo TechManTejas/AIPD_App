@@ -10,19 +10,33 @@ import LyingArms from "./LyingArms";
 import Butterfly from "./Butterfly";
 import ArmsLock from "./ArmsLock";
 import RecordRTC from 'recordrtc';
-import { uploadFile } from "../../utils/firebase";
+import { uploadFile } from "../../APIs/storage";
+import { message } from "antd";
+import {Modal} from "antd";
 
-function CameraPoseDetect({ setloading, repref, setref, messageRef }) {
+function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
   // * Refs
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   let recorder;
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   var camera = null;
 
   const [timer, settimer] = useState(true);
 
   var exercise;
+
+  useEffect(() => {
+    if (!loading) {
+      startRecording();
+      document.getElementById("done-exercise").addEventListener("click", () => {
+        setIsModalOpen(true)
+        stopRecordingAndUploadFileToFirebase()
+      })
+    }
+  }, [loading])
 
   const startRecording = () => {
     navigator.mediaDevices
@@ -44,13 +58,16 @@ function CameraPoseDetect({ setloading, repref, setref, messageRef }) {
       });
   };
 
-  const stopRecording = () => {
+  const stopRecordingAndUploadFileToFirebase = async () => {
     if (recorder) {
-      recorder.stopRecording(() => {
+      await recorder.stopRecording(async () => {
         const blob = recorder.getBlob();
-        uploadFile(blob);
         const videoURL = URL.createObjectURL(blob);
         URL.revokeObjectURL(videoURL);
+        await uploadFile(blob).then(() => {
+          setIsModalOpen(false)
+          window.location.href = "/demo-video-logs"
+        });
       });
     }
   };
@@ -120,7 +137,7 @@ function CameraPoseDetect({ setloading, repref, setref, messageRef }) {
       <div className="App">
         {timer ? (
           <>
-            <Webcam ref={webcamRef} className="hidden w-screen" />
+            <Webcam id="webcam" ref={webcamRef} className="hidden w-screen" />
             <canvas ref={canvasRef} className=" -ml-[100px] w-[600px] h-screen" />
           </>
         ) : (
@@ -128,12 +145,11 @@ function CameraPoseDetect({ setloading, repref, setref, messageRef }) {
             <CountDownComponent settimer={settimer} />
           </>
         )}
-
-        {/* Button to start recording */}
-        <button onClick={startRecording}>Start Recording</button>
-
-        {/* Button to stop recording */}
-        <button onClick={stopRecording}>Stop Recording</button>
+      </div>
+      <div>
+        <Modal  closable = {false} title="" footer={null} open={isModalOpen}>
+          <p>Adding Data to Database</p>
+        </Modal>
       </div>
     </center>
   );
