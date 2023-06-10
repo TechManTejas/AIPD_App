@@ -13,6 +13,7 @@ export const CreatePatient: React.FC = () => {
     const [firstname, setFirstname] = useState("")
     const [lastname, setLastname] = useState("")
     const [duration, setDuration] = useState(3)
+    const [individualExercise, setIndividualEx] = useState(false)
 
 
     async function createNewPatient() {
@@ -38,7 +39,8 @@ export const CreatePatient: React.FC = () => {
             console.log(error);
         })
             .then((data: any) => {
-                console.log(data);
+                localStorage.setItem("patient-id", data.data.patient_id)
+                setIndividualEx(true)
                 notifyOnWhatsapp(data.data.code)
             });
     }
@@ -141,7 +143,7 @@ Team Fittlyf`;
                     {
                         selectedCondition.exercises.map((e) => {
                             return (
-                                <ExerciseCard exercise={e.name} />
+                                <ExerciseCard exercise={e.name} individualExercise = {individualExercise} />
                             )
                         })
                     }

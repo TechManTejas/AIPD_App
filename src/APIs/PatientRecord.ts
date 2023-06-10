@@ -7,7 +7,7 @@ export const addExerciseDataToDatabase = async (videoURL: string) => {
     await axios.post("/exercise_record/", {
         date: getDateWithFormat(),
         exercise: ExerciseId(),
-        patient: 43,
+        patient: localStorage.getItem("patient-ID"),
         video: videoURL
     }, {
         headers: {

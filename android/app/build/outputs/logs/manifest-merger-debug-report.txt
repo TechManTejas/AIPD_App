@@ -19,6 +19,7 @@ MERGED from [:capacitor-app] D:\code\Internship\AIPD_App\node_modules\@capacitor
 MERGED from [:capacitor-camera] D:\code\Internship\AIPD_App\node_modules\@capacitor\camera\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:capacitor-haptics] D:\code\Internship\AIPD_App\node_modules\@capacitor\haptics\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:capacitor-keyboard] D:\code\Internship\AIPD_App\node_modules\@capacitor\keyboard\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:capacitor-network] D:\code\Internship\AIPD_App\node_modules\@capacitor\network\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:capacitor-status-bar] D:\code\Internship\AIPD_App\node_modules\@capacitor\status-bar\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:capacitor-android] D:\code\Internship\AIPD_App\node_modules\@capacitor\android\capacitor\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:capacitor-cordova-android-plugins] D:\code\Internship\AIPD_App\android\capacitor-cordova-android-plugins\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-13:12
@@ -145,6 +146,8 @@ ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:
 		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:41:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:42:5-79
+MERGED from [:capacitor-network] D:\code\Internship\AIPD_App\node_modules\@capacitor\network\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
+MERGED from [:capacitor-network] D:\code\Internship\AIPD_App\node_modules\@capacitor\network\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
 	android:name
 		ADDED from D:\code\Internship\AIPD_App\android\app\src\main\AndroidManifest.xml:42:22-76
 uses-permission#android.permission.SYSTEM_ALERT_WINDOW
@@ -191,6 +194,8 @@ MERGED from [:capacitor-haptics] D:\code\Internship\AIPD_App\node_modules\@capac
 MERGED from [:capacitor-haptics] D:\code\Internship\AIPD_App\node_modules\@capacitor\haptics\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:capacitor-keyboard] D:\code\Internship\AIPD_App\node_modules\@capacitor\keyboard\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:capacitor-keyboard] D:\code\Internship\AIPD_App\node_modules\@capacitor\keyboard\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:capacitor-network] D:\code\Internship\AIPD_App\node_modules\@capacitor\network\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:capacitor-network] D:\code\Internship\AIPD_App\node_modules\@capacitor\network\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:capacitor-status-bar] D:\code\Internship\AIPD_App\node_modules\@capacitor\status-bar\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:capacitor-status-bar] D:\code\Internship\AIPD_App\node_modules\@capacitor\status-bar\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:capacitor-android] D:\code\Internship\AIPD_App\node_modules\@capacitor\android\capacitor\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41

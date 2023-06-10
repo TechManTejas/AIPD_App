@@ -95,7 +95,7 @@ export const Home: React.FC = () => {
     })
       .then((data: any) => {
         setExerciseDetails(data.data[0]["condition"]["exercises"]);
-        // console.log(data.data[0]["condition"]["exercises"]);
+        localStorage.setItem("patient-ID", data.data[0].id)
       });
   }, []);
 

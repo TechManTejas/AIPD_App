@@ -27,3 +27,13 @@ export const exerciseNames: ExerciseNames = {
     10: "PendulumSideways",
     11: "PendulumStraight",
 };
+
+export const exerciseOriginalNames: ExerciseNames = {
+    6: "Arms Lock",
+    7: "Butterfly",
+    8: "Lying Arms",
+    9: "Pendulum Circles",
+    10: "Pendulum Sideways",
+    11: "Pendulum Straight",
+};
+

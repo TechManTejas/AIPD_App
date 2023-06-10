@@ -8,6 +8,10 @@ import GradientButton from "../../components/GradientButton"
 import axios from "axios"
 import { GlobalDataState } from "../../Context/global"
 import { message } from "antd"
+import { Network } from '@capacitor/network';
+
+
+
 
 export const Auth: React.FC = () => {
 
@@ -15,13 +19,14 @@ export const Auth: React.FC = () => {
 
     const { setAuthenticated } = GlobalDataState()
 
+
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
     function authAndProceed() {
         const url = "/auth/";
         const data = { username: username, password: password };
-        console.log(data)
+        console.log(data.toString())
         axios.post(url, data, {
             headers: {
                 Accept: "application/json",
@@ -29,20 +34,22 @@ export const Auth: React.FC = () => {
             },
         })
             .then((data: any) => {
-                console.log(data);
-                if (data.status === 200) {
+                console.log(data.toString());
+                if (data) {
                     if (data.data.token) {
+                        message.success("success")
                         localStorage.setItem("aipd-patient-access-token", data.data.token)
                         console.log(data.data.token)
                         setAuthenticated(true)
                         window.location.href = "/";
+
                     }
                 }
-                
 
             }).catch(function (error: any) {
-                console.log(error);
-                if (error.response.status === 400) {
+                message.error(error.toString());
+                console.error(error)
+                if (error.response.status === 400 || error.response.status === 401) {
                     message.error(error.response.data.non_field_errors[0])
                 }
             })

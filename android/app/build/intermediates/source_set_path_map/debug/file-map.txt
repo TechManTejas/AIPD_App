@@ -34,4 +34,5 @@ com.technopolis.aipd.app-packaged_res-32 D:\code\Internship\AIPD_App\node_module
 com.technopolis.aipd.app-packaged_res-33 D:\code\Internship\AIPD_App\node_modules\@capacitor\camera\android\build\intermediates\packaged_res\debug
 com.technopolis.aipd.app-packaged_res-34 D:\code\Internship\AIPD_App\node_modules\@capacitor\haptics\android\build\intermediates\packaged_res\debug
 com.technopolis.aipd.app-packaged_res-35 D:\code\Internship\AIPD_App\node_modules\@capacitor\keyboard\android\build\intermediates\packaged_res\debug
-com.technopolis.aipd.app-packaged_res-36 D:\code\Internship\AIPD_App\node_modules\@capacitor\status-bar\android\build\intermediates\packaged_res\debug
+com.technopolis.aipd.app-packaged_res-36 D:\code\Internship\AIPD_App\node_modules\@capacitor\network\android\build\intermediates\packaged_res\debug
+com.technopolis.aipd.app-packaged_res-37 D:\code\Internship\AIPD_App\node_modules\@capacitor\status-bar\android\build\intermediates\packaged_res\debug

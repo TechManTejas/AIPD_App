@@ -11,8 +11,6 @@ import Butterfly from "./Butterfly";
 import ArmsLock from "./ArmsLock";
 import RecordRTC from 'recordrtc';
 import { uploadFile } from "../../APIs/storage";
-import { message } from "antd";
-import { Modal } from "antd";
 
 function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
   // * Refs
@@ -155,9 +153,9 @@ function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
         )}
       </div>
       <div>
-        <Modal closable={false} title="" footer={null} open={isModalOpen}>
-          <p>Adding Data to Database</p>
-        </Modal>
+        <div className={` ${isModalOpen ? "" : "hidden" } bg-white absolute top-0 z-10 h-screen w-screen grid place-items-center`}>
+          <p>Great Job 👏🏻👏🏻</p>
+        </div>
       </div>
     </center>
   );

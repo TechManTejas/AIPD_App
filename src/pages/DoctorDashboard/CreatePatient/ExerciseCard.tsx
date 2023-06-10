@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TextField, InputAdornment, IconButton } from '@mui/material'
 import axios from 'axios'
+import { post$patient_exercise } from '../../../APIs/DoctorAPI'
 
-export const ExerciseCard: React.FC<{ exercise: string }> = ({ exercise }) => {
+export const ExerciseCard: React.FC<{ exercise: string, individualExercise : boolean }> = ({ exercise, individualExercise }) => {
 
     const [sets, setsets] = useState(2)
     const [reps, setreps] = useState(2)
 
-    
+    useEffect(() => {
+        if(individualExercise)
+            post$patient_exercise({sets, reps, exercise})
+    }, [individualExercise])
 
     return (
         <div>
