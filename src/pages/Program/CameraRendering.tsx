@@ -27,7 +27,7 @@ export const CameraRendering: React.FC = () => {
           </div>
         }
         <div className="bg-white flex flex-col flex-grow pb-16">
-          <div className="flex flex-col justify-between h-[calc(100vh-64px)]">
+          <div className="flex flex-col h-[calc(100vh-64px)]">
             <div className="p-1 absolute w-full top-0">
               <div className="border text-2xl bg-white font-semibold p-1 flex justify-around">
                 <p ref={repref}></p>

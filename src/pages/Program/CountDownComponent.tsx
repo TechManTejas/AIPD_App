@@ -4,7 +4,7 @@ import mesh from "../../Images/mesh-113.png"
 
 export const CountDownComponent: React.FC<{ settimer: (val: boolean) => void }> = ({ settimer }) => {
 
-  const [timer, setimer] = useState(300)
+  const [timer, setimer] = useState(3000)
   var interval;
 
   useEffect(() => {

@@ -14,3 +14,16 @@ export const ExerciseId = () => {
         return 6
     }
 }
+
+interface ExerciseNames {
+    [key: number]: string;
+}
+
+export const exerciseNames: ExerciseNames = {
+    6: "ArmsLock",
+    7: "Butterfly",
+    8: "LyingArms",
+    9: "PendulumCircles",
+    10: "PendulumSideways",
+    11: "PendulumStraight",
+};

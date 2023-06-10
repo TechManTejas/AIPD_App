@@ -28,7 +28,7 @@ export const DoctorAuth: React.FC = () => {
                 console.log(error);
             })
             .then(( data: any ) => {
-                console.log(data.data.token);
+                console.log(data.data);
                 if(data.data.token){
                     localStorage.setItem("aipd-doctor-access-token", data.data.token)
                     console.log(data.data.token)

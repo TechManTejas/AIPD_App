@@ -3,29 +3,31 @@ import { IconButton, InputAdornment, TextField } from "@mui/material";
 import GradientButton from "../../../components/GradientButton";
 import DropdownInput from "../../../components/DropdownInput";
 import axios from "axios";
+import { ExerciseCard } from "./ExerciseCard";
 
 export const CreatePatient: React.FC = () => {
 
     const [conditionDetails, setConditionDetails] = useState([])
-    const [selectedCondition, setSelectedCondition] = useState({})
+    const [selectedCondition, setSelectedCondition] = useState<{ name: string, id: number, exercises: { name: string }[] }>({ name: "", id: -1, exercises: [] })
     const [username, setUsername] = useState("")
     const [firstname, setFirstname] = useState("")
     const [lastname, setLastname] = useState("")
     const [duration, setDuration] = useState(3)
 
+
     async function createNewPatient() {
         const url = "/patient/";
 
-        const data = { 
-            user_data: { 
+        const data = {
+            user_data: {
                 username: username,
                 first_name: firstname,
                 last_name: lastname
-            }, 
+            },
             condition_id: (selectedCondition as { id: number }).id,
             duration: duration
         };
-        
+
         await axios.post(url, data, {
             headers: {
                 Accept: "application/json",
@@ -48,7 +50,6 @@ export const CreatePatient: React.FC = () => {
                     'Authorization': `Token ${localStorage.getItem("aipd-doctor-access-token")}`
                 },
             }).then((data: any) => {
-                console.log(data.data)
                 setSelectedCondition(data.data[0])
                 setConditionDetails(data.data)
             });
@@ -57,9 +58,9 @@ export const CreatePatient: React.FC = () => {
     function notifyOnWhatsapp(password: string) {
         const message =
 
-`Dear ${firstname} ${lastname},
+            `Dear ${firstname} ${lastname},
 
-Dr Siddharth has suggested you to start your journey of home exercises for the condition of ${(selectedCondition as {name: string}).name}
+Dr Siddharth has suggested you to start your journey of home exercises for the condition of ${(selectedCondition as { name: string }).name}
 
 To start, follow the below steps : 
 1. Download the application from this link : https://play.google.com/store/apps/details?id=com.TechnopolisStudio.Electrica&hl=en_US&gl=US
@@ -137,6 +138,15 @@ Team Fittlyf`;
                             }}
                         />
                     </div>
+                    {
+                        selectedCondition.exercises.map((e) => {
+                            return (
+                                <ExerciseCard exercise={e.name} />
+                            )
+                        })
+                    }
+
+
                 </div>
                 <GradientButton
                     onClick={createNewPatient}

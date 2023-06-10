@@ -14,6 +14,7 @@ export const PatientsInfo: React.FC = () => {
             }).then((data: any) => {
                 setPatientDetails(data.data)
                 console.log(data.data)
+                localStorage.setItem("doctor-id", data.data[0].doctor.id)
             });
     }, [])
 

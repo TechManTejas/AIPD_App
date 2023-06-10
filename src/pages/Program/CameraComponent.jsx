@@ -42,7 +42,7 @@ function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
   const startRecording = () => {
     
     navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
+      .getUserMedia({ video: true, audio: false })
       .then((stream) => {
         
         recorder = RecordRTC(stream, {

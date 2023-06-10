@@ -4,11 +4,10 @@ import AIPDLogoName from "../../Images/aipdlogoname.png";
 import axios from "axios";
 import { PerviousDate } from "../../utils/DateTime";
 import { message } from "antd";
+import { exerciseNames } from "../../utils/ExerciseUtils";
 
 // * The Types of Exercise
-interface ExerciseNames {
-  [key: number]: string;
-}
+
 
 export const Home: React.FC = () => {
   // * value => the index of the dates present in the top scroll bar
@@ -99,15 +98,6 @@ export const Home: React.FC = () => {
         // console.log(data.data[0]["condition"]["exercises"]);
       });
   }, []);
-
-  const exerciseNames: ExerciseNames = {
-    6: "ArmsLock",
-    7: "Butterfly",
-    8: "LyingArms",
-    9: "PendulumCircles",
-    10: "PendulumSideways",
-    11: "PendulumStraight",
-  };
 
   // * initial scroll for todays date
   // document.getElementById("scroll-top")?.scrollBy(-208, 0)
