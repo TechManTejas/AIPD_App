@@ -8,10 +8,6 @@ import GradientButton from "../../components/GradientButton"
 import axios from "axios"
 import { GlobalDataState } from "../../Context/global"
 import { message } from "antd"
-import { Network } from '@capacitor/network';
-
-
-
 
 export const Auth: React.FC = () => {
 
