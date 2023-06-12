@@ -20,7 +20,7 @@ export const ExerciseCard: React.FC<{ exercise: string, individualExercise : boo
             </div>
             <div className="flex gap-3 p-3">
                 <div className="flex space-x-2">
-                    <TextField fullWidth label="Reps"
+                    <TextField fullWidth label="Sets"
                         type="number"
                         value={sets}
                         onChange={(e) => {
@@ -43,7 +43,7 @@ export const ExerciseCard: React.FC<{ exercise: string, individualExercise : boo
                     />
                 </div>
                 <div className="flex space-x-2">
-                    <TextField fullWidth label="Sets"
+                    <TextField fullWidth label="Reps"
                         type="number"
                         value={reps}
                         onChange={(e) => {
