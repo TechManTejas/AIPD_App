@@ -1,6 +1,5 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 
-var sets = 0;
 
 const connectingPoints = [
     [12, 14],
@@ -27,16 +26,33 @@ function startTimer() {
     elapsedSeconds += 2;
 
     if (elapsedSeconds >= 10) {
-        return; 
+        return;
     }
     setTimeout(startTimer, 2000);
 }
+
+
 
 var startedTimer = 0
 var start = 0;
 var reps = 0;
 var sets = 0;
 var message = 'Join the colored circle with same colors'
+
+let eltime = 5;
+const IntervalForCountingTimesElapsed = () => {
+    const interval = setInterval(() => {
+        eltime++
+        if(eltime%2 === 0 && eltime > 0){
+            reps++;
+        }
+        if(eltime === 0){
+            start = 0
+            startTimer = 0
+            clearInterval(interval)
+        } 
+    }, 1000)
+}
 
 export default function ArmsLock({
     results: results,
@@ -49,28 +65,32 @@ export default function ArmsLock({
     messageRef: messageRef,
 }) {
 
-    if (results.poseLandmarks == undefined) return;
+    if (results.poseLandmarks == undefined) return; 
 
-    if(sets == localStorage.getItem("sets")){
+    if (sets == localStorage.getItem("sets")) {
         document.getElementById("done-exercise").click()
         sets = 0
         return;
     }
 
-    if(reps == localStorage.getItem("reps") && sets === Number(localStorage.getItem("sets")) - 1){
+    if (reps == localStorage.getItem("reps") && sets === Number(localStorage.getItem("sets")) - 1) {
         reps = 0
         sets++;
         return;
     }
 
     // console.log(reps, Number(localStorage.getItem("reps")))
-    if (reps == localStorage.getItem("reps")) {
+    if (reps == localStorage.getItem("reps") || eltime === 10) {
         reps = 0;
+        eltime = -10;
         sets++;
         settimer(false);
         camera.stop();
         return;
     }
+
+    message = eltime
+    
 
     // * getting the video Width
     const videoWidth = webcamRef.current.video.videoWidth;
@@ -165,16 +185,18 @@ export default function ArmsLock({
                 ) < 75
             )
         ) {
+            console.log("okay")
             start = 1
             startedTimer = 1
             message = 'Push Back'
+            IntervalForCountingTimesElapsed()
         }
     }
 
-    if (start === 1 && startedTimer === 1) {
-        startedTimer = 0
-        startTimer()
-    }
+    // if (start === 1 && startedTimer === 1) {
+    //     startedTimer = 0
+    //     startTimer()
+    // }
 
     repref.current.innerHTML = `Reps :- ${reps}`;
     setref.current.innerHTML = `Sets :- ${sets}`;

@@ -62,7 +62,7 @@ export const CreatePatient: React.FC = () => {
 
             `Dear ${firstname} ${lastname},
 
-Dr Siddharth has suggested you to start your journey of home exercises for the condition of ${(selectedCondition as { name: string }).name}
+Physiotherapist has suggested you to start your journey of home exercises for the condition of ${(selectedCondition as { name: string }).name}
 
 To start, follow the below steps : 
 1. Download the application from this link : https://play.google.com/store/apps/details?id=com.TechnopolisStudio.Electrica&hl=en_US&gl=US

@@ -88,7 +88,7 @@ function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
       settimer: settimer,
       repref: repref,
       setref: setref,
-      messageRef: messageRef
+      messageRef: messageRef,
     })
   }
 
