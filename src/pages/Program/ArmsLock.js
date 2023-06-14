@@ -35,6 +35,8 @@ function startTimer() {
 
 var startedTimer = 0
 var start = 0;
+var red_touched = 0;
+var green_touched = 1;
 var reps = 0;
 var sets = 0;
 var message = 'Join the colored circle with same colors'
@@ -43,14 +45,14 @@ let eltime = 5;
 const IntervalForCountingTimesElapsed = () => {
     const interval = setInterval(() => {
         eltime++
-        if(eltime%2 === 0 && eltime > 0){
+        if (eltime % 2 === 0 && eltime > 0) {
             reps++;
         }
-        if(eltime === 0){
+        if (eltime === 0) {
             start = 0
             startTimer = 0
             clearInterval(interval)
-        } 
+        }
     }, 1000)
 }
 
@@ -65,7 +67,7 @@ export default function ArmsLock({
     messageRef: messageRef,
 }) {
 
-    if (results.poseLandmarks == undefined) return; 
+    if (results.poseLandmarks == undefined) return;
 
     if (sets == localStorage.getItem("sets")) {
         document.getElementById("done-exercise").click()
@@ -90,7 +92,7 @@ export default function ArmsLock({
     }
 
     message = eltime
-    
+
 
     // * getting the video Width
     const videoWidth = webcamRef.current.video.videoWidth;
@@ -125,66 +127,70 @@ export default function ArmsLock({
     const rightWrist = results.poseLandmarks[16];
 
     if (start === 0) {
-        canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#FF0000"
-        canvasCtx.lineWidth = 2;
-        canvasCtx.arc(
-            (rightShoulder.x * canvasElement.width),
-            (rightShoulder.y * canvasElement.height),
-            75,
-            2 * Math.PI, false
-        );
-        canvasCtx.stroke();
-        canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#FF0000"
-        canvasCtx.lineWidth = 2;
-        canvasCtx.arc(
-            (leftWrist.x * canvasElement.width),
-            (leftWrist.y * canvasElement.height),
-            75,
-            2 * Math.PI, false
-        );
-        canvasCtx.stroke();
+        if (!red_touched) {
+            canvasCtx.beginPath();
+            canvasCtx.strokeStyle = "#FF0000"
+            canvasCtx.lineWidth = 2;
+            canvasCtx.arc(
+                (rightShoulder.x * canvasElement.width),
+                (rightShoulder.y * canvasElement.height),
+                50,
+                2 * Math.PI, false
+            );
+            canvasCtx.stroke();
+            canvasCtx.beginPath();
+            canvasCtx.strokeStyle = "#FF0000"
+            canvasCtx.lineWidth = 2;
+            canvasCtx.arc(
+                (leftWrist.x * canvasElement.width),
+                (leftWrist.y * canvasElement.height),
+                50,
+                2 * Math.PI, false
+            );
+            canvasCtx.stroke();
+        }
 
-        canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#00FF00"
-        canvasCtx.lineWidth = 2;
-        canvasCtx.arc(
-            (leftElbow.x * canvasElement.width),
-            (leftElbow.y * canvasElement.height),
-            100,
-            2 * Math.PI, false
-        );
-        canvasCtx.stroke();
-        canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#00FF00"
-        canvasCtx.lineWidth = 2;
-        canvasCtx.arc(
-            (rightWrist.x * canvasElement.width),
-            (rightWrist.y * canvasElement.height),
-            100,
-            2 * Math.PI, false
-        );
-        canvasCtx.stroke();
+        if (!green_touched) {
+            canvasCtx.beginPath();
+            canvasCtx.strokeStyle = "#00FF00"
+            canvasCtx.lineWidth = 2;
+            canvasCtx.arc(
+                (leftElbow.x * canvasElement.width),
+                (leftElbow.y * canvasElement.height),
+                50,
+                2 * Math.PI, false
+            );
+            canvasCtx.stroke();
+            canvasCtx.beginPath();
+            canvasCtx.strokeStyle = "#00FF00"
+            canvasCtx.lineWidth = 2;
+            canvasCtx.arc(
+                (rightWrist.x * canvasElement.width),
+                (rightWrist.y * canvasElement.height),
+                50,
+                2 * Math.PI, false
+            );
+            canvasCtx.stroke();
+        }
     }
 
     if (start === 0) {
-        if
-            (
-            (
-                distance(
-                    leftElbow.x * canvasElement.width, leftElbow.y * canvasElement.height,
-                    rightWrist.x * canvasElement.width, rightWrist.y * canvasElement.height
-                ) < 100
-            )
-            &&
-            (
-                distance(
-                    leftWrist.x * canvasElement.width, leftWrist.y * canvasElement.height,
-                    rightShoulder.x * canvasElement.width, rightShoulder.y * canvasElement.height
-                ) < 75
-            )
-        ) {
+        if ((distance(
+            leftWrist.x * canvasElement.width, leftWrist.y * canvasElement.height,
+            rightShoulder.x * canvasElement.width, rightShoulder.y * canvasElement.height
+        ) < 75)) {
+            red_touched = 1
+            green_touched = 0
+        }
+
+        if ((distance(
+            leftElbow.x * canvasElement.width, leftElbow.y * canvasElement.height,
+            rightWrist.x * canvasElement.width, rightWrist.y * canvasElement.height
+        ) < 75)) {
+            green_touched = 1
+        }
+
+        if(red_touched && green_touched){
             console.log("okay")
             start = 1
             startedTimer = 1
