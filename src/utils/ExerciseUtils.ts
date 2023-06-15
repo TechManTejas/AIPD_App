@@ -37,3 +37,12 @@ export const exerciseOriginalNames: ExerciseNames = {
     11: "Pendulum Straight",
 };
 
+export const exerciseNameFromTag : {[key : string] : string} = {
+    "ArmsLock": "Arms Lock",
+    "Butterfly": "Butterfly",
+    "LyingArms": "Lying Arms",
+    "PendulumCircles": "Pendulum Circles",
+    "PendulumSideways": "Pendulum Sideways",
+    "PendulumStraight": "Pendulum Straight"
+}
+
