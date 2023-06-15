@@ -13,7 +13,7 @@ const Settings: React.FC = () => {
           <div className='text-3xl font-bold p-3'>
             Settings
           </div>
-          <hr className='bg-green-600 h-1'/>
+          <div className='border border-green-600 border-b'/>
           <div className='p-3'>
             <div>
               <div className='text-2xl font-semibold'>
