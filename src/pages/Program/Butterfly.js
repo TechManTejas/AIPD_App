@@ -191,24 +191,28 @@ export default function Butterfly({
     }
 
     if (start === 1) {
+
+        let relationalDistance = distance(
+            leftElbow.x * canvasElement.width, leftElbow.y * canvasElement.height,
+            rightElbow.x * canvasElement.width, rightElbow.y * canvasElement.height
+        )
+            /
+            distance(
+                leftShoulder.x * canvasElement.width, leftShoulder.y * canvasElement.height,
+                rightShoulder.x * canvasElement.width, rightShoulder.y * canvasElement.height
+            )
+
         if (hitOn === 0) {
-            if (distance(
-                leftElbow.x * canvasElement.width, leftElbow.y * canvasElement.height,
-                rightElbow.x * canvasElement.width, rightElbow.y * canvasElement.height
-            ) > 200) {
+            if (relationalDistance > 2.1) {
                 hitOn = 1
                 message = 'Relax'
             }
         }
-        console.log(distance(
-            leftElbow.x * canvasElement.width, leftElbow.y * canvasElement.height,
-            rightElbow.x * canvasElement.width, rightElbow.y * canvasElement.height
-        ))
+        console.log(
+            
+        )
         if (hitOn === 1) {
-            if (distance(
-                leftElbow.x * canvasElement.width, leftElbow.y * canvasElement.height,
-                rightElbow.x * canvasElement.width, rightElbow.y * canvasElement.height
-            ) < 200) {
+            if (relationalDistance < 1.9) {
                 reps++
                 hitOn = 0
                 message = 'Push Back'
