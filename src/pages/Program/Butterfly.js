@@ -195,17 +195,20 @@ export default function Butterfly({
             if (distance(
                 leftElbow.x * canvasElement.width, leftElbow.y * canvasElement.height,
                 rightElbow.x * canvasElement.width, rightElbow.y * canvasElement.height
-            ) > 700) {
+            ) > 320) {
                 hitOn = 1
                 message = 'Relax'
             }
         }
-
+        console.log(distance(
+            leftElbow.x * canvasElement.width, leftElbow.y * canvasElement.height,
+            rightElbow.x * canvasElement.width, rightElbow.y * canvasElement.height
+        ))
         if (hitOn === 1) {
             if (distance(
                 leftElbow.x * canvasElement.width, leftElbow.y * canvasElement.height,
                 rightElbow.x * canvasElement.width, rightElbow.y * canvasElement.height
-            ) < 500) {
+            ) < 280) {
                 reps++
                 hitOn = 0
                 message = 'Push Back'
