@@ -24,19 +24,25 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     return (
         <Link to="/demo-video">
             <CardActionArea>
-                <div className="m-1.5 rounded bg-[#333333]" style={{
-                    boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 3px"
-                }}>
+                <div
+                    className="m-1.5 rounded-lg relative mt-8"
+                    style={{
+                        boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 5px"
+                    }}
+                >
                     {(completed) &&
                         <div className="absolute top-2 right-2 z-10 text-white-600">
                             <CheckCircleIcon fontSize="large" sx = {{color : "green"}} />
                         </div>
                     }
                     <div className={`p-1 ${(completed) ? 'bg-green-50' : ''}`}>
-                        <div className={`p-1 ${(completed) ? 'opacity-50' : ''}`}>
-                            <img className="rounded w-[180px] h-[180px] object-cover" src={image} />
+                        <div className={`p-1 ${(completed) ? 'opacity-50' : ''} m-1`}>
+                            <img className="rounded-lg w-[180px] h-[180px] object-cover -mt-8" src={image} style={{
+                                boxShadow: "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 5px 5px"
+                            }}/>
                         </div>
-                        <div className={` ${completed ? "text-black" : "text-white"} text-center p-1 text-md font-robotomedium`}>
+                        <div className="border-t border-green-600 mx-3"></div>
+                        <div className={` ${completed ? "" : ""} text-center p-1 text-md font-roboto text-black `}>
                             {text}
                         </div>
                     </div>

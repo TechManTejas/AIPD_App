@@ -8,7 +8,7 @@ const Program: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <div className='bg-white flex flex-col flex-grow pb-16'>
+        <div className='flex flex-col flex-grow pb-16'>
           <Home />
           {/* /* <DemoVideoAndLogs /> */}
           {/* <CameraRendering /> */}

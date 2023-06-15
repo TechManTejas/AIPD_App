@@ -10,8 +10,8 @@ export const BottomNavigationBar: React.FC = () => {
     const [page, setPage] = useState<string>("program")
 
     return(
-        <div className='h-screen'>
-            <div className='flex border-t border-green-600  bg-slate-50 w-full absolute bottom-0 font-fredoka'>
+        <div className='h-screen bg-white'>
+            <div className='flex border-t w-full absolute bottom-0 font-fredoka rounded-t-xl'>
                 <CardActionArea onClick={()=> setPage("program")}>
                     <Link to="/program">
                         <div className={`text-xs flex flex-col items-center p-1 py-1.5 ${(page === "program") ? 'text-green-600' : 'opacity-50 text-gray-500'}`}>

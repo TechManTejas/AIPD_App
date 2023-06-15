@@ -116,9 +116,9 @@ export const Home: React.FC = () => {
   }
 
   return (
-    <div onLoad={() => { document.getElementById("scroll-top")?.scrollBy(-1000, 0); document.getElementById("scroll-top")?.scrollBy(16 * 13 - 4, 0) }} className="space-y-4">
+    <div onLoad={() => { document.getElementById("scroll-top")?.scrollBy(-1000, 0); document.getElementById("scroll-top")?.scrollBy(16 * 13 - 4, 0) }}>
       <div className="">
-        <div className="sticky top-0 z-20 bg-slate-50 p-2">
+        <div className="sticky top-0 z-20 p-2">
           <div className="overflow-hidden">
             <div id="scroll-top" className="flex overflow-auto">
               {Array.from({ length: 13 }, (_, index) => index - 6).map(
@@ -143,9 +143,9 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div>
+      {/* <div>
         <img className="p-6" src={AIPDLogoName}></img>
-      </div>
+      </div> */}
       <div className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"}  grid grid-cols-2 overflow-auto`}>
         {exerciseDetails.map((exercise) => {
           // console.log(.sets, exercise.id)
