@@ -36,8 +36,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                         </div>
                     }
                     <div className={`p-1 ${(completed) ? 'bg-green-50' : ''}`}>
-                        <div className={`p-1 ${(completed) ? 'opacity-50' : ''} m-1`}>
-                            <img className="rounded-lg w-[180px] h-[180px] object-cover -mt-8" src={image} style={{
+                        <div className={`p-1  m-1`}>
+                            <img className={`rounded-lg w-[180px] h-[180px] object-cover -mt-8 ${(completed) ? 'bg-green-50 opacity-50' : ''}`} src={image} style={{
                                 boxShadow: "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 5px 5px"
                             }}/>
                         </div>
