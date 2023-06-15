@@ -33,13 +33,13 @@ function startTimer() {
 
 
 
-var startedTimer = 0
+var done = 0
 var start = 0;
 var reps = 0;
 var sets = 0;
 var message = 'Join the colored circle with same colors'
 
-let eltime = 5;
+let eltime = 0;
 const IntervalForCountingTimesElapsed = () => {
     const interval = setInterval(() => {
         eltime++
@@ -48,7 +48,6 @@ const IntervalForCountingTimesElapsed = () => {
         }
         if(eltime === 0){
             start = 0
-            startTimer = 0
             clearInterval(interval)
         } 
     }, 1000)
@@ -64,10 +63,10 @@ export default function ArmsLock({
     setref: setref,
     messageRef: messageRef,
 }) {
-
-    if (results.poseLandmarks == undefined) return; 
+    if (results.poseLandmarks == undefined || done) return; 
 
     if (sets == localStorage.getItem("sets")) {
+        done = 1;
         document.getElementById("done-exercise").click()
         sets = 0
         return;
@@ -80,7 +79,7 @@ export default function ArmsLock({
     }
 
     // console.log(reps, Number(localStorage.getItem("reps")))
-    if (reps == localStorage.getItem("reps") || eltime === 10) {
+    if (reps == localStorage.getItem("reps")) {
         reps = 0;
         eltime = -10;
         sets++;
@@ -186,8 +185,7 @@ export default function ArmsLock({
             )
         ) {
             console.log("okay")
-            start = 1
-            startedTimer = 1
+            start = 1   
             message = 'Push Back'
             IntervalForCountingTimesElapsed()
         }
