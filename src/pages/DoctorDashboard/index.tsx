@@ -25,7 +25,7 @@ export const DoctorDashboard: React.FC = () => {
                     <div className='bg-white flex flex-col flex-grow p-2 h-full'>
                         {selectedTab[value]}
                     </div>
-                    <div className='flex border-t border-green-600  bg-slate-50 w-full fixed bottom-0 text-base'>
+                    <div className='flex border-t border border-b z-50 bg-white w-full fixed bottom-0 text-base'>
                         <CardActionArea onClick={() => setValue(0)}>
                             <div className={`text-xs flex flex-col items-center p-1 py-1.5 ${(value === 0) ? 'text-green-600' : 'opacity-50 text-gray-500'}`}>
                                 <BarChartIcon />
