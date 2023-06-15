@@ -170,10 +170,10 @@ export default function ElbowCurl({
         canvasCtx.stroke();
         canvasCtx.setLineDash([0, 0]);
 
-        let LPX = leftElbow.x * canvasElement.width - distanceBetweenleftWristleftElbow;
+        let LPX = leftElbow.x * canvasElement.width - distanceBetweenleftWristleftElbow/2;
         let LPY = leftShoulder.y * canvasElement.height;
         let UPX = leftElbow.x * canvasElement.width;
-        let UPY = leftShoulder.y * canvasElement.height - distanceBetweenleftWristleftElbow ;
+        let UPY = leftShoulder.y * canvasElement.height - distanceBetweenleftWristleftElbow;
 
         canvasCtx.beginPath();
         canvasCtx.strokeStyle = hitOn === "lower" ? "#00ff00" : "#000000";

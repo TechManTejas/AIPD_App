@@ -48,13 +48,13 @@ export default function Butterfly({
     if (results.poseLandmarks == undefined) return;
 
     // console.log(sets, localStorage.getItem("sets"))
-    if(sets == localStorage.getItem("sets")){
+    if (sets == localStorage.getItem("sets")) {
         document.getElementById("done-exercise").click()
         sets = 0
         return;
     }
 
-    if(reps == localStorage.getItem("reps") && sets === Number(localStorage.getItem("sets")) - 1){
+    if (reps == localStorage.getItem("reps") && sets === Number(localStorage.getItem("sets")) - 1) {
         reps = 0
         sets++;
         return;
@@ -147,7 +147,7 @@ export default function Butterfly({
         canvasCtx.arc(
             (rightShoulder.x * canvasElement.width),
             (rightEar.y * canvasElement.height),
-            100,
+            50,
             2 * Math.PI, false
         );
         canvasCtx.fillText(hitOn, right_knee.x * canvasElement.width, right_knee.y * canvasElement.height);
@@ -159,32 +159,32 @@ export default function Butterfly({
         canvasCtx.arc(
             (leftShoulder.x * canvasElement.width),
             (leftEar.y * canvasElement.height),
-            100,
+            50,
             2 * Math.PI, false
         );
         canvasCtx.fillText(hitOn, right_knee.x * canvasElement.width, right_knee.y * canvasElement.height);
         canvasCtx.stroke();
     }
 
-    
+
 
     if (start === 0) {
         if
-        (
-        (
-            distance(
-                leftElbow.x * canvasElement.width, leftElbow.y * canvasElement.height,
-                leftShoulder.x * canvasElement.width, leftEar.y * canvasElement.height
-            ) < 100
-        )
-        && 
-        (
-            distance(
-                rightElbow.x * canvasElement.width, rightElbow.y * canvasElement.height,
-                rightShoulder.x * canvasElement.width, rightEar.y * canvasElement.height
-            ) < 100
-        )
-        ){
+            (
+            (
+                distance(
+                    leftElbow.x * canvasElement.width, leftElbow.y * canvasElement.height,
+                    leftShoulder.x * canvasElement.width, leftEar.y * canvasElement.height
+                ) < 100
+            )
+            &&
+            (
+                distance(
+                    rightElbow.x * canvasElement.width, rightElbow.y * canvasElement.height,
+                    rightShoulder.x * canvasElement.width, rightEar.y * canvasElement.height
+                ) < 100
+            )
+        ) {
             start = 1
             message = 'Push Back'
         }
@@ -192,14 +192,20 @@ export default function Butterfly({
 
     if (start === 1) {
         if (hitOn === 0) {
-            if (Math.abs(anglebetweenrelslsr) < 50 && anglebetweenrersrsl < 50) {
+            if (distance(
+                leftElbow.x * canvasElement.width, leftElbow.y * canvasElement.height,
+                rightElbow.x * canvasElement.width, rightElbow.y * canvasElement.height
+            ) > 700) {
                 hitOn = 1
                 message = 'Relax'
             }
         }
 
         if (hitOn === 1) {
-            if (Math.abs(anglebetweenrelslsr) > 60 && anglebetweenrersrsl > 60) {
+            if (distance(
+                leftElbow.x * canvasElement.width, leftElbow.y * canvasElement.height,
+                rightElbow.x * canvasElement.width, rightElbow.y * canvasElement.height
+            ) < 500) {
                 reps++
                 hitOn = 0
                 message = 'Push Back'

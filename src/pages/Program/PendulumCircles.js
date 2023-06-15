@@ -46,13 +46,13 @@ export default function PendulumCircles({
     if (results.poseLandmarks == undefined) return;
 
     // console.log(timer)
-    if(sets == localStorage.getItem("sets")){
+    if (sets == localStorage.getItem("sets")) {
         document.getElementById("done-exercise").click()
         sets = 0
         return;
     }
 
-    if(reps == localStorage.getItem("reps") && sets === Number(localStorage.getItem("sets")) - 1){
+    if (reps == localStorage.getItem("reps") && sets === Number(localStorage.getItem("sets")) - 1) {
         reps = 0
         sets++;
         return;
@@ -165,17 +165,17 @@ export default function PendulumCircles({
 
     let LPX =
         rightShoulder.x * canvasElement.width -
-        (distanceRightShoulderRightWrist) * Math.cos((30 * Math.PI) / 180);
+        (distanceRightShoulderRightWrist) * Math.cos((45 * Math.PI) / 180);
     let LPY =
         rightShoulder.y * canvasElement.height +
-        (distanceRightShoulderRightWrist) * Math.sin((30 * Math.PI) / 180);
+        (distanceRightShoulderRightWrist) * Math.sin((45 * Math.PI) / 180);
 
     let RPX =
         rightShoulder.x * canvasElement.width +
-        (distanceRightShoulderRightWrist) * Math.cos((30 * Math.PI) / 180);
+        (distanceRightShoulderRightWrist) * Math.cos((45 * Math.PI) / 180);
     let RPY =
         rightShoulder.y * canvasElement.height +
-        (distanceRightShoulderRightWrist) * Math.sin((30 * Math.PI) / 180);
+        (distanceRightShoulderRightWrist) * Math.sin((45 * Math.PI) / 180);
 
     if (hitOn === 1) {
         canvasCtx.beginPath();
