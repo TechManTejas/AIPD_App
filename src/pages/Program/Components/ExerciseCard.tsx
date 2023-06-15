@@ -31,13 +31,13 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                     }}
                 >
                     {(completed) &&
-                        <div className="absolute top-2 right-2 z-10 text-white-600">
+                        <div className="absolute top-2 right-2 z-10 text-white-600 ">
                             <CheckCircleIcon fontSize="large" sx = {{color : "green"}} />
                         </div>
                     }
-                    <div className={`p-1 ${(completed) ? 'bg-green-50' : ''}`}>
+                    <div className={`p-1 ${(completed) ? 'bg-green-100' : ''}`}>
                         <div className={`p-1  m-1`}>
-                            <img className={`rounded-lg w-[180px] h-[180px] object-cover -mt-8 ${(completed) ? 'bg-green-50 opacity-50' : ''}`} src={image} style={{
+                            <img className={`rounded-lg w-[180px] h-[180px] object-cover -mt-8 ${(completed) ? '' : ''}`} src={image} style={{
                                 boxShadow: "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 5px 5px"
                             }}/>
                         </div>
