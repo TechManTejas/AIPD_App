@@ -1,11 +1,12 @@
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { ExerciseCard } from "./Components/ExerciseCard";
 import AIPDLogoName from "../../Images/aipdlogoname.png";
 import axios from "axios";
 import { PerviousDate } from "../../utils/DateTime";
-import { message } from "antd";
+import { Space, message } from "antd";
 import { exerciseNames } from "../../utils/ExerciseUtils";
-
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 // * The Types of Exercise
 
 
@@ -17,7 +18,7 @@ export const Home: React.FC = () => {
   const [exerciseDetails, setExerciseDetails] = useState<{ id: number, name: string, image: string; sets: number }[]>([]);
   // * The Array of Exercise that are completed by the patient
   const [completedExercise, setCompletedExercise] = useState<number[]>([]);
-  const [individualSetReps, setIndivisualSetsReps] = useState<{id : number, patient : number, exercise : number, sets : number, reps : number}[]>([])
+  const [individualSetReps, setIndivisualSetsReps] = useState<{ id: number, patient: number, exercise: number, sets: number, reps: number }[]>([])
 
   useEffect(() => {
     axios.get("/patient_exercise/", {
@@ -60,30 +61,6 @@ export const Home: React.FC = () => {
     })
   }, [value])
 
-  // ^ for the top navbar scroll, reloads after the value (state) changes
-  // ! is not 100% accurate needs perfection
-  useEffect(() => {
-    document.getElementById("scroll-top")?.scrollBy(-32 * 13, 0);
-    if (![-6, -5, -4].includes(value)) {
-      if ([4, 5, 6].includes(value)) {
-        document.getElementById("scroll-top")?.scrollBy(32 * 14, 0);
-      } else if (value == -3)
-        document.getElementById("scroll-top")?.scrollBy(16 * 2, 0);
-      else if (value == -2)
-        document.getElementById("scroll-top")?.scrollBy(16 * 6, 0);
-      else if (value == -1)
-        document.getElementById("scroll-top")?.scrollBy(16 * 10, 0);
-      else if (value == 0)
-        document.getElementById("scroll-top")?.scrollBy(16 * 14, 0);
-      else if (value == 1)
-        document.getElementById("scroll-top")?.scrollBy(16 * 18, 0);
-      else if (value == 2)
-        document.getElementById("scroll-top")?.scrollBy(16 * 22, 0);
-      else if (value == 3)
-        document.getElementById("scroll-top")?.scrollBy(16 * 26, 0);
-    }
-  }, [value]);
-
   // * to get the exercise that needs to be done by the patient
   useEffect(() => {
     axios.get("/patient/", {
@@ -116,12 +93,19 @@ export const Home: React.FC = () => {
   }
 
   return (
-    <div onLoad={() => { document.getElementById("scroll-top")?.scrollBy(-1000, 0); document.getElementById("scroll-top")?.scrollBy(16 * 13 - 4, 0) }}>
+    <div>
       <div className="">
         <div className="sticky top-0 z-20 p-2">
           <div className="overflow-hidden">
             <div id="scroll-top" className="flex overflow-auto">
-              {Array.from({ length: 13 }, (_, index) => index - 6).map(
+              <section
+                className="w-screen flex justify-evenly items-center text-xl"
+              >
+                <ArrowLeftIcon onClick = {() => setValue(value - 1)} className="text-green-500" sx={{ fontSize: "50px" }} />
+                <p>{value == 0 ? "TODAY" : PerviousDate(value)}</p>
+                <ArrowRightIcon onClick = {() => setValue(value + 1)} className="text-green-500" sx={{ fontSize: "50px" }} />
+              </section>
+              {/* {Array.from({ length: 13 }, (_, index) => index - 6).map(
                 (val) => {
                   return (
                     <section
@@ -138,14 +122,14 @@ export const Home: React.FC = () => {
                     </section>
                   );
                 }
-              )}
+              )} */}
             </div>
           </div>
         </div>
       </div>
-      {/* <div>
+      <div>
         <img className="p-6" src={AIPDLogoName}></img>
-      </div> */}
+      </div>
       <div className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"}  grid grid-cols-2 overflow-auto`}>
         {exerciseDetails.map((exercise) => {
           // console.log(.sets, exercise.id)
