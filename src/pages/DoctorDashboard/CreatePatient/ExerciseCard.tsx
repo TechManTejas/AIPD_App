@@ -6,7 +6,7 @@ import { post$patient_exercise } from '../../../APIs/DoctorAPI'
 export const ExerciseCard: React.FC<{ exercise: string, individualExercise : boolean }> = ({ exercise, individualExercise }) => {
 
     const [sets, setsets] = useState(2)
-    const [reps, setreps] = useState(2)
+    const [reps, setreps] = useState(10)
 
     useEffect(() => {
         if(individualExercise)
