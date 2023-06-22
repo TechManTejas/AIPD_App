@@ -67,7 +67,7 @@ export const DemoVideo: React.FC = () => {
                 {
                     exerciseData === undefined ? <></> : <>
                         <div className='bg-white flex flex-col flex-grow pb-16'>
-                            <p className='text-center p-3 text-xl text-bold'>Demo Video</p>
+                            {/* <p className='text-center p-3 text-xl text-bold'>Demo Video</p> */}
                             <div className='flex justify-center'>
                                 <iframe allowFullScreen className='p-3 w-10/12' src={exerciseData.link} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
                                 </iframe>

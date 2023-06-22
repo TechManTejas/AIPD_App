@@ -59,23 +59,22 @@ export const CreatePatient: React.FC = () => {
 
     function notifyOnWhatsapp(password: string) {
         const message =
+            `
+        Hi ${firstname},
+        Physiotherapist has suggested you to start home exercises for ${(selectedCondition as { name: string }).name}
 
-            `Dear ${firstname} ${lastname},
+        To start, follow the below steps : 
+        1. Download the app : https://play.google.com/store/apps/details?id=com.TechnopolisStudio.Electrica&hl=en_US&gl=US
 
-Physiotherapist has suggested you to start your journey of home exercises for the condition of ${(selectedCondition as { name: string }).name}
+        2. Login Details: 
+            1. Phone number: ${username}
+            2. Password: ${password}
 
-To start, follow the below steps : 
-1. Download the application from this link : https://play.google.com/store/apps/details?id=com.TechnopolisStudio.Electrica&hl=en_US&gl=US
-2. Login using user ID and password : 
-    1. Phone number: ${username}
-    2. Program code: ${password}
+        We wish you all the best in your quick recovery.
 
-We wish you all the best in your quick recovery and are always available to help you. 
-
-To reach out to us, reply with “Hi” and someone from our team will reach out to you on this very chat. 
-
-Regards,
-Team Fittlyf`;
+        Regards,
+        Team Fittlyf
+        `
 
         window.open(`https://wa.me/${username}?text=${encodeURIComponent(message)}`);
     }
@@ -143,7 +142,7 @@ Team Fittlyf`;
                     {
                         selectedCondition.exercises.map((e) => {
                             return (
-                                <ExerciseCard exercise={e.name} individualExercise = {individualExercise} />
+                                <ExerciseCard exercise={e.name} individualExercise={individualExercise} />
                             )
                         })
                     }

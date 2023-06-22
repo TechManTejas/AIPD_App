@@ -67,7 +67,7 @@ export const Auth: React.FC = () => {
                                     setUsername(e.target.value)
                                 }}
                             />
-                            <OutlinedInput fullWidth placeholder="Program code"
+                            <OutlinedInput fullWidth placeholder="Password"
                                 value={password}
                                 onChange={(e) => {
                                     setPassword(e.target.value)
