@@ -86,7 +86,7 @@ export const DemoVideo: React.FC = () => {
                                 <div className="p-1 my-4">
                                     <Link to="/camera-rendering">
                                         <CardActionArea>
-                                            <div className=" rounded-xl shadow-black shadow border bg-blue-600 text-white font-semibold p-1 text-center text-2xl">
+                                            <div className=" rounded-xl shadow-black shadow border bg-blue-600 text-white font-semibold p-1 text-center text-4xl py-12 mx-12">
                                                 Start Exercise
                                             </div>
                                         </CardActionArea>
