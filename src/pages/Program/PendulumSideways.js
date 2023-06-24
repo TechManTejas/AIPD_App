@@ -1,4 +1,7 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
+import playSound from "../../utils/PlaySound"
+import bell from "../../sounds/bell.wav"
+import rep from "../../sounds/rep.mp3"
 
 var sets = 0;
 
@@ -212,6 +215,7 @@ export default function PendulumSideways({
             WristX,
             WristY
         ) < circleRadius) {
+            playSound(bell)
             start = 1
             hitOn = 1
         } 
@@ -224,8 +228,10 @@ export default function PendulumSideways({
             WristX,
             WristY
         ) < circleRadius) {
+            playSound(rep)
             hitOn = 2
         } else if (anglebetweenrslslw < 150) {
+            playSound(rep)
             hitOn = 2
         }
     }
@@ -237,9 +243,11 @@ export default function PendulumSideways({
             WristX,
             WristY
         ) < circleRadius) {
+            playSound(rep)
             hitOn = 1
             reps++
         } else if (anglebetweenrslslw > 210) {
+            playSound(rep)
             hitOn = 1
             reps++
         }

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import mesh from "../../Images/mesh-113.png"
-
+import playSound  from "../../utils/PlaySound"; 
+import breakSound from "../../sounds/break.wav";
 
 export const CountDownComponent: React.FC<{ settimer: (val: boolean) => void }> = ({ settimer }) => {
 
@@ -8,6 +9,7 @@ export const CountDownComponent: React.FC<{ settimer: (val: boolean) => void }> 
   var interval;
 
   useEffect(() => {
+    playSound(breakSound)
     interval = setInterval(() => {
       setimer(timer => timer - 1);
     }, 10);

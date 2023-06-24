@@ -1,4 +1,7 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
+import playSound from "../../utils/PlaySound"
+import bell from "../../sounds/bell.wav"
+import rep from "../../sounds/rep.mp3"
 
 var sets = 0;
 
@@ -185,6 +188,7 @@ export default function Butterfly({
                 ) < 100
             )
         ) {
+            playSound(bell)
             start = 1
             message = 'Push Back'
         }
@@ -204,22 +208,22 @@ export default function Butterfly({
 
         if (hitOn === 0) {
             if (relationalDistance > 2.1) {
+                playSound(rep)
                 hitOn = 1
                 message = 'Relax'
             }
         }
-        console.log(
 
-        )
         if (hitOn === 1) {
             if (relationalDistance < 1.9) {
+                playSound(rep)
                 reps--
                 hitOn = 0
                 message = 'Push Back'
             }
         }
     }
-    console.log(reps, sets)
+
     repref.current.innerHTML = `Reps :- ${reps}`;
     setref.current.innerHTML = `Sets :- ${sets}`;
     // messageRef.current.innerHTML = `${message}`;

@@ -1,5 +1,6 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
-
+import playSound from "../../utils/PlaySound"
+import bell from "../../sounds/bell.wav"
 
 const connectingPoints = [
     [12, 14],
@@ -190,7 +191,7 @@ export default function ArmsLock({
         }
 
         if(red_touched && green_touched){
-            console.log("okay")
+            playSound(bell)
             start = 1   
             message = 'Push Back'
             IntervalForCountingTimesElapsed()

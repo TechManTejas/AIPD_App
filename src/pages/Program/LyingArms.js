@@ -1,4 +1,7 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
+import playSound from "../../utils/PlaySound"
+import bell from "../../sounds/bell.wav"
+import rep from "../../sounds/rep.mp3"
 
 var sets = 0;
 
@@ -189,6 +192,7 @@ export default function ElbowCurl({
                 leftWrist.y * canvasElement.height
             ) < 100
         ) {
+            playSound(rep)
             if (hitOn === "lower") hitOn = "upper";
         }
 
@@ -206,6 +210,7 @@ export default function ElbowCurl({
                 leftWrist.y * canvasElement.height
             ) < 60
         ) {
+            playSound(rep)
             if (hitOn === "upper") reps++;
             hitOn = "lower";
         }

@@ -11,6 +11,8 @@ import Butterfly from "./Butterfly";
 import ArmsLock from "./ArmsLock";
 import RecordRTC from 'recordrtc';
 import { uploadFile } from "../../APIs/storage";
+import playSound from "../../utils/PlaySound";
+import successSound from "../../sounds/success.wav";
 
 function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
   // * Refs
@@ -31,6 +33,7 @@ function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
     if (!loading) {
       startRecording();
       document.getElementById("done-exercise").addEventListener("click", () => {
+        playSound(successSound)
         setIsModalOpen(true)
         stopRecordingAndUploadFileToFirebase()
       })
