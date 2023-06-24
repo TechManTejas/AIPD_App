@@ -58,8 +58,7 @@ export const DemoVideo: React.FC = () => {
         }
     }
 
-
-    // console.log(getInfoOfSelectedExercise())
+    
 
     return (
         <IonPage>
@@ -68,10 +67,17 @@ export const DemoVideo: React.FC = () => {
                     exerciseData === undefined ? <></> : <>
                         <div className='bg-white flex flex-col flex-grow pb-16'>
                             {/* <p className='text-center p-3 text-xl text-bold'>Demo Video</p> */}
-                            <div className='flex justify-center'>
-                                <iframe allowFullScreen className='p-3 w-10/12' src={exerciseData.link} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
-                                </iframe>
+                            <div className='flex justify-center bg-red-600'>
+                                <iframe
+                                    className=''
+                                    src={`${exerciseData.link}?autoplay=1&mute=1`}
+                                    title="YouTube video player"
+                                    width="100%"
+                                    height="300"
+                                    allowFullScreen
+                                ></iframe>
                             </div>
+
                             <div className="border-2 border-x-0 border-black p-2">
                                 <div className='flex space-x-2 items-center'>
                                     <div className="text-xl font-semibold">
