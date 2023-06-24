@@ -145,7 +145,7 @@ export default function Butterfly({
     //reference point
     if (start === 0) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#FF0000"
+        canvasCtx.strokeStyle = "#00FF00"
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             (rightShoulder.x * canvasElement.width),
@@ -157,7 +157,7 @@ export default function Butterfly({
         canvasCtx.stroke();
 
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#FF0000"
+        canvasCtx.strokeStyle = "#00FF00"
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             (leftShoulder.x * canvasElement.width),

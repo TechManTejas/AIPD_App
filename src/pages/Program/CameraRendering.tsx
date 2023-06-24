@@ -6,8 +6,6 @@ import axios from "axios";
 
 export const CameraRendering: React.FC = () => {
 
-  
-
   const repref = useRef<HTMLDivElement>(null);
   const setref = useRef<HTMLDivElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);

@@ -129,7 +129,7 @@ export default function ArmsLock({
     if (start === 0) {
         if (!red_touched) {
             canvasCtx.beginPath();
-            canvasCtx.strokeStyle = "#FF0000"
+            canvasCtx.strokeStyle = "#00FF00"
             canvasCtx.lineWidth = 2;
             canvasCtx.arc(
                 (rightShoulder.x * canvasElement.width),
@@ -139,7 +139,7 @@ export default function ArmsLock({
             );
             canvasCtx.stroke();
             canvasCtx.beginPath();
-            canvasCtx.strokeStyle = "#FF0000"
+            canvasCtx.strokeStyle = "#00FF00"
             canvasCtx.lineWidth = 2;
             canvasCtx.arc(
                 (leftWrist.x * canvasElement.width),

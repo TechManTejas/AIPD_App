@@ -110,7 +110,7 @@ export default function PendulumSideways({
     let circleRadius = distance3D(
         leftShoulder.x, leftShoulder.y, leftShoulder.z,
         rightShoulder.x, rightShoulder.y, rightShoulder.z
-    )*100
+    )*300
 
     var anglebetweenrslslw =
         Math.atan2(
@@ -151,7 +151,7 @@ export default function PendulumSideways({
     //center
     if (!start) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#FF0000"
+        canvasCtx.strokeStyle = "#00FF00"
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             right_knee.x * canvasElement.width,
@@ -182,7 +182,7 @@ export default function PendulumSideways({
 
     if (hitOn === 1) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#800080";
+        canvasCtx.strokeStyle = "#00FF00";
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             RPX,
@@ -196,7 +196,7 @@ export default function PendulumSideways({
 
     if (hitOn === 2) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#FFFF00";
+        canvasCtx.strokeStyle = "#00FF00";
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             LPX,
