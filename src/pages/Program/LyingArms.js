@@ -39,13 +39,13 @@ export default function ElbowCurl({
     if (results.poseLandmarks == undefined) return;
 
     // console.log(timer)
-    if(sets == localStorage.getItem("sets")){
+    if (sets == localStorage.getItem("sets")) {
         document.getElementById("done-exercise").click()
         sets = 0
         return;
     }
 
-    if(reps == localStorage.getItem("reps") && sets === Number(localStorage.getItem("sets")) - 1){
+    if (reps == localStorage.getItem("reps") && sets === Number(localStorage.getItem("sets")) - 1) {
         reps = 0
         sets++;
         return;
@@ -87,6 +87,7 @@ export default function ElbowCurl({
     // * Some Important points
     const leftShoulder = results.poseLandmarks[11];
     const rightShoulder = results.poseLandmarks[12];
+    const rightHip = results.poseLandmarks[24];
     const leftElbow = results.poseLandmarks[13];
     const rightElbow = results.poseLandmarks[14];
     const leftWrist = results.poseLandmarks[15];
@@ -148,11 +149,11 @@ export default function ElbowCurl({
 
     const distanceBetweenleftWristleftElbow = Math.sqrt(
         Math.pow(
-            leftShoulder.x * canvasElement.width - leftWrist.x * canvasElement.width,
+            leftShoulder.x * canvasElement.width - rightHip.x * canvasElement.width,
             2
         ) +
         Math.pow(
-            leftShoulder.y * canvasElement.height - leftWrist.y * canvasElement.height,
+            leftShoulder.y * canvasElement.height - rightHip.y * canvasElement.height,
             2
         )
     );
@@ -160,23 +161,19 @@ export default function ElbowCurl({
     // ! is starting point reached (buffer = 40deg)
 
     {
+        let LPX = (leftShoulder.x * canvasElement.width + rightShoulder.x * canvasElement.width) / 2;
+        let LPY = leftShoulder.y * canvasElement.height;
+        let UPX = (leftShoulder.x * canvasElement.width + rightShoulder.x * canvasElement.width) / 2;
+        let UPY = leftShoulder.y * canvasElement.height - distanceBetweenleftWristleftElbow;
 
         canvasCtx.setLineDash([5, 5]);
         canvasCtx.beginPath();
-        canvasCtx.arc(
-            leftElbow.x * canvasElement.width,
-            leftShoulder.y * canvasElement.height,
-            distanceBetweenleftWristleftElbow,
-            (1) * Math.PI,
-            (-1/2) * Math.PI
-        );
+        canvasCtx.strokeStyle = hitOn === "lower" ? "#00ff00" : "#000000";
+        canvasCtx.lineWidth = 2;
+        canvasCtx.moveTo(LPX, LPY);
+        canvasCtx.lineTo(UPX, UPY);
         canvasCtx.stroke();
         canvasCtx.setLineDash([0, 0]);
-
-        let LPX = leftElbow.x * canvasElement.width - distanceBetweenleftWristleftElbow/2;
-        let LPY = leftShoulder.y * canvasElement.height;
-        let UPX = leftElbow.x * canvasElement.width;
-        let UPY = leftShoulder.y * canvasElement.height - distanceBetweenleftWristleftElbow;
 
         canvasCtx.beginPath();
         canvasCtx.strokeStyle = hitOn === "lower" ? "#00ff00" : "#000000";
@@ -192,8 +189,10 @@ export default function ElbowCurl({
                 leftWrist.y * canvasElement.height
             ) < 100
         ) {
-            playSound(rep)
-            if (hitOn === "lower") hitOn = "upper";
+            if (hitOn === "lower") {
+                playSound(rep)
+                hitOn = "upper"
+            };
         }
 
         canvasCtx.beginPath();
@@ -210,8 +209,10 @@ export default function ElbowCurl({
                 leftWrist.y * canvasElement.height
             ) < 60
         ) {
-            playSound(rep)
-            if (hitOn === "upper") reps++;
+            if (hitOn === "upper") {
+                playSound(rep)
+                reps++
+            };
             hitOn = "lower";
         }
     }
