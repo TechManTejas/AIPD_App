@@ -4,7 +4,7 @@ import mesh from "../../Images/mesh-113.png"
 
 export const CountDownComponent: React.FC<{ settimer: (val: boolean) => void }> = ({ settimer }) => {
 
-  const [timer, setimer] = useState(1000)
+  const [timer, setimer] = useState(500)
   var interval;
 
   useEffect(() => {
@@ -33,13 +33,12 @@ export const CountDownComponent: React.FC<{ settimer: (val: boolean) => void }> 
               <div style={{ width: 300 }} className={`flex bg-slate-600 h-[4px] rounded-md`}></div>
             </div>
           </div>
-          <div className="flex flex-col gap-2 bg-[#333333] p-5 rounded-lg">
+          {/* <div className="flex flex-col gap-2 bg-[#333333] p-5 rounded-lg">
             <div className="text-white font-extrabold text-xl">Statistics</div>
             <div className="text-white font-extrabold text-xl">Time Elapsed : 5 Mins 3 Seconds</div>
             <div className="text-white font-extrabold text-xl">No. Of Sets Completed : 2</div>
             <div className="text-white font-extrabold text-xl"></div>
-
-          </div>
+          </div> */}
         </div>
 
       </div>

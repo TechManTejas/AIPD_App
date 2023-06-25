@@ -4,21 +4,29 @@ import AIPDLogoName from "../../Images/aipdlogoname.png";
 import axios from "axios";
 import { PerviousDate } from "../../utils/DateTime";
 import { Space, message } from "antd";
+import { useDispatch } from "react-redux";
 import { exerciseNames } from "../../utils/ExerciseUtils";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import Slice, { Action } from "../../store/slice";
+import { useHistory } from "react-router-dom";
 // * The Types of Exercise
 
 
 export const Home: React.FC = () => {
   // * value => the index of the dates present in the top scroll bar
   const [value, setValue] = useState<number>(0);
+
+  const history = useHistory()
+
   // * The Exercise that needs to be done by the patients logined
   // ^ id => the id of the exercise, name => name of the exercise, image => url of the image of the exercise
   const [exerciseDetails, setExerciseDetails] = useState<{ id: number, name: string, image: string; sets: number }[]>([]);
   // * The Array of Exercise that are completed by the patient
   const [completedExercise, setCompletedExercise] = useState<number[]>([]);
   const [individualSetReps, setIndivisualSetsReps] = useState<{ id: number, patient: number, exercise: number, sets: number, reps: number }[]>([])
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     axios.get("/patient_exercise/", {
@@ -55,11 +63,28 @@ export const Home: React.FC = () => {
     }).then((data: any) => {
       const todaysExercise = data.data.filter(checkdate)
       // * extracts the index of the done exercise
+      dispatch(Action.updateCompletedExercise({ completedExercise: todaysExercise.map((e: any) => { return e.exercise }) }))
       setCompletedExercise(todaysExercise.map((e: any) => { return e.exercise }))
     }).catch((e) => {
       message.error(e.toString())
     })
   }, [value])
+
+  useEffect(() => {
+    console.log(exerciseDetails)
+  }, [exerciseDetails])
+
+  const Handle$Start$All$Exercise = () => {
+
+    localStorage.setItem("Allexerciseid", "0")
+    localStorage.setItem(
+      "exercise",
+      exerciseNames[exerciseDetails[Number(localStorage.getItem("Allexerciseid") || "0")].id]
+    );
+    history.push("/camera-rendering");
+
+
+  }
 
   // * to get the exercise that needs to be done by the patient
   useEffect(() => {
@@ -101,9 +126,9 @@ export const Home: React.FC = () => {
               <section
                 className="w-screen flex justify-evenly items-center text-xl"
               >
-                <ArrowLeftIcon onClick = {() => setValue(value - 1)} className="text-green-500" sx={{ fontSize: "50px" }} />
+                <ArrowLeftIcon onClick={() => setValue(value - 1)} className="text-green-500" sx={{ fontSize: "50px" }} />
                 <p>{value == 0 ? "TODAY" : PerviousDate(value)}</p>
-                <ArrowRightIcon onClick = {() => setValue(value + 1)} className="text-green-500" sx={{ fontSize: "50px" }} />
+                <ArrowRightIcon onClick={() => setValue(value + 1)} className="text-green-500" sx={{ fontSize: "50px" }} />
               </section>
               {/* {Array.from({ length: 13 }, (_, index) => index - 6).map(
                 (val) => {
@@ -129,6 +154,9 @@ export const Home: React.FC = () => {
       </div>
       <div>
         <img className="p-6" src={AIPDLogoName}></img>
+      </div>
+      <div className="flex justify-center">
+        <button onClick={() => Handle$Start$All$Exercise()} className="bg-green-500 px-5 py-2 rounded">Start Exercise</button>
       </div>
       <div className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"}  grid grid-cols-2 overflow-auto`}>
         {exerciseDetails.map((exercise) => {

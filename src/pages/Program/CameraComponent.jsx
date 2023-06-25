@@ -68,7 +68,7 @@ function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
           console.log(blob)
           await uploadFile(blob).then(() => {
             setIsModalOpen(false)
-            window.location.href = "/demo-video-logs"
+            // window.location.href = "/demo-video-logs"
           });
         } catch (error){
           console.log("--------------------------------> ", error)
