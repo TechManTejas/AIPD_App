@@ -1,6 +1,6 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 import playSound from "../../utils/PlaySound"
-import bell from "../../sounds/bell.wav"
+import lying_arms from "../../sounds/lying_arms.wav"
 import rep from "../../sounds/rep.mp3"
 
 var sets = 0;
@@ -41,7 +41,7 @@ export default function ElbowCurl({
 
     if (playInitVoice) {
         playInitVoice = false
-        playSound(bell)
+        playSound(lying_arms)
     }
 
 

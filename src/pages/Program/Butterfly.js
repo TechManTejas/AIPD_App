@@ -1,6 +1,7 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 import playSound from "../../utils/PlaySound"
 import bell from "../../sounds/bell.wav"
+import butterfly from "../../sounds/butterfly.wav"
 import rep from "../../sounds/rep.mp3"
 
 var sets = 0;
@@ -52,7 +53,7 @@ export default function Butterfly({
 
     if (playInitVoice) {
         playInitVoice = false
-        playSound(bell)
+        playSound(butterfly)
     }
 
 

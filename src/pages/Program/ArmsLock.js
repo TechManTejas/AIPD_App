@@ -1,6 +1,7 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 import playSound from "../../utils/PlaySound"
 import bell from "../../sounds/bell.wav"
+import arms_lock from "../../sounds/arms_lock.wav"
 
 const connectingPoints = [
     [12, 14],
@@ -70,7 +71,7 @@ export default function ArmsLock({
 
     if (playInitVoice){
         playInitVoice = false
-        playSound(bell)
+        playSound(arms_lock)
     }
 
     if (sets == localStorage.getItem("sets")) {

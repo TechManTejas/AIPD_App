@@ -1,6 +1,7 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 import playSound from "../../utils/PlaySound"
 import bell from "../../sounds/bell.wav"
+import pendulum_sideways from "../../sounds/pendulum_sideways.wav"
 import rep from "../../sounds/rep.mp3"
 
 var sets = 0;
@@ -50,7 +51,7 @@ export default function PendulumSideways({
 
     if (playInitVoice) {
         playInitVoice = false
-        playSound(bell)
+        playSound(pendulum_sideways)
     }
 
 
