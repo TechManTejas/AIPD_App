@@ -30,6 +30,7 @@ export const CountDownComponent: React.FC<{ settimer: (val: boolean) => void }> 
             strokeBgColor="white"
             strokeColor="black"
             strokeWidth={12}
+            setCountDown={() => {}}
           />
       </div>
     </>

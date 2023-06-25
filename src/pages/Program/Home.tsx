@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { exerciseNames } from "../../utils/ExerciseUtils";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import Slice, { Action } from "../../store/slice";
+import { loginAction } from "../../store/login-slice";
 import { useHistory } from "react-router-dom";
 // * The Types of Exercise
 
@@ -63,7 +63,9 @@ export const Home: React.FC = () => {
     }).then((data: any) => {
       const todaysExercise = data.data.filter(checkdate)
       // * extracts the index of the done exercise
-      dispatch(Action.updateCompletedExercise({ completedExercise: todaysExercise.map((e: any) => { return e.exercise }) }))
+
+      // dispatch(loginAction.addExerciseDetails({ ExerciseDetails: todaysExercise.map((e: any) => { return e.exercise }) }))
+      // dispatch(Action.updateCompletedExercise({ completedExercise: todaysExercise.map((e: any) => { return e.exercise }) }))
       setCompletedExercise(todaysExercise.map((e: any) => { return e.exercise }))
     }).catch((e) => {
       message.error(e.toString())
@@ -74,8 +76,11 @@ export const Home: React.FC = () => {
     console.log(exerciseDetails)
   }, [exerciseDetails])
 
+  localStorage.setItem("allexercise", "0")
+
   const Handle$Start$All$Exercise = () => {
 
+    localStorage.setItem("allexercise", "1")
     localStorage.setItem("Allexerciseid", "0")
     localStorage.setItem(
       "exercise",
@@ -96,6 +101,7 @@ export const Home: React.FC = () => {
       },
     })
       .then((data: any) => {
+        localStorage.setItem("exerciseDetails", JSON.stringify(data.data[0]["condition"]["exercises"]))
         setExerciseDetails(data.data[0]["condition"]["exercises"]);
         localStorage.setItem("patient-ID", data.data[0].id)
       });
@@ -178,6 +184,7 @@ export const Home: React.FC = () => {
                   "exercise",
                   exerciseNames[(exercise as { id: number }).id]
                 );
+                localStorage.setItem("allexercise", "0")
               }}
             >
               <ExerciseCard

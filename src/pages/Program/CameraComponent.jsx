@@ -13,21 +13,25 @@ import RecordRTC from 'recordrtc';
 import { uploadFile } from "../../APIs/storage";
 import playSound from "../../utils/PlaySound";
 import successSound from "../../sounds/success.wav";
+import { exerciseNames } from "../../utils/ExerciseUtils";
+import CountdownTimer from "./CountdownTimer";
+import { Link } from "react-router-dom";
 
-function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
+function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading, repref, setref, messageRef }) {
   // * Refs
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
+  const StateRef = useRef(0);
   let recorder;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  
   var camera = null;
 
   const [timer, settimer] = useState(true);
 
   var exercise;
-  
+
 
   useEffect(() => {
     if (!loading) {
@@ -41,11 +45,11 @@ function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
   }, [loading])
 
   const startRecording = () => {
-    
+
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: false })
       .then((stream) => {
-        
+
         recorder = RecordRTC(stream, {
           type: "video",
           mimeType: "video/webm",
@@ -61,6 +65,31 @@ function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
       });
   };
 
+  const Handle$NextDirectExercise = () => {
+
+    localStorage.setItem("Allexerciseid", (Number(localStorage.getItem("Allexerciseid")) + 1).toString());
+    const exerciseDetails = JSON.parse(localStorage.getItem("exerciseDetails"));
+
+    if (Number(localStorage.getItem("Allexerciseid")) === exerciseDetails.length) {
+      window.location.href = "/"
+      return;
+    }
+
+    localStorage.setItem(
+      "exercise",
+      exerciseNames[exerciseDetails[Number(localStorage.getItem("Allexerciseid") || "0")].id]
+    );
+
+    window.location.href = "/camera-rendering"
+  }
+
+  useEffect(() => {
+    // console.log("StateRef.value", StateRef.value)
+    if (showCoutdown && StateRef.current === 1) {
+      Handle$NextDirectExercise()
+    }
+  }, [showCoutdown])
+
   const stopRecordingAndUploadFileToFirebase = async () => {
     if (recorder) {
       await recorder.stopRecording(async () => {
@@ -71,12 +100,16 @@ function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
           console.log(blob)
           await uploadFile(blob).then(() => {
             setIsModalOpen(false)
-            // window.location.href = "/demo-video-logs"
+            if (localStorage.getItem("allexercise") === "1") {
+              StateRef.current = 1;
+              setShowCoutdown(false)
+            }
+            else window.location.href = "/demo-video-logs"
           });
-        } catch (error){
+        } catch (error) {
           console.log("--------------------------------> ", error)
         }
-        
+
       });
     }
   };
@@ -144,22 +177,36 @@ function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
   return (
     <center>
       <div className="App">
-        {timer ? (
+        {timer && showCoutdown ? (
           <>
             <Webcam id="webcam" ref={webcamRef} className="hidden w-screen" />
             <canvas ref={canvasRef} className=" -ml-[100px] w-[600px] h-screen" />
           </>
         ) : (
           <>
-            <CountDownComponent settimer={settimer} />
+            {!timer && <CountDownComponent settimer={settimer} />}
           </>
         )}
       </div>
       <div>
-        <div className={` ${isModalOpen ? "" : "hidden" } bg-white absolute top-0 z-10 h-screen w-screen grid place-items-center`}>
+        <div className={` ${isModalOpen ? "" : "hidden"} bg-white absolute top-0 z-10 h-screen w-screen grid place-items-center`}>
           <p>Great Job 👏🏻👏🏻</p>
         </div>
       </div>
+      {
+        !showCoutdown && <div className="w-screen h-screen absolute z-50 top-0 ledft-0  flex flex-col justify-center items-center">
+          <button onClick={() => setShowCoutdown(true)} className="m-3 px-8 py-2 bg-green-500">Next</button>
+          <CountdownTimer seconds={5}
+            size={200}
+            strokeBgColor="white"
+            strokeColor="black"
+            strokeWidth={12}
+            setCountDown={setShowCoutdown}
+          />
+          <Link to="/" className="m-3 px-8 py-2 bg-green-500" >Home</Link>
+        </div>
+
+      }
     </center>
   );
 

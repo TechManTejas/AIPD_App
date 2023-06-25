@@ -11,6 +11,7 @@ export const CameraRendering: React.FC = () => {
   const messageRef = useRef<HTMLDivElement>(null);
 
   const [loading, setloading] = useState(true)
+  const [showCoutdown, setShowCoutdown] = useState(true);
  
 
   return (
@@ -32,20 +33,20 @@ export const CameraRendering: React.FC = () => {
         }
         <div className="bg-white flex flex-col flex-grow pb-16">
           <div className="flex flex-col h-[calc(100vh-64px)]">
-            <div className="p-1 absolute w-full top-0">
+            { showCoutdown && <div className="p-1 absolute w-full top-0">
               <div className="border text-2xl bg-white font-semibold p-1 flex justify-around">
                 <p ref={repref}></p>
                 <p ref={messageRef}></p>
                 <p ref={setref}></p>
               </div>
-            </div>
+            </div>}
             <div>
             </div>
             <div>
-              <CameraPoseDetect loading = {loading} setloading={setloading} repref={repref} setref={setref} messageRef={messageRef} />
+              <CameraPoseDetect showCoutdown={showCoutdown} setShowCoutdown={setShowCoutdown} loading = {loading} setloading={setloading} repref={repref} setref={setref} messageRef={messageRef} />
             </div>
             {!loading && <div className="p-1 absolute w-full bottom-0">
-              <div>
+              <div className={`${showCoutdown ? "" : "hidden"}`}>
                 <CardActionArea>
                   <div id = "done-exercise" className="border bg-blue-600 text-white font-semibold p-1 text-center">
                     Done

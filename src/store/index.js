@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import Slice from "./slice";
+import loginSlice from "./login-slice"
 const store = configureStore({
   reducer: {
-    state: Slice.reducer,
+    login: loginSlice.reducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
