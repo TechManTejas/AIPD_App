@@ -12,6 +12,7 @@ export const CameraRendering: React.FC = () => {
 
   const [loading, setloading] = useState(true)
  
+
   return (
     <IonPage>
       <IonContent fullscreen>

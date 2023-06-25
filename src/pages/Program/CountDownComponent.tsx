@@ -5,7 +5,7 @@ import { CountdownTimer } from "./CountdownTimer";
 
 export const CountDownComponent: React.FC<{ settimer: (val: boolean) => void }> = ({ settimer }) => {
 
-  const [timer, setimer] = useState(1000)
+  const [timer, setimer] = useState(500)
   var interval;
 
   useEffect(() => {

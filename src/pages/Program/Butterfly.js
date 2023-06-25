@@ -33,8 +33,8 @@ function distance3D(x1, y1, z1, x2, y2, z2) {
 var playInitVoice = true
 var start = 0;
 var hitOn = 0;
-var reps = localStorage.getItem("reps");
-var sets = localStorage.getItem("sets");
+var reps = 0;
+var sets = 0;
 var message = 'Bring your elbows to the circles'
 
 export default function Butterfly({
@@ -57,22 +57,22 @@ export default function Butterfly({
 
 
     // console.log(sets, localStorage.getItem("sets"))
-    if (sets == 0) {
+    if (sets == localStorage.getItem("sets")) {
         document.getElementById("done-exercise").click()
         sets = 0
         return;
     }
 
-    if (reps == 0 && sets === 1) {
-        reps = localStorage.getItem("reps");
-        sets--;
+    if (reps == localStorage.getItem("reps") && sets === Number(localStorage.getItem("sets")) - 1) {
+        reps = 0
+        sets++;
         return;
     }
 
     // console.log(reps, Number(localStorage.getItem("reps")))
-    if (reps == 0) {
-        reps = localStorage.getItem("reps");
-        sets--;
+    if (reps == localStorage.getItem("reps")) {
+        reps = 0;
+        sets++;
         settimer(false);
         camera.stop();
         return;
@@ -232,7 +232,7 @@ export default function Butterfly({
 
     repref.current.innerHTML = `Reps :- ${reps}`;
     setref.current.innerHTML = `Sets :- ${sets}`;
-    // messageRef.current.innerHTML = `${message}`;
+    messageRef.current.innerHTML = `${message}`;
 
     // ^ Points that needs to be shown in the canvas
     const allowedPoints = [11, 12, 13, 14, 15, 16, 23, 24];
