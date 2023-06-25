@@ -12,7 +12,7 @@ import ArmsLock from "./ArmsLock";
 import RecordRTC from 'recordrtc';
 import { uploadFile } from "../../APIs/storage";
 import playSound from "../../utils/PlaySound";
-import successSound from "../../sounds/success.wav";
+import successSound from "../../sounds/excellent_work.wav";
 
 function CameraPoseDetect({ loading, setloading, repref, setref, messageRef }) {
   // * Refs

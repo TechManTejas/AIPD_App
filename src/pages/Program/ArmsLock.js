@@ -33,7 +33,7 @@ function startTimer() {
 }
 
 
-
+var playInitVoice = true
 var done = 0
 var start = 0;
 var red_touched = 0;
@@ -67,6 +67,11 @@ export default function ArmsLock({
     messageRef: messageRef,
 }) {
     if (results.poseLandmarks == undefined || done) return; 
+
+    if (playInitVoice){
+        playInitVoice = false
+        playSound(bell)
+    }
 
     if (sets == localStorage.getItem("sets")) {
         done = 1;

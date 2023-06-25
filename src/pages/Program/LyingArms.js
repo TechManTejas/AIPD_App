@@ -4,6 +4,7 @@ import bell from "../../sounds/bell.wav"
 import rep from "../../sounds/rep.mp3"
 
 var sets = 0;
+var playInitVoice = true
 
 const connectingPoints = [
     [12, 14],
@@ -37,6 +38,12 @@ export default function ElbowCurl({
 }) {
     // ^ check if landmarks are detected
     if (results.poseLandmarks == undefined) return;
+
+    if (playInitVoice) {
+        playInitVoice = false
+        playSound(bell)
+    }
+
 
     // console.log(timer)
     if (sets == localStorage.getItem("sets")) {

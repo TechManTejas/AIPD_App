@@ -30,7 +30,7 @@ function distance3D(x1, y1, z1, x2, y2, z2) {
     var dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2) + Math.pow(dz, 2));
     return dist;
 }
-
+var playInitVoice = true
 var start = 0;
 var hitOn = 0;
 var reps = localStorage.getItem("reps");
@@ -49,6 +49,12 @@ export default function Butterfly({
 }) {
     // ^ check if landmarks are detected
     if (results.poseLandmarks == undefined) return;
+
+    if (playInitVoice) {
+        playInitVoice = false
+        playSound(bell)
+    }
+
 
     // console.log(sets, localStorage.getItem("sets"))
     if (sets == 0) {
