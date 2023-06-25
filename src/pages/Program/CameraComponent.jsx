@@ -16,6 +16,13 @@ import { exerciseNames } from "../../utils/ExerciseUtils";
 import CountdownTimer from "./CountdownTimer";
 import { Link } from "react-router-dom";
 import successSound from "../../sounds/excellent_work.wav";
+import ArmsLockAudio from "../../sounds/arms_lock.wav";
+import ButterflyAudio from "../../sounds/butterfly.wav";
+import LyingArmsAudio from "../../sounds/lying_arms.wav";
+import PendulumCirclesAudio from "../../sounds/pendulum_circles.wav";
+import PendulumSidewaysAudio from "../../sounds/pendulum_sideways.wav";
+import PendulumStraightAudio from "../../sounds/pendulum_straight.wav";
+
 
 function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading, repref, setref, messageRef }) {
   // * Refs
@@ -31,6 +38,7 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
   const [timer, settimer] = useState(true);
 
   var exercise;
+
 
 
   useEffect(() => {
@@ -132,16 +140,22 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
     exercise = localStorage.getItem("exercise");
 
     if (exercise === 'PendulumStraight') {
+      playSound(PendulumStraightAudio)
       exercise = PendulumStraight
     } else if (exercise === 'PendulumSideways') {
+      playSound(PendulumSidewaysAudio)
       exercise = PendulumSideways
     } else if (exercise === 'Butterfly') {
+      playSound(ButterflyAudio)
       exercise = Butterfly
     } else if (exercise === 'PendulumCircles') {
+      playSound(PendulumCirclesAudio)
       exercise = PendulumCircles
     } else if (exercise === 'LyingArms') {
+      playSound(LyingArmsAudio)
       exercise = LyingArms
     } else if (exercise === 'ArmsLock') {
+      playSound(ArmsLockAudio)
       exercise = ArmsLock
     }
 
@@ -161,7 +175,7 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
     });
 
     pose.onResults(onResults)
-
+    playSound(ArmsLock)
     if (webcamRef.current !== "undefined" && webcamRef.current !== null) {
       camera = new cam.Camera(webcamRef.current.video, {
         onFrame: async () => {
