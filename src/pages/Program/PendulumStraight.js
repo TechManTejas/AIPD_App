@@ -1,4 +1,7 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
+import playSound from "../../utils/PlaySound"
+import bell from "../../sounds/bell.wav"
+import rep from "../../sounds/rep.mp3"
 
 var sets = 0;
 
@@ -104,10 +107,7 @@ export default function PendulumStraight({
     const right_hip = results.poseLandmarks[24];
     const right_knee = results.poseLandmarks[26];
 
-    let circleRadius = distance3D(
-        leftShoulder.x, leftShoulder.y, leftShoulder.z,
-        rightShoulder.x, rightShoulder.y, rightShoulder.z
-    ) * 100
+    let circleRadius = 100
 
     var anglebetweenrslslw =
         Math.atan2(
@@ -134,14 +134,10 @@ export default function PendulumStraight({
     if (start) {
         canvasCtx.setLineDash([5, 5]);
         canvasCtx.beginPath();
-        canvasCtx.arc(
-            (rightShoulder.x * canvasElement.width),
-            (rightShoulder.y * canvasElement.height),
-            (distanceRightShoulderRightWrist),
-            (1 / 6) * Math.PI,
-            (5 / 6) * Math.PI
-        );
-
+        canvasCtx.strokeStyle = hitOn === "lower" ? "#00ff00" : "#000000";
+        canvasCtx.lineWidth = 2;
+        canvasCtx.moveTo(rightShoulder.x * canvasElement.width, rightShoulder.y * canvasElement.height);
+        canvasCtx.lineTo(right_knee.x * canvasElement.width, right_knee.y * canvasElement.height);
         canvasCtx.stroke();
         canvasCtx.setLineDash([0, 0]);
     }
@@ -150,7 +146,7 @@ export default function PendulumStraight({
     //center
     if (!start) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#FF0000"
+        canvasCtx.strokeStyle = "#00FF00"
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             (right_knee.x * canvasElement.width),
@@ -180,12 +176,24 @@ export default function PendulumStraight({
         (distanceRightShoulderRightWrist) * Math.sin((30 * Math.PI) / 180);
 
     if (hitOn === 1) {
+        // canvasCtx.beginPath();
+        // canvasCtx.strokeStyle = "#00FF00";
+        // canvasCtx.lineWidth = 2;
+        // canvasCtx.arc(
+        //     RPX,
+        //     RPY,
+        //     circleRadius,
+        //     2 * Math.PI, false
+        // );
+        // canvasCtx.fillText(hitOn, RPX, RPY);
+        // canvasCtx.stroke();
+
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#800080";
+        canvasCtx.strokeStyle = "#00FF00";
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
-            RPX,
-            RPY,
+            rightShoulder.x * canvasElement.width,
+            (rightShoulder.y * canvasElement.height + right_knee.y * canvasElement.height)*(2/5) ,
             circleRadius,
             2 * Math.PI, false
         );
@@ -194,16 +202,28 @@ export default function PendulumStraight({
     }
 
     if (hitOn === 2) {
+        // canvasCtx.beginPath();
+        // canvasCtx.strokeStyle = "#00FF00";
+        // canvasCtx.lineWidth = 2;
+        // canvasCtx.arc(
+        //     LPX,
+        //     LPY,
+        //     circleRadius,
+        //     2 * Math.PI, false
+        // );
+        // canvasCtx.fillText(hitOn, LPX, LPY);
+        // canvasCtx.stroke();
+
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#FFFF00";
+        canvasCtx.strokeStyle = "#00FF00";
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
-            LPX,
-            LPY,
+            right_knee.x * canvasElement.width,
+            right_knee.y * canvasElement.height,
             circleRadius,
             2 * Math.PI, false
         );
-        canvasCtx.fillText(hitOn, LPX, LPY);
+        canvasCtx.fillText(hitOn, RPX, RPY);
         canvasCtx.stroke();
     }
 
@@ -214,6 +234,7 @@ export default function PendulumStraight({
             WristX,
             WristY
         ) < circleRadius) {
+            playSound(bell)
             start = 1
             hitOn = 1
         }
@@ -221,27 +242,24 @@ export default function PendulumStraight({
 
     if (hitOn === 1) {
         if (distance(
-            RPX,
-            RPY,
+            rightShoulder.x * canvasElement.width,
+            (rightShoulder.y * canvasElement.height + right_knee.y * canvasElement.height) * (1 / 4),
             WristX,
             WristY
         ) < circleRadius) {
+            playSound(rep)
             hitOn = 2
-        } else if (anglebetweenrslslw < 120) {
-            hitOn = 2
-        }
+        } 
     }
 
     if (hitOn === 2) {
         if (distance(
-            LPX,
-            LPY,
+            right_knee.x * canvasElement.width,
+            right_knee.y * canvasElement.height,
             WristX,
             WristY
         ) < circleRadius) {
-            hitOn = 1
-            reps++
-        } else if (anglebetweenrslslw > 200) {
+            playSound(rep)
             hitOn = 1
             reps++
         }

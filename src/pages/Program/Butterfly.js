@@ -1,4 +1,7 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
+import playSound from "../../utils/PlaySound"
+import bell from "../../sounds/bell.wav"
+import rep from "../../sounds/rep.mp3"
 
 var sets = 0;
 
@@ -142,7 +145,7 @@ export default function Butterfly({
     //reference point
     if (start === 0) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#FF0000"
+        canvasCtx.strokeStyle = "#00FF00"
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             (rightShoulder.x * canvasElement.width),
@@ -154,7 +157,7 @@ export default function Butterfly({
         canvasCtx.stroke();
 
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#FF0000"
+        canvasCtx.strokeStyle = "#00FF00"
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             (leftShoulder.x * canvasElement.width),
@@ -185,6 +188,7 @@ export default function Butterfly({
                 ) < 100
             )
         ) {
+            playSound(bell)
             start = 1
             message = 'Push Back'
         }
@@ -204,16 +208,16 @@ export default function Butterfly({
 
         if (hitOn === 0) {
             if (relationalDistance > 2.1) {
+                playSound(rep)
                 hitOn = 1
                 message = 'Relax'
             }
         }
-        console.log(
 
-        )
         if (hitOn === 1) {
             if (relationalDistance < 1.9) {
-                reps++
+                playSound(rep)
+                reps--
                 hitOn = 0
                 message = 'Push Back'
             }

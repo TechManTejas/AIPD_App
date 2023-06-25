@@ -1,4 +1,7 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
+import playSound from "../../utils/PlaySound"
+import bell from "../../sounds/bell.wav"
+import rep from "../../sounds/rep.mp3"
 
 var sets = 0;
 
@@ -107,7 +110,7 @@ export default function PendulumSideways({
     let circleRadius = distance3D(
         leftShoulder.x, leftShoulder.y, leftShoulder.z,
         rightShoulder.x, rightShoulder.y, rightShoulder.z
-    )*100
+    )*300
 
     var anglebetweenrslslw =
         Math.atan2(
@@ -148,7 +151,7 @@ export default function PendulumSideways({
     //center
     if (!start) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#FF0000"
+        canvasCtx.strokeStyle = "#00FF00"
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             right_knee.x * canvasElement.width,
@@ -179,7 +182,7 @@ export default function PendulumSideways({
 
     if (hitOn === 1) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#800080";
+        canvasCtx.strokeStyle = "#00FF00";
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             RPX,
@@ -193,7 +196,7 @@ export default function PendulumSideways({
 
     if (hitOn === 2) {
         canvasCtx.beginPath();
-        canvasCtx.strokeStyle = "#FFFF00";
+        canvasCtx.strokeStyle = "#00FF00";
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             LPX,
@@ -212,6 +215,7 @@ export default function PendulumSideways({
             WristX,
             WristY
         ) < circleRadius) {
+            playSound(bell)
             start = 1
             hitOn = 1
         } 
@@ -224,8 +228,10 @@ export default function PendulumSideways({
             WristX,
             WristY
         ) < circleRadius) {
+            playSound(rep)
             hitOn = 2
         } else if (anglebetweenrslslw < 150) {
+            playSound(rep)
             hitOn = 2
         }
     }
@@ -237,9 +243,11 @@ export default function PendulumSideways({
             WristX,
             WristY
         ) < circleRadius) {
+            playSound(rep)
             hitOn = 1
             reps++
         } else if (anglebetweenrslslw > 210) {
+            playSound(rep)
             hitOn = 1
             reps++
         }

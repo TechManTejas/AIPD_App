@@ -6,8 +6,6 @@ import axios from "axios";
 
 export const CameraRendering: React.FC = () => {
 
-  
-
   const repref = useRef<HTMLDivElement>(null);
   const setref = useRef<HTMLDivElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);
@@ -22,7 +20,12 @@ export const CameraRendering: React.FC = () => {
           loading &&
           <div className="w-screen h-screen absolute z-10 flex items-center justify-center">
             <div className="flex flex-col items-center">
-              <iframe className="w-screen" src="https://giphy.com/embed/4bjIKBOWUnVPICCzJc" allowFullScreen></iframe>
+                <iframe
+                  className="w-screen"
+                  src="https://giphy.com/embed/4bjIKBOWUnVPICCzJc"
+                  allowFullScreen
+                  sandbox="allow-scripts"
+                ></iframe>
               <p className="bg-white w-screen text-center">Loading Exercise ... </p>
             </div>
           </div>

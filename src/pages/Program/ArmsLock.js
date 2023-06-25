@@ -1,5 +1,6 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
-
+import playSound from "../../utils/PlaySound"
+import bell from "../../sounds/bell.wav"
 
 const connectingPoints = [
     [12, 14],
@@ -128,7 +129,7 @@ export default function ArmsLock({
     if (start === 0) {
         if (!red_touched) {
             canvasCtx.beginPath();
-            canvasCtx.strokeStyle = "#FF0000"
+            canvasCtx.strokeStyle = "#00FF00"
             canvasCtx.lineWidth = 2;
             canvasCtx.arc(
                 (rightShoulder.x * canvasElement.width),
@@ -138,7 +139,7 @@ export default function ArmsLock({
             );
             canvasCtx.stroke();
             canvasCtx.beginPath();
-            canvasCtx.strokeStyle = "#FF0000"
+            canvasCtx.strokeStyle = "#00FF00"
             canvasCtx.lineWidth = 2;
             canvasCtx.arc(
                 (leftWrist.x * canvasElement.width),
@@ -190,7 +191,7 @@ export default function ArmsLock({
         }
 
         if(red_touched && green_touched){
-            console.log("okay")
+            playSound(bell)
             start = 1   
             message = 'Push Back'
             IntervalForCountingTimesElapsed()
