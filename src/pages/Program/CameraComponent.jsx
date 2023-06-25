@@ -12,10 +12,10 @@ import ArmsLock from "./ArmsLock";
 import RecordRTC from 'recordrtc';
 import { uploadFile } from "../../APIs/storage";
 import playSound from "../../utils/PlaySound";
-import successSound from "../../sounds/success.wav";
 import { exerciseNames } from "../../utils/ExerciseUtils";
 import CountdownTimer from "./CountdownTimer";
 import { Link } from "react-router-dom";
+import successSound from "../../sounds/excellent_work.wav";
 
 function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading, repref, setref, messageRef }) {
   // * Refs

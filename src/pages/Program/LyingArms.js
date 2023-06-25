@@ -1,9 +1,10 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 import playSound from "../../utils/PlaySound"
-import bell from "../../sounds/bell.wav"
+import lying_arms from "../../sounds/lying_arms.wav"
 import rep from "../../sounds/rep.mp3"
 
 var sets = 0;
+var playInitVoice = true
 
 const connectingPoints = [
     [12, 14],
@@ -37,6 +38,12 @@ export default function ElbowCurl({
 }) {
     // ^ check if landmarks are detected
     if (results.poseLandmarks == undefined) return;
+
+    if (playInitVoice) {
+        playInitVoice = false
+        playSound(lying_arms)
+    }
+
 
     // console.log(timer)
     if (sets == localStorage.getItem("sets")) {

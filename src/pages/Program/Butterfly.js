@@ -1,6 +1,7 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 import playSound from "../../utils/PlaySound"
 import bell from "../../sounds/bell.wav"
+import butterfly from "../../sounds/butterfly.wav"
 import rep from "../../sounds/rep.mp3"
 
 var sets = 0;
@@ -30,7 +31,7 @@ function distance3D(x1, y1, z1, x2, y2, z2) {
     var dist = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2) + Math.pow(dz, 2));
     return dist;
 }
-
+var playInitVoice = true
 var start = 0;
 var hitOn = 0;
 var reps = 0;
@@ -49,6 +50,12 @@ export default function Butterfly({
 }) {
     // ^ check if landmarks are detected
     if (results.poseLandmarks == undefined) return;
+
+    if (playInitVoice) {
+        playInitVoice = false
+        playSound(butterfly)
+    }
+
 
     // console.log(sets, localStorage.getItem("sets"))
     if (sets == localStorage.getItem("sets")) {

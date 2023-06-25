@@ -1,6 +1,7 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 import playSound from "../../utils/PlaySound"
 import bell from "../../sounds/bell.wav"
+import arms_lock from "../../sounds/arms_lock.wav"
 
 const connectingPoints = [
     [12, 14],
@@ -33,7 +34,7 @@ function startTimer() {
 }
 
 
-
+var playInitVoice = true
 var done = 0
 var start = 0;
 var red_touched = 0;
@@ -67,6 +68,11 @@ export default function ArmsLock({
     messageRef: messageRef,
 }) {
     if (results.poseLandmarks == undefined || done) return; 
+
+    if (playInitVoice){
+        playInitVoice = false
+        playSound(arms_lock)
+    }
 
     if (sets == localStorage.getItem("sets")) {
         done = 1;

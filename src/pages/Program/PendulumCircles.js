@@ -1,10 +1,11 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 import playSound from "../../utils/PlaySound"
 import bell from "../../sounds/bell.wav"
+import pendulum_circles from "../../sounds/pendulum_circles.wav"
 import rep from "../../sounds/rep.mp3"
 
 var sets = 0;
-
+var playInitVoice = true
 const connectingPoints = [
     [12, 14],
     [14, 16],
@@ -47,6 +48,12 @@ export default function PendulumCircles({
 }) {
     // ^ check if landmarks are detected
     if (results.poseLandmarks == undefined) return;
+
+    if (playInitVoice) {
+        playInitVoice = false
+        playSound(pendulum_circles)
+    }
+
 
     // console.log(timer)
     if (sets == localStorage.getItem("sets")) {
