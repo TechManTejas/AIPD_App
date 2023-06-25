@@ -37,6 +37,7 @@ export const Home: React.FC = () => {
       },
     }).then((data: any) => {
       setIndivisualSetsReps(data.data)
+      localStorage.setItem("individualSetReps", JSON.stringify(data.data))
     }).catch((e) => {
       message.error(e.toString())
     })
@@ -86,6 +87,17 @@ export const Home: React.FC = () => {
       "exercise",
       exerciseNames[exerciseDetails[Number(localStorage.getItem("Allexerciseid") || "0")].id]
     );
+    const entry = findEntryByExercise(individualSetReps, Number(exerciseDetails[Number(localStorage.getItem("Allexerciseid") || "0")].id))
+
+    localStorage.setItem(
+      "sets",
+      entry ? entry.sets.toString() : "",
+    );
+    localStorage.setItem(
+      "reps",
+      entry ? entry.reps.toString() : "",
+    );
+
     history.push("/camera-rendering");
 
 

@@ -73,15 +73,32 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
       });
   };
 
+
+  function findEntryByExercise(data, exercise) {
+    const entry = data.find((entry) => entry.exercise === exercise);
+    return entry || null;
+  }
+
   const Handle$NextDirectExercise = () => {
 
     localStorage.setItem("Allexerciseid", (Number(localStorage.getItem("Allexerciseid")) + 1).toString());
     const exerciseDetails = JSON.parse(localStorage.getItem("exerciseDetails"));
+    const individualSetReps = JSON.parse(localStorage.getItem("individualSetReps"));
 
     if (Number(localStorage.getItem("Allexerciseid")) === exerciseDetails.length) {
       window.location.href = "/"
       return;
     }
+    const entry = findEntryByExercise(individualSetReps, Number(exerciseDetails[Number(localStorage.getItem("Allexerciseid") || "0")].id))
+
+    localStorage.setItem(
+      "sets",
+      entry ? entry.sets.toString() : "",
+    );
+    localStorage.setItem(
+      "reps",
+      entry ? entry.reps.toString() : "",
+    );
 
     localStorage.setItem(
       "exercise",
