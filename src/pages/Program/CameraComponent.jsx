@@ -140,22 +140,16 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
     exercise = localStorage.getItem("exercise");
 
     if (exercise === 'PendulumStraight') {
-      playSound(PendulumStraightAudio)
       exercise = PendulumStraight
     } else if (exercise === 'PendulumSideways') {
-      playSound(PendulumSidewaysAudio)
       exercise = PendulumSideways
     } else if (exercise === 'Butterfly') {
-      playSound(ButterflyAudio)
       exercise = Butterfly
     } else if (exercise === 'PendulumCircles') {
-      playSound(PendulumCirclesAudio)
       exercise = PendulumCircles
     } else if (exercise === 'LyingArms') {
-      playSound(LyingArmsAudio)
       exercise = LyingArms
     } else if (exercise === 'ArmsLock') {
-      playSound(ArmsLockAudio)
       exercise = ArmsLock
     }
 
