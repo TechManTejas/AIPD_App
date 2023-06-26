@@ -1,12 +1,11 @@
 import axios from "axios"
 import { getDateWithFormat } from "../utils/DateTime"
-import { ExerciseId } from "../utils/ExerciseUtils"
 
 
 export const addExerciseDataToDatabase = async (videoURL: string) => {
     await axios.post("/exercise_record/", {
         date: getDateWithFormat(),
-        exercise: ExerciseId(),
+        exercise: Number(localStorage.getItem("exerciseID")),
         patient: localStorage.getItem("patient-ID"),
         video: videoURL
     }, {

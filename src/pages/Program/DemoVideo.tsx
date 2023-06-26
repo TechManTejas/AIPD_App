@@ -1,5 +1,4 @@
 import { IonContent, IonPage } from '@ionic/react';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { CardActionArea } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from "axios"
@@ -50,11 +49,8 @@ export const DemoVideo: React.FC = () => {
 
     const getInfoOfSelectedExercise = (data: any) => {
         const exercise = localStorage.getItem("exercise")
-        // console.log(data)
         if (exercise !== null) {
-            const key = findKeyByValue(exerciseNames, exercise);
-            // console.log(data, typeof Number(key));
-            setExerciseData(data[Number(key)-1])
+            setExerciseData(data.filter((d: any) => d.name === exercise)[0])
         }
     }
 

@@ -3,12 +3,10 @@ import { ExerciseCard } from "./Components/ExerciseCard";
 import AIPDLogoName from "../../Images/aipdlogoname.png";
 import axios from "axios";
 import { PerviousDate } from "../../utils/DateTime";
-import { Space, message } from "antd";
+import { message } from "antd";
 import { useDispatch } from "react-redux";
-import { exerciseNames } from "../../utils/ExerciseUtils";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import { loginAction } from "../../store/login-slice";
 import { useHistory } from "react-router-dom";
 // * The Types of Exercise
 
@@ -26,7 +24,6 @@ export const Home: React.FC = () => {
   const [completedExercise, setCompletedExercise] = useState<number[]>([]);
   const [individualSetReps, setIndivisualSetsReps] = useState<{ id: number, patient: number, exercise: number, sets: number, reps: number }[]>([])
 
-  const dispatch = useDispatch()
 
   const DemoData =
     [
@@ -149,13 +146,16 @@ export const Home: React.FC = () => {
     localStorage.setItem("allexercise", "1")
     localStorage.setItem("Allexerciseid", "0")
 
-
-
     localStorage.setItem(
       "exercise",
-      exerciseNames[DemoData[Number(localStorage.getItem("Allexerciseid") || "0")].id]
+      DemoData[Number(localStorage.getItem("Allexerciseid") || "0")].name
     );
     const entry = findEntryByExercise(individualSetReps, Number(exerciseDetails[Number(localStorage.getItem("Allexerciseid") || "0")].id))
+
+    localStorage.setItem(
+      "exerciseID",
+      DemoData[Number(localStorage.getItem("Allexerciseid") || "0")].id.toString()
+    );
 
     localStorage.setItem(
       "sets",
@@ -246,7 +246,6 @@ export const Home: React.FC = () => {
       </div>
       <div className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"}  grid grid-cols-2 overflow-auto`}>
         {exerciseDetails.map((exercise) => {
-          // console.log(.sets, exercise.id)
           const entry = findEntryByExercise(individualSetReps, exercise.id)
           return (
             <div
@@ -262,8 +261,13 @@ export const Home: React.FC = () => {
                 );
                 localStorage.setItem(
                   "exercise",
-                  exerciseNames[(exercise as { id: number }).id]
+                  exercise.name.toString()
                 );
+                localStorage.setItem(
+                  "exerciseID",
+                  exercise.id.toString()
+                );
+                
                 localStorage.setItem("allexercise", "0")
               }}
             >

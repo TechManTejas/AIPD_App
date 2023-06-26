@@ -12,16 +12,9 @@ import ArmsLock from "./ArmsLock";
 import RecordRTC from 'recordrtc';
 import { uploadFile } from "../../APIs/storage";
 import playSound from "../../utils/PlaySound";
-import { exerciseNames } from "../../utils/ExerciseUtils";
 import CountdownTimer from "./CountdownTimer";
 import { Link } from "react-router-dom";
 import successSound from "../../sounds/excellent_work.wav";
-import ArmsLockAudio from "../../sounds/arms_lock.wav";
-import ButterflyAudio from "../../sounds/butterfly.wav";
-import LyingArmsAudio from "../../sounds/lying_arms.wav";
-import PendulumCirclesAudio from "../../sounds/pendulum_circles.wav";
-import PendulumSidewaysAudio from "../../sounds/pendulum_sideways.wav";
-import PendulumStraightAudio from "../../sounds/pendulum_straight.wav";
 
 
 function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading, repref, setref, messageRef }) {
@@ -101,8 +94,13 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
     );
 
     localStorage.setItem(
+      "exerciseID",
+      exerciseDetails[Number(localStorage.getItem("Allexerciseid") || "0")].id.toString()
+    );
+
+    localStorage.setItem(
       "exercise",
-      exerciseNames[exerciseDetails[Number(localStorage.getItem("Allexerciseid") || "0")].id]
+      exerciseDetails[Number(localStorage.getItem("Allexerciseid") || "0")].name
     );
 
     window.location.href = "/camera-rendering"
@@ -155,18 +153,17 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
 
   useEffect(() => {
     exercise = localStorage.getItem("exercise");
-
-    if (exercise === 'PendulumStraight') {
+    if (exercise === 'Pendulum Straight') {
       exercise = PendulumStraight
-    } else if (exercise === 'PendulumSideways') {
+    } else if (exercise === 'Pendulum Sideways') {
       exercise = PendulumSideways
     } else if (exercise === 'Butterfly') {
       exercise = Butterfly
-    } else if (exercise === 'PendulumCircles') {
+    } else if (exercise === 'Pendulum Circles') {
       exercise = PendulumCircles
-    } else if (exercise === 'LyingArms') {
+    } else if (exercise === 'Lying Arms') {
       exercise = LyingArms
-    } else if (exercise === 'ArmsLock') {
+    } else if (exercise === 'Arms Lock') {
       exercise = ArmsLock
     }
 

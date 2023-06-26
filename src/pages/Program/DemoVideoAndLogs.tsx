@@ -1,9 +1,7 @@
 import { IonContent, IonPage } from '@ionic/react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { exerciseNameFromTag } from '../../utils/ExerciseUtils';
-import { exerciseNames } from '../../utils/ExerciseUtils';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';;
 
 export const DemoVideoAndLogs: React.FC = () => {
 
@@ -40,11 +38,8 @@ export const DemoVideoAndLogs: React.FC = () => {
 
     const getInfoOfSelectedExercise = (data: any) => {
         const exercise = localStorage.getItem("exercise")
-        // console.log(data)
         if (exercise !== null) {
-            const key = findKeyByValue(exerciseNames, exercise);
-            // console.log(data, typeof Number(key));
-            setExerciseData(data[Number(key) - 1])
+            setExerciseData(data.filter((d: any) => d.name === exercise)[0])
         }
     }
 

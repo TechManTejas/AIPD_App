@@ -1,15 +1,10 @@
 import axios from "axios"
-import { exerciseOriginalNames as exerciseNames } from "../utils/ExerciseUtils";
-
-const findKeyByValue = (value: string): number | undefined =>
-    parseInt(Object.keys(exerciseNames).find((key: any) => exerciseNames[key] === value) || '');
-
 
 export const post$patient_exercise = async ({ sets, reps, exercise }: { sets: number, reps: number, exercise: string }) => {
     const data = {
         sets: sets,
         reps: reps,
-        exercise: findKeyByValue(exercise),
+        exercise: exercise,
         patient: localStorage.getItem("patient-id")
     }
     console.log(data)
