@@ -117,15 +117,15 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
     }
   }, [showCoutdown])
 
-  const stopRecordingAndUploadFileToFirebase = async () => {
+  const stopRecordingAndUploadFileToFirebase = () => {
     if (recorder) {
-      await recorder.stopRecording(async () => {
+      recorder.stopRecording(async () => {
         try {
           const blob = recorder.getBlob();
           const videoURL = URL.createObjectURL(blob);
           URL.revokeObjectURL(videoURL);
           console.log(blob)
-          await uploadFile(blob).then(() => {
+          uploadFile(blob).then(() => {
             setIsModalOpen(false)
             if (localStorage.getItem("allexercise") === "1") {
               StateRef.current = 1;
@@ -136,7 +136,6 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
         } catch (error) {
           console.log("--------------------------------> ", error)
         }
-
       });
     }
   };
