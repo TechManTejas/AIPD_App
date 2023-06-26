@@ -10,40 +10,6 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { useHistory } from "react-router-dom";
 // * The Types of Exercise
 
-declare namespace TTS {
-    interface IOptions {
-        /** text to speak */
-        text: string;
-        /** cancel, boolean: true/false */
-        identifier: string;
-        /** voice identifier (iOS / Android) from getVoices */
-        locale?: string;
-        /** speed rate, 0 ~ 1 */
-        rate?: number;
-        /** pitch, 0 ~ 1 */
-        pitch?: number;
-        /** cancel, boolean: true/false */
-        cancel?: boolean;
-        /** iOS ONLY: a voice URI (DEPRECATED, use identifier) **/
-        voiceURI?: string;
-    }
-    interface TTSVoice {
-        /** Voice name */
-        name: string;
-        /** Language **/
-        language: string;
-        /** identifier string */
-        identifier: string;
-    }
-
-    function speak(options: IOptions): Promise<void>;
-    function speak(text: string): Promise<void>;
-    function stop(): Promise<void>;
-    function checkLanguage(): Promise<string>;
-    function openInstallTts(): Promise<void>;
-    function getVoices(): Promise<TTSVoice[]>;
-}
-
 export const Home: React.FC = () => {
   // * value => the index of the dates present in the top scroll bar
   const [value, setValue] = useState<number>(0);
@@ -56,38 +22,6 @@ export const Home: React.FC = () => {
   // * The Array of Exercise that are completed by the patient
   const [completedExercise, setCompletedExercise] = useState<number[]>([]);
   const [individualSetReps, setIndivisualSetsReps] = useState<{ id: number, patient: number, exercise: number, sets: number, reps: number }[]>([])
-
-  const speak = () => {
-    document.addEventListener('deviceready', function () {
-      console.log("running")
-      TTS.speak('hello, world!').then(function () {
-        alert('success');
-      }, function (reason: any) {
-        alert(reason);
-      });
-
-      // or with more options
-      TTS
-        .speak({
-          text: 'Hi I\'m Siri!',
-          identifier: 'com.apple.ttsbundle.Samantha-compact',
-          rate: 0.75,
-          pitch: 0.9,
-          cancel: true
-        }).then(function () {
-          alert('success');
-        }, function (reason : any) {
-          alert(reason);
-        });
-      // or with more options
-      TTS
-        .getVoices().then(function (voices : any) {
-          // Array of voices [{name:'', identifier: '', language: ''},..] see TS-declarations
-        }, function (reason : any) {
-          alert(reason);
-        });
-    }, false);
-  }
 
   useEffect(() => {
 
@@ -117,7 +51,6 @@ export const Home: React.FC = () => {
 
   // * an axios post to fetch the completed exercise, reloads whenever the value (state) changes
   useEffect(() => {
-    speak()
     axios.get("/exercise_record/", {
       headers: {
         Authorization: `Token ${localStorage.getItem(
