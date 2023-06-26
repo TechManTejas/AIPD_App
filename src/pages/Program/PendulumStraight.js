@@ -1,6 +1,7 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 import playSound from "../../utils/PlaySound"
 import bell from "../../sounds/bell.wav"
+import rep from "../../sounds/rep.mp3"
 import pendulum_straight from "../../sounds/pendulum_straight.wav"
 
 var sets = 0;
@@ -253,6 +254,7 @@ export default function PendulumStraight({
             WristX,
             WristY
         ) < circleRadius) {
+            playSound(rep)
             hitOn = 2
         } 
     }
@@ -265,6 +267,7 @@ export default function PendulumStraight({
             WristY
         ) < circleRadius) {
             hitOn = 1
+            playSound(rep)
             reps++
         }
     }

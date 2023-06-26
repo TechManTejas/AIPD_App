@@ -1,6 +1,7 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 import playSound from "../../utils/PlaySound"
 import bell from "../../sounds/bell.wav"
+import rep from "../../sounds/rep.mp3"
 import pendulum_circles from "../../sounds/pendulum_circles.wav"
 
 var sets = 0;
@@ -233,8 +234,10 @@ export default function PendulumCircles({
             WristX,
             WristY
         ) < circleRadius) {
+            playSound(rep)
             hitOn = 2
         } else if (anglebetweenrslslw < 170) {
+            playSound(rep)
             hitOn = 2
         }
     }
@@ -246,15 +249,17 @@ export default function PendulumCircles({
             WristX,
             WristY
         ) < circleRadius) {
+            playSound(rep)
             hitOn = 1
             reps++
         } else if (anglebetweenrslslw > 190) {
+            playSound(rep)
             hitOn = 1
             reps++
         }
     }
 
-    console.log(hitOn)
+    // console.log(hitOn)
 
 
     repref.current.innerHTML = `Reps :- ${reps}`;

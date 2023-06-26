@@ -2,6 +2,7 @@ import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 import playSound from "../../utils/PlaySound"
 import bell from "../../sounds/bell.wav"
 import arms_lock from "../../sounds/arms_lock.wav"
+import rep from "../../sounds/rep.mp3"
 
 const connectingPoints = [
     [12, 14],
@@ -48,6 +49,7 @@ const IntervalForCountingTimesElapsed = () => {
     const interval = setInterval(() => {
         eltime++
         if (eltime % 2 === 0 && eltime > 0) {
+            playSound(rep)
             reps++;
         }
         if (eltime === 0) {
