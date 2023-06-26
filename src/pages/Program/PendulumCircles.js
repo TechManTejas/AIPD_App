@@ -4,6 +4,8 @@ import bell from "../../sounds/bell.wav"
 import pendulum_circles from "../../sounds/pendulum_circles.wav"
 import rep from "../../sounds/rep.mp3"
 
+const speech = new SpeechSynthesisUtterance();
+
 var sets = 0;
 var playInitVoice = true
 const connectingPoints = [
@@ -256,6 +258,8 @@ export default function PendulumCircles({
             playSound(rep)
             hitOn = 1
             reps++
+            speech.text = reps;
+            window.speechSynthesis.speak(speech);
         }
     }
 
