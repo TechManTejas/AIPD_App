@@ -4,6 +4,8 @@ import bell from "../../sounds/bell.wav"
 import butterfly from "../../sounds/butterfly.wav"
 import rep from "../../sounds/rep.mp3"
 
+const speech = new SpeechSynthesisUtterance();
+
 var sets = 0;
 
 const connectingPoints = [
@@ -225,6 +227,8 @@ export default function Butterfly({
             if (relationalDistance < 1.9) {
                 playSound(rep)
                 reps++
+                speech.text = reps;
+                window.speechSynthesis.speak(speech);
                 hitOn = 0
                 message = 'Push Back'
             }
