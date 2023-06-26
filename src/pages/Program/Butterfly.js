@@ -224,7 +224,7 @@ export default function Butterfly({
         if (hitOn === 1) {
             if (relationalDistance < 1.9) {
                 playSound(rep)
-                reps--
+                reps++
                 hitOn = 0
                 message = 'Push Back'
             }
