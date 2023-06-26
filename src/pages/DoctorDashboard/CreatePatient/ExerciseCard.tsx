@@ -3,7 +3,7 @@ import { TextField, InputAdornment, IconButton } from '@mui/material'
 import axios from 'axios'
 import { post$patient_exercise } from '../../../APIs/DoctorAPI'
 
-export const ExerciseCard: React.FC<{ exercise: string, individualExercise : boolean }> = ({ exercise, individualExercise }) => {
+export const ExerciseCard: React.FC<{ exercise: string, individualExercise : number }> = ({ exercise, individualExercise }) => {
 
     const [sets, setsets] = useState(2)
     const [reps, setreps] = useState(10)
