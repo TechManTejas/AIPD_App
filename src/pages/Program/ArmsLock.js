@@ -3,8 +3,6 @@ import playSound from "../../utils/PlaySound"
 import bell from "../../sounds/bell.wav"
 import arms_lock from "../../sounds/arms_lock.wav"
 
-const speech = new SpeechSynthesisUtterance();
-
 const connectingPoints = [
     [12, 14],
     [14, 16],
@@ -51,8 +49,6 @@ const IntervalForCountingTimesElapsed = () => {
         eltime++
         if (eltime % 2 === 0 && eltime > 0) {
             reps++;
-            speech.text = reps;
-            window.speechSynthesis.speak(speech);
         }
         if (eltime === 0) {
             start = 0

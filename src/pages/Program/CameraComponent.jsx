@@ -82,7 +82,11 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
       window.location.href = "/"
       return;
     }
+
+    console.log(exerciseDetails)
+
     const entry = findEntryByExercise(individualSetReps, Number(exerciseDetails[Number(localStorage.getItem("Allexerciseid") || "0")].id))
+
 
     localStorage.setItem(
       "sets",

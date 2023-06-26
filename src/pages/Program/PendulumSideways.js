@@ -2,9 +2,6 @@ import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 import playSound from "../../utils/PlaySound"
 import bell from "../../sounds/bell.wav"
 import pendulum_sideways from "../../sounds/pendulum_sideways.wav"
-import rep from "../../sounds/rep.mp3"
-
-const speech = new SpeechSynthesisUtterance();
 
 var sets = 0;
 var playInitVoice = true
@@ -237,10 +234,8 @@ export default function PendulumSideways({
             WristX,
             WristY
         ) < circleRadius) {
-            playSound(rep)
             hitOn = 2
         } else if (anglebetweenrslslw < 150) {
-            playSound(rep)
             hitOn = 2
         }
     }
@@ -252,15 +247,11 @@ export default function PendulumSideways({
             WristX,
             WristY
         ) < circleRadius) {
-            playSound(rep)
             hitOn = 1
             reps++
         } else if (anglebetweenrslslw > 210) {
-            playSound(rep)
             hitOn = 1
             reps++
-            speech.text = reps;
-            window.speechSynthesis.speak(speech);
         }
     }
 

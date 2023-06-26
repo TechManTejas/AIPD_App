@@ -54,6 +54,7 @@ export const CreatePatient: React.FC = () => {
                     'Authorization': `Token ${localStorage.getItem("aipd-doctor-access-token")}`
                 },
             }).then((data: any) => {
+                console.log(data.data)
                 setSelectedCondition(data.data[0])
                 setConditionDetails(data.data)
             });
@@ -142,9 +143,9 @@ export const CreatePatient: React.FC = () => {
                         />
                     </div>
                     {
-                        selectedCondition.exercises.map((e) => {
+                        selectedCondition.exercises.map((e : any) => {
                             return (
-                                <ExerciseCard exercise={e.name} individualExercise={individualExercise} />
+                                <ExerciseCard exerciseid = {e.id} exercise={e.name} individualExercise={individualExercise} />
                             )
                         })
                     }

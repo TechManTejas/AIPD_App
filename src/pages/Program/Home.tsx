@@ -10,6 +10,39 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { useHistory } from "react-router-dom";
 // * The Types of Exercise
 
+declare namespace TTS {
+    interface IOptions {
+        /** text to speak */
+        text: string;
+        /** cancel, boolean: true/false */
+        identifier: string;
+        /** voice identifier (iOS / Android) from getVoices */
+        locale?: string;
+        /** speed rate, 0 ~ 1 */
+        rate?: number;
+        /** pitch, 0 ~ 1 */
+        pitch?: number;
+        /** cancel, boolean: true/false */
+        cancel?: boolean;
+        /** iOS ONLY: a voice URI (DEPRECATED, use identifier) **/
+        voiceURI?: string;
+    }
+    interface TTSVoice {
+        /** Voice name */
+        name: string;
+        /** Language **/
+        language: string;
+        /** identifier string */
+        identifier: string;
+    }
+
+    function speak(options: IOptions): Promise<void>;
+    function speak(text: string): Promise<void>;
+    function stop(): Promise<void>;
+    function checkLanguage(): Promise<string>;
+    function openInstallTts(): Promise<void>;
+    function getVoices(): Promise<TTSVoice[]>;
+}
 
 export const Home: React.FC = () => {
   // * value => the index of the dates present in the top scroll bar
@@ -24,73 +57,40 @@ export const Home: React.FC = () => {
   const [completedExercise, setCompletedExercise] = useState<number[]>([]);
   const [individualSetReps, setIndivisualSetsReps] = useState<{ id: number, patient: number, exercise: number, sets: number, reps: number }[]>([])
 
+  const speak = () => {
+    document.addEventListener('deviceready', function () {
+      console.log("running")
+      TTS.speak('hello, world!').then(function () {
+        alert('success');
+      }, function (reason: any) {
+        alert(reason);
+      });
 
-  const DemoData =
-    [
-      {
-        "id": 9,
-        "name": "Pendulum Circles",
-        "sets": 2,
-        "description": "Some Description",
-        "image": "http://13.232.102.80:8000/media/exercise_images/exercise5_new_webp_OJPHgBa.webp",
-        "link": "https://www.youtube.com/embed/Hr-9biVEEYo",
-        "data": {},
-        "time": 45
-      },
-      {
-        "id": 10,
-        "name": "Pendulum Sideways",
-        "sets": 2,
-        "description": "Some Description",
-        "image": "http://13.232.102.80:8000/media/exercise_images/exercise5_new_webp_W0dF4dG.webp",
-        "link": "https://www.youtube.com/embed/Hr-9biVEEYo",
-        "data": {},
-        "time": 45
-      },
-      {
-        "id": 11,
-        "name": "Pendulum Straight",
-        "sets": 2,
-        "description": "Some Description",
-        "image": "http://13.232.102.80:8000/media/exercise_images/exercise5_new_webp_546DFen.webp",
-        "link": "https://www.youtube.com/embed/Hr-9biVEEYo",
-        "data": {},
-        "time": 45
-      },
-
-      {
-        "id": 7,
-        "name": "Butterfly",
-        "sets": 2,
-        "description": "Some Description",
-        "image": "http://13.232.102.80:8000/media/exercise_images/Butterfly.webp",
-        "link": "https://www.youtube.com/embed/Hr-9biVEEYo",
-        "data": {},
-        "time": 45
-      },
-      {
-        "id": 8,
-        "name": "Lying Arms",
-        "sets": 2,
-        "description": "Some Description",
-        "image": "http://13.232.102.80:8000/media/exercise_images/exercise5_new_webp_HPFaJhk.webp",
-        "link": "https://www.youtube.com/embed/Hr-9biVEEYo",
-        "data": {},
-        "time": 45
-      },
-      {
-        "id": 6,
-        "name": "Arms Lock",
-        "sets": 2,
-        "description": "Some Description",
-        "image": "http://13.232.102.80:8000/media/exercise_images/exercise5_new_webp_JHVql11.webp",
-        "link": "https://www.youtube.com/embed/Hr-9biVEEYo",
-        "data": {},
-        "time": 45
-      },
-    ]
+      // or with more options
+      TTS
+        .speak({
+          text: 'Hi I\'m Siri!',
+          identifier: 'com.apple.ttsbundle.Samantha-compact',
+          rate: 0.75,
+          pitch: 0.9,
+          cancel: true
+        }).then(function () {
+          alert('success');
+        }, function (reason : any) {
+          alert(reason);
+        });
+      // or with more options
+      TTS
+        .getVoices().then(function (voices : any) {
+          // Array of voices [{name:'', identifier: '', language: ''},..] see TS-declarations
+        }, function (reason : any) {
+          alert(reason);
+        });
+    }, false);
+  }
 
   useEffect(() => {
+
     axios.get("/patient_exercise/", {
       headers: {
         Authorization: `Token ${localStorage.getItem(
@@ -117,6 +117,7 @@ export const Home: React.FC = () => {
 
   // * an axios post to fetch the completed exercise, reloads whenever the value (state) changes
   useEffect(() => {
+    speak()
     axios.get("/exercise_record/", {
       headers: {
         Authorization: `Token ${localStorage.getItem(
@@ -148,13 +149,15 @@ export const Home: React.FC = () => {
 
     localStorage.setItem(
       "exercise",
-      DemoData[Number(localStorage.getItem("Allexerciseid") || "0")].name
+      exerciseDetails[Number(localStorage.getItem("Allexerciseid") || "0")].name
     );
     const entry = findEntryByExercise(individualSetReps, Number(exerciseDetails[Number(localStorage.getItem("Allexerciseid") || "0")].id))
 
+    console.log(entry)
+
     localStorage.setItem(
       "exerciseID",
-      DemoData[Number(localStorage.getItem("Allexerciseid") || "0")].id.toString()
+      exerciseDetails[Number(localStorage.getItem("Allexerciseid") || "0")].id.toString()
     );
 
     localStorage.setItem(
@@ -181,7 +184,7 @@ export const Home: React.FC = () => {
       },
     })
       .then((data: any) => {
-        localStorage.setItem("exerciseDetails", JSON.stringify(DemoData))
+        localStorage.setItem("exerciseDetails", JSON.stringify(data.data[0]["condition"]["exercises"]))
         setExerciseDetails(data.data[0]["condition"]["exercises"]);
         localStorage.setItem("patient-ID", data.data[0].id)
       });
@@ -267,7 +270,7 @@ export const Home: React.FC = () => {
                   "exerciseID",
                   exercise.id.toString()
                 );
-                
+
                 localStorage.setItem("allexercise", "0")
               }}
             >

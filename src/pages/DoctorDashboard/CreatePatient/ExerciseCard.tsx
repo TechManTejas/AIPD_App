@@ -3,14 +3,14 @@ import { TextField, InputAdornment, IconButton } from '@mui/material'
 import axios from 'axios'
 import { post$patient_exercise } from '../../../APIs/DoctorAPI'
 
-export const ExerciseCard: React.FC<{ exercise: string, individualExercise : number }> = ({ exercise, individualExercise }) => {
+export const ExerciseCard: React.FC<{ exerciseid : number,  exercise: string, individualExercise : number }> = ({ exerciseid,  exercise, individualExercise }) => {
 
     const [sets, setsets] = useState(2)
     const [reps, setreps] = useState(10)
 
     useEffect(() => {
         if(individualExercise)
-            post$patient_exercise({sets, reps, exercise})
+            post$patient_exercise({sets, reps, exercise, exerciseid})
     }, [individualExercise])
 
     return (

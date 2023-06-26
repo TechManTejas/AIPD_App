@@ -2,9 +2,6 @@ import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 import playSound from "../../utils/PlaySound"
 import bell from "../../sounds/bell.wav"
 import pendulum_straight from "../../sounds/pendulum_straight.wav"
-import rep from "../../sounds/rep.mp3"
-
-const speech = new SpeechSynthesisUtterance();
 
 var sets = 0;
 var playInitVoice = true
@@ -256,7 +253,6 @@ export default function PendulumStraight({
             WristX,
             WristY
         ) < circleRadius) {
-            playSound(rep)
             hitOn = 2
         } 
     }
@@ -268,11 +264,8 @@ export default function PendulumStraight({
             WristX,
             WristY
         ) < circleRadius) {
-            playSound(rep)
             hitOn = 1
             reps++
-            speech.text = reps;
-            window.speechSynthesis.speak(speech);
         }
     }
 

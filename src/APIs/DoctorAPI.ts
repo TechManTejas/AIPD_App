@@ -1,10 +1,10 @@
 import axios from "axios"
 
-export const post$patient_exercise = async ({ sets, reps, exercise }: { sets: number, reps: number, exercise: string }) => {
+export const post$patient_exercise = async ({ sets, reps, exercise, exerciseid }: { sets: number, reps: number, exercise: string, exerciseid : number }) => {
     const data = {
         sets: sets,
         reps: reps,
-        exercise: exercise,
+        exercise: exerciseid,
         patient: localStorage.getItem("patient-id")
     }
     console.log(data)

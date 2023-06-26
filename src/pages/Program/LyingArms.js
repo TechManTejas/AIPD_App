@@ -1,9 +1,6 @@
 import { connectPoint, drawPointOnCanvas } from "./PoseFunctions";
 import playSound from "../../utils/PlaySound"
 import lying_arms from "../../sounds/lying_arms.wav"
-import rep from "../../sounds/rep.mp3"
-
-const speech = new SpeechSynthesisUtterance();
 
 var sets = 0;
 var playInitVoice = true
@@ -199,7 +196,6 @@ export default function ElbowCurl({
             ) < 100
         ) {
             if (hitOn === "lower") {
-                playSound(rep)
                 hitOn = "upper"
             };
         }
@@ -219,10 +215,7 @@ export default function ElbowCurl({
             ) < 60
         ) {
             if (hitOn === "upper") {
-                playSound(rep)
                 reps++
-                speech.text = reps;
-                window.speechSynthesis.speak(speech);
             };
             hitOn = "lower";
         }
