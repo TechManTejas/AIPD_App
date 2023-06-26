@@ -13,7 +13,7 @@ export const CreatePatient: React.FC = () => {
     const [firstname, setFirstname] = useState("")
     const [lastname, setLastname] = useState("")
     const [duration, setDuration] = useState(3)
-    const [individualExercise, setIndividualEx] = useState(false)
+    const [individualExercise, setIndividualEx] = useState(0)
 
 
     async function createNewPatient() {
@@ -29,6 +29,8 @@ export const CreatePatient: React.FC = () => {
             duration: duration
         };
 
+        console.log(data)
+
         await axios.post(url, data, {
             headers: {
                 Accept: "application/json",
@@ -40,7 +42,7 @@ export const CreatePatient: React.FC = () => {
         })
             .then((data: any) => {
                 localStorage.setItem("patient-id", data.data.patient_id)
-                setIndividualEx(true)
+                setIndividualEx(individualExercise+1)
                 notifyOnWhatsapp(data.data.code)
             });
     }
