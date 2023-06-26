@@ -117,6 +117,7 @@ export const Home: React.FC = () => {
       },
     })
       .then((data: any) => {
+        console.log(data.data)
         localStorage.setItem("exerciseDetails", JSON.stringify(data.data[0]["condition"]["exercises"]))
         setExerciseDetails(data.data[0]["condition"]["exercises"]);
         localStorage.setItem("patient-ID", data.data[0].id)

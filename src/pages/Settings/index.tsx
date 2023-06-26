@@ -1,10 +1,28 @@
 import { IonContent, IonPage } from '@ionic/react';
 import GradientButton from '../../components/GradientButton';
 import { GlobalDataState } from '../../Context/global';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Settings: React.FC = () => {
   
   const { setAuthenticated } = GlobalDataState()
+  const [Exercise, setExercise] = useState<any>({});
+  
+  useEffect(() => {
+    axios.get("/patient/", {
+      headers: {
+        Authorization: `Token ${localStorage.getItem(
+          "aipd-patient-access-token"
+        )}`,
+      },
+    })
+      .then((data: any) => {
+        // localStorage.setItem("exerciseDetails", JSON.stringify(data.data[0]["condition"]["exercises"]))
+        setExercise(data.data[0]);
+        // localStorage.setItem("patient-ID", data.data[0].id)
+      });
+  }, []);
 
   return (
     <IonPage>
@@ -25,7 +43,7 @@ const Settings: React.FC = () => {
                     Program Code
                   </div>
                   <div>
-                    qwert321
+                    Frozen Shoulder
                   </div>
                 </div>
                 <div>
@@ -33,10 +51,10 @@ const Settings: React.FC = () => {
                     Condition Name
                   </div>
                   <div>
-                    Start Date: <span> dd/mm/yyyy</span>
+                    Start Date: <span> {Exercise.start_date} </span>
                   </div>
                   <div>
-                    End Date: <span> dd/mm/yyyy</span>
+                    End Date: <span> {Exercise.end_date} </span>
                   </div>
                 </div>
               </div>
