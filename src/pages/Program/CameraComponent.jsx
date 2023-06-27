@@ -41,6 +41,8 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
         playSound(successSound)
         setIsModalOpen(true)
         stopRecordingAndUploadFileToFirebase()
+        setIsModalOpen(false)
+        setShowCoutdown(false)
       })
     }
   }, [loading])
@@ -117,7 +119,7 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
     }
   }, [showCoutdown])
 
-  const stopRecordingAndUploadFileToFirebase = () => {
+  const stopRecordingAndUploadFileToFirebase = async () => {
     if (recorder) {
       recorder.stopRecording(async () => {
         try {
@@ -125,11 +127,11 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
           const videoURL = URL.createObjectURL(blob);
           URL.revokeObjectURL(videoURL);
           console.log(blob)
-          uploadFile(blob).then(() => {
-            setIsModalOpen(false)
+          uploadFile(blob).then(async () => {
+            // setIsModalOpen(false)
             if (localStorage.getItem("allexercise") === "1") {
               StateRef.current = 1;
-              setShowCoutdown(false)
+              // setShowCoutdown(false)
             }
             else window.location.href = "/demo-video-logs"
           });

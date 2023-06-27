@@ -179,7 +179,7 @@ export const Home: React.FC = () => {
         <img className="p-6" src={AIPDLogoName}></img>
       </div>
       <div className="flex justify-center">
-        <button onClick={() => Handle$Start$All$Exercise()} className="bg-green-500 px-5 py-5 rounded-full">Start Exercise</button>
+        <button onClick={() => Handle$Start$All$Exercise()} className="bg-green-600 text-3xl p-5 rounded-full font-bold text-white">Start Exercise</button>
       </div>
       <div className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"}  grid grid-cols-2 overflow-auto`}>
         {exerciseDetails.map((exercise) => {
