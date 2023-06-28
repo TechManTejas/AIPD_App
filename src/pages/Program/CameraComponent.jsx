@@ -6,6 +6,9 @@ import { CountDownComponent } from "./CountDownComponent";
 import PendulumSideways from "./PendulumSideways";
 import PendulumCircles from "./PendulumCircles";
 import PendulumStraight from "./PendulumStraight";
+import PendulumSidewaysLeft from "./PendulumSidewaysLeft";
+import PendulumCirclesLeft from "./PendulumCirclesLeft";
+import PendulumStraightLeft from "./PendulumStraightLeft";
 import LyingArms from "./LyingArms";
 import Butterfly from "./Butterfly";
 import ArmsLock from "./ArmsLock";
@@ -17,7 +20,7 @@ import { Link } from "react-router-dom";
 import successSound from "../../sounds/excellent_work.wav";
 
 
-function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading, repref, setref, messageRef }) {
+function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, repref, setref, messageRef }) {
   // * Refs
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -25,7 +28,7 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
   let recorder;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   var camera = null;
 
   const [timer, settimer] = useState(true);
@@ -158,17 +161,31 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown,  loading, setloading,
 
   useEffect(() => {
     exercise = localStorage.getItem("exercise");
-    if (exercise === 'Pendulum Straight') {
+    if (exercise === 'Pendulum Straight Right') {
       exercise = PendulumStraight
-    } else if (exercise === 'Pendulum Sideways') {
+    }
+    else if (exercise === 'Pendulum Sideways Right') {
       exercise = PendulumSideways
-    } else if (exercise === 'Butterfly') {
-      exercise = Butterfly
-    } else if (exercise === 'Pendulum Circles') {
+    }
+    else if (exercise === 'Pendulum Circles Right') {
       exercise = PendulumCircles
-    } else if (exercise === 'Lying Arms') {
+    }
+    else if (exercise === 'Pendulum Straight Left') {
+      exercise = PendulumStraightLeft
+    }
+    else if (exercise === 'Pendulum Sideways Left') {
+      exercise = PendulumSidewaysLeft
+    }
+    else if (exercise === 'Pendulum Circles Left') {
+      exercise = PendulumCirclesLeft
+    }
+    else if (exercise === 'Butterfly') {
+      exercise = Butterfly
+    }
+    else if (exercise === 'Lying Arms') {
       exercise = LyingArms
-    } else if (exercise === 'Arms Lock') {
+    }
+    else if (exercise === 'Arms Lock') {
       exercise = ArmsLock
     }
 
