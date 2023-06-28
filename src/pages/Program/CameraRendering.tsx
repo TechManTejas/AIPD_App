@@ -13,6 +13,7 @@ export const CameraRendering: React.FC = () => {
   const [loading, setloading] = useState(true)
   const [showCoutdown, setShowCoutdown] = useState(true);
  
+  console.log("CAMERA RENDING COMPONENT")
 
   return (
     <IonPage>
