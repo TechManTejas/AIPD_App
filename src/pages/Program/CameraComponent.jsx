@@ -174,7 +174,7 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
           return new Promise((resolve, reject) => {
             pose.send({ image: webcamRef.current.video })
               .then(() => {
-                console.log("LOADING SET TO FALSE");
+                // console.log("LOADING SET TO FALSE");
                 setloading(false);
                 resolve();
               })
