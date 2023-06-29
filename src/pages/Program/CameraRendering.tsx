@@ -49,7 +49,7 @@ export const CameraRendering: React.FC = () => {
               <div className={`${showCoutdown ? "" : "hidden"}`}>
                 <CardActionArea>
                   <div id = "done-exercise" className="border bg-blue-600 text-white font-semibold p-1 text-center">
-                    Done
+                    Emergency Stop
                   </div>
                 </CardActionArea>
               </div>

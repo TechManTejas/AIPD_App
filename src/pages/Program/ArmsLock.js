@@ -43,6 +43,8 @@ var green_touched = 1;
 var reps = 0;
 var sets = 0;
 var message = 'Join the colored circle with same colors'
+const pset = localStorage.getItem("sets")
+const prep = localStorage.getItem("reps")
 
 let eltime = 0;
 const IntervalForCountingTimesElapsed = () => {
@@ -211,8 +213,8 @@ export default function ArmsLock({
     //     startTimer()
     // }
 
-    repref.current.innerHTML = `Reps :- ${reps}`;
-    setref.current.innerHTML = `Sets :- ${sets}`;
+    repref.current.innerHTML = `Reps :- ${reps} / ${localStorage.getItem("reps")}`;
+    setref.current.innerHTML = `Sets :- ${sets} /  ${localStorage.getItem("sets")}`;
     // messageRef.current.innerHTML = `${message}`;
 
     // ^ Points that needs to be shown in the canvas

@@ -273,8 +273,8 @@ export default function PendulumStraight({
     }
 
 
-    repref.current.innerHTML = `Reps :- ${reps}`;
-    setref.current.innerHTML = `Sets :- ${sets}`;
+    repref.current.innerHTML = `Reps :- ${reps} / ${localStorage.getItem("reps")}`;
+    setref.current.innerHTML = `Sets :- ${sets} /  ${localStorage.getItem("sets")}`;
 
     // ^ Points that needs to be shown in the canvas
     const allowedPoints = [11, 12, 13, 14, 15, 16, 23, 24];
