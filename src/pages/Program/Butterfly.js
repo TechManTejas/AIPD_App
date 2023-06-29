@@ -231,8 +231,8 @@ export default function Butterfly({
         }
     }
 
-    repref.current.innerHTML = `Reps :- ${reps} / ${localStorage.getItem("reps")}`;
-    setref.current.innerHTML = `Sets :- ${sets} /  ${localStorage.getItem("sets")}`;
+    repref.current.innerHTML = `${reps} / ${localStorage.getItem("reps")}`;
+    setref.current.innerHTML = `${sets} /  ${localStorage.getItem("sets")}`;
     // messageRef.current.innerHTML = `${message}`;
 
     // ^ Points that needs to be shown in the canvas

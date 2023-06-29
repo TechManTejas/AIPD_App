@@ -56,13 +56,13 @@ export default function PendulumStraight({
 
 
     // console.log(timer)
-    if(sets == localStorage.getItem("sets")){
+    if (sets == localStorage.getItem("sets")) {
         document.getElementById("done-exercise").click()
         sets = 0
         return;
     }
 
-    if(reps == localStorage.getItem("reps") && sets === Number(localStorage.getItem("sets")) - 1){
+    if (reps == localStorage.getItem("reps") && sets === Number(localStorage.getItem("sets")) - 1) {
         reps = 0
         sets++;
         return;
@@ -202,7 +202,7 @@ export default function PendulumStraight({
         canvasCtx.lineWidth = 2;
         canvasCtx.arc(
             leftShoulder.x * canvasElement.width,
-            (leftShoulder.y * canvasElement.height + left_knee.y * canvasElement.height)*(2/5) ,
+            (leftShoulder.y * canvasElement.height + left_knee.y * canvasElement.height) * (2 / 5),
             circleRadius,
             2 * Math.PI, false
         );
@@ -258,7 +258,7 @@ export default function PendulumStraight({
         ) < circleRadius) {
             playSound(rep)
             hitOn = 2
-        } 
+        }
     }
 
     if (hitOn === 2) {
@@ -275,8 +275,8 @@ export default function PendulumStraight({
     }
 
 
-    repref.current.innerHTML = `Reps :- ${reps}`;
-    setref.current.innerHTML = `Sets :- ${sets}`;
+    repref.current.innerHTML = `${reps} / ${localStorage.getItem("reps")}`;
+    setref.current.innerHTML = `${sets} / ${localStorage.getItem("sets")}`;
 
     // ^ Points that needs to be shown in the canvas
     const allowedPoints = [11, 12, 13, 14, 15, 16, 23, 24];

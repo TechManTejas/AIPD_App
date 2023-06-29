@@ -263,7 +263,7 @@ export default function PendulumCircles({
 
 
     repref.current.innerHTML = `${reps} / ${localStorage.getItem("reps")}`;
-    setref.current.innerHTML = `${sets} /  ${localStorage.getItem("sets")}`;
+    setref.current.innerHTML = `${sets} / ${localStorage.getItem("sets")}`;
 
     // ^ Points that needs to be shown in the canvas
     const allowedPoints = [11, 12, 13, 14, 15, 16, 23, 24];

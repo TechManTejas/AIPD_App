@@ -183,7 +183,7 @@ export const Home: React.FC = () => {
           Today's Session
         </button>
       </div>
-      <div className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"}  grid grid-cols-2 overflow-auto`}>
+      <div className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"} overflow-auto`}>
         {exerciseDetails.map((exercise) => {
           const entry = findEntryByExercise(individualSetReps, exercise.id)
           return (

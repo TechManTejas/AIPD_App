@@ -1,12 +1,22 @@
 import { CardActionArea, Paper } from "@mui/material"
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Link } from "react-router-dom";
+import { Carousel } from "antd";
 
 interface ExerciseCardProps {
     completed?: boolean
     image?: string
     text?: string
 }
+
+const contentStyle: React.CSSProperties = {
+    margin: 0,
+    height: '160px',
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79',
+};
 
 export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     completed,
@@ -30,7 +40,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                         boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 5px"
                     }}
                 >
-                    
+
                     <div className={`p-1 ${(completed) ? 'bg-green-100' : ''}`}>
                         <div className={`p-1  m-1`}>
                             {(completed) &&
@@ -38,18 +48,25 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     <CheckCircleIcon fontSize="large" sx={{ color: "green" }} />
                                 </div>
                             }
-                            <img className={`rounded-lg w-[180px] h-[180px] object-cover -mt-8 ${(completed) ? '' : ''}`} src={image} style={{
-                                boxShadow: "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 5px 5px"
-                            }}/>
+                            <Carousel>
+                                <img className={`rounded-lg object-cover -mt-8 ${(completed) ? '' : ''}`} src={image} style={{
+                                    boxShadow: "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 5px 5px"
+                                }} />
+                                <img className={`rounded-lg object-cover -mt-8   ${(completed) ? '' : ''}`} src={image} style={{
+                                    boxShadow: "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 5px 5px"
+                                }} />
+                            </Carousel>
+
                         </div>
                         <div className="border-t border-green-600 mx-3"></div>
                         <div className={` ${completed ? "" : ""} text-center p-1 text-md font-roboto text-black `}>
                             {text}
                         </div>
                     </div>
-                    
+
                 </div>
             </CardActionArea>
         </Link>
     )
 }
+
