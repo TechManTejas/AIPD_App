@@ -35,7 +35,7 @@ export const CameraRendering: React.FC = () => {
         <div className="bg-white flex flex-col flex-grow pb-16">
           <div className="flex flex-col h-[calc(100vh-64px)]">
             {showCoutdown && <div className={`p-1 ${loading ? "hidden" : ""} absolute w-full top-0`}>
-              <div className="text-4xl text-white font-semibold p-1 flex justify-between">
+              <div className="text-3xl text-white font-semibold p-1 flex justify-between">
                 <div className="w-28 h-28 bg-blue-600 rounded-full flex justify-center items-center">
                   <p ref={repref}></p>
                 </div>
