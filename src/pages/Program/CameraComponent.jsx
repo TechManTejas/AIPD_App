@@ -78,7 +78,7 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
   }
 
   const Handle$NextDirectExercise = () => {
-
+    console.log("Preparing Next Exercise")
     localStorage.setItem("Allexerciseid", (Number(localStorage.getItem("Allexerciseid")) + 1).toString());
     const exerciseDetails = JSON.parse(localStorage.getItem("exerciseDetails"));
     const individualSetReps = JSON.parse(localStorage.getItem("individualSetReps"));
@@ -116,7 +116,7 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
   }
 
   useEffect(() => {
-    // console.log("StateRef.value", StateRef.value)
+    console.log(showCoutdown, StateRef.current)
     if (showCoutdown && StateRef.current === 1) {
       Handle$NextDirectExercise()
     }
@@ -130,14 +130,11 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
           const videoURL = URL.createObjectURL(blob);
           URL.revokeObjectURL(videoURL);
           console.log(blob)
-          uploadFile(blob).then(async () => {
-            // setIsModalOpen(false)
-            if (localStorage.getItem("allexercise") === "1") {
-              StateRef.current = 1;
-              // setShowCoutdown(false)
-            }
-            else window.location.href = "/demo-video-logs"
-          });
+          uploadFile(blob)
+          if (localStorage.getItem("allexercise") === "1") {
+            StateRef.current = 1;
+          }
+          else window.location.href = "/demo-video-logs"
         } catch (error) {
           console.log("--------------------------------> ", error)
         }
