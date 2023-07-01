@@ -28,25 +28,27 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
   let recorder;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  var camera = null;
+
   const [timer, settimer] = useState(true);
 
-  var camera = null
-
   var exercise;
+
+
 
   useEffect(() => {
     if (!loading) {
       startRecording();
-      console.log("RECORDING STARTED")
       document.getElementById("done-exercise").addEventListener("click", () => {
-        playSound(successSound);
-        setIsModalOpen(true);
-        stopRecordingAndUploadFileToFirebase();
-        setIsModalOpen(false);
-        setShowCoutdown(false);
-      });
+        playSound(successSound)
+        setIsModalOpen(true)
+        stopRecordingAndUploadFileToFirebase()
+        setIsModalOpen(false)
+        setShowCoutdown(false)
+      })
     }
-  }, [loading]);
+  }, [loading])
 
   const startRecording = () => {
 
@@ -118,10 +120,9 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
     if (showCoutdown && StateRef.current === 1) {
       Handle$NextDirectExercise()
     }
-  }, [showCoutdown, StateRef.current])
+  }, [showCoutdown])
 
   const stopRecordingAndUploadFileToFirebase = async () => {
-    StateRef.current = 1;
     if (recorder) {
       recorder.stopRecording(async () => {
         try {
@@ -132,6 +133,7 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
           uploadFile(blob).then(async () => {
             // setIsModalOpen(false)
             if (localStorage.getItem("allexercise") === "1") {
+              StateRef.current = 1;
               // setShowCoutdown(false)
             }
             else window.location.href = "/demo-video-logs"
@@ -157,21 +159,35 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
     })
   }
 
-  const ExerciseMapping = {
-    "Pendulum Straight Right": PendulumStraight,
-    "Pendulum Sideways Right": PendulumSideways,
-    "Pendulum Circles Right": PendulumCircles,
-    "Pendulum Straight Left": PendulumStraightLeft,
-    "Pendulum Sideways Left": PendulumSidewaysLeft,
-    "Pendulum Circles Left": PendulumCirclesLeft,
-    "Butterfly": Butterfly,
-    "Lying Arms": LyingArms,
-    "Arms Lock": ArmsLock,
-  }
-
-
   useEffect(() => {
-    exercise = ExerciseMapping[localStorage.getItem("exercise")];
+    exercise = localStorage.getItem("exercise");
+    if (exercise === 'Pendulum Straight Right') {
+      exercise = PendulumStraight
+    }
+    else if (exercise === 'Pendulum Sideways Right') {
+      exercise = PendulumSideways
+    }
+    else if (exercise === 'Pendulum Circles Right') {
+      exercise = PendulumCircles
+    }
+    else if (exercise === 'Pendulum Straight Left') {
+      exercise = PendulumStraightLeft
+    }
+    else if (exercise === 'Pendulum Sideways Left') {
+      exercise = PendulumSidewaysLeft
+    }
+    else if (exercise === 'Pendulum Circles Left') {
+      exercise = PendulumCirclesLeft
+    }
+    else if (exercise === 'Butterfly') {
+      exercise = Butterfly
+    }
+    else if (exercise === 'Lying Arms') {
+      exercise = LyingArms
+    }
+    else if (exercise === 'Arms Lock') {
+      exercise = ArmsLock
+    }
 
     const pose = new Pose({
       locateFile: (file) => {
@@ -199,7 +215,6 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
         },
       });
       camera.start()
-      console.log("CAMERA STARTED");
     }
   }, [timer]);
 
