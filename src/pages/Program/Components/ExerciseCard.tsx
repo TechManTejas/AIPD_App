@@ -6,6 +6,7 @@ import { Carousel } from "antd";
 interface ExerciseCardProps {
     completed?: boolean
     image?: string
+    coverImage?: string
     text?: string
 }
 
@@ -21,6 +22,7 @@ const contentStyle: React.CSSProperties = {
 export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     completed,
     image = "exercise_image.webp",
+    coverImage = "exercise_image.webp",
     text = "Exercise Name",
 }) => {
 
@@ -28,8 +30,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
     // console.log(dateSelected)
     // console.log(completedExercise)'
-
-    // console.log(completed)
 
     return (
         <Link to="/demo-video">
@@ -52,7 +52,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                 <img className={`rounded-lg object-cover -mt-8 ${(completed) ? '' : ''}`} src={image} style={{
                                     boxShadow: "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 5px 5px"
                                 }} />
-                                <img className={`rounded-lg object-cover -mt-8   ${(completed) ? '' : ''}`} src={image} style={{
+                                <img className={`rounded-lg object-cover -mt-8   ${(completed) ? '' : ''}`} src={coverImage} style={{
                                     boxShadow: "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 5px 5px"
                                 }} />
                             </Carousel>

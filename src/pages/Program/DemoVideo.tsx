@@ -2,7 +2,7 @@ import { IonContent, IonPage } from '@ionic/react';
 import { CardActionArea } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from "axios"
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 export const DemoVideo: React.FC = () => {
@@ -13,18 +13,6 @@ export const DemoVideo: React.FC = () => {
         [key: number]: string;
     }
 
-    const exerciseNames: ExerciseNames = {
-        6: "ArmsLock",
-        7: "Butterfly",
-        8: "LyingArms",
-        9: "PendulumCircles",
-        10: "PendulumSideways",
-        11: "PendulumStraight",
-    };
-
-    function findKeyByValue(object: ExerciseNames, value: string): number | undefined {
-        return Object.keys(object).find((key) => object[Number(key)] === value) as number | undefined;
-      }
 
     useEffect(() => {
         axios.get("/exercise/", {
@@ -54,7 +42,11 @@ export const DemoVideo: React.FC = () => {
         }
     }
 
-    
+    const descriptionWithLineBreaks = exerciseData?.description.split('\n').map((line, index) => (
+        <React.Fragment key={index}>
+            {line}<br />
+        </React.Fragment>
+    ));
 
     return (
         <IonPage>
@@ -81,7 +73,7 @@ export const DemoVideo: React.FC = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    {exerciseData.description}
+                                    {descriptionWithLineBreaks}
                                 </div>
                             </div>
                             <div className="p-2">
