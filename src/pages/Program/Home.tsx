@@ -4,7 +4,6 @@ import AIPDLogoName from "../../Images/aipdlogoname.png";
 import axios from "axios";
 import { PerviousDate } from "../../utils/DateTime";
 import { message } from "antd";
-import { useDispatch } from "react-redux";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { useHistory } from "react-router-dom";
@@ -18,7 +17,7 @@ export const Home: React.FC = () => {
 
   // * The Exercise that needs to be done by the patients logined
   // ^ id => the id of the exercise, name => name of the exercise, image => url of the image of the exercise
-  const [exerciseDetails, setExerciseDetails] = useState<{ id: number, name: string, image: string; sets: number }[]>([]);
+  const [exerciseDetails, setExerciseDetails] = useState<{ id: number, name: string, image: string, cover_image : string, sets: number }[]>([]);
   // * The Array of Exercise that are completed by the patient
   const [completedExercise, setCompletedExercise] = useState<number[]>([]);
   const [individualSetReps, setIndivisualSetsReps] = useState<{ id: number, patient: number, exercise: number, sets: number, reps: number }[]>([])
@@ -213,6 +212,7 @@ export const Home: React.FC = () => {
               <ExerciseCard
                 completed={completedExercise.indexOf(exercise.id) !== -1}
                 image={exercise.image}
+                coverImage = {exercise.cover_image}
                 text={(exercise as { name: string }).name}
               />
             </div>
