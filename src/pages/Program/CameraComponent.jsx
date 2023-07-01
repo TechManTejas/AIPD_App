@@ -34,8 +34,6 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
 
   var exercise;
 
-
-
   useEffect(() => {
     if (!loading) {
       startRecording();
@@ -120,9 +118,10 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
     if (showCoutdown && StateRef.current === 1) {
       Handle$NextDirectExercise()
     }
-  }, [showCoutdown])
+  }, [showCoutdown, StateRef.current])
 
   const stopRecordingAndUploadFileToFirebase = async () => {
+    StateRef.current = 1;
     if (recorder) {
       recorder.stopRecording(async () => {
         try {
@@ -133,7 +132,6 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
           uploadFile(blob).then(async () => {
             // setIsModalOpen(false)
             if (localStorage.getItem("allexercise") === "1") {
-              StateRef.current = 1;
               // setShowCoutdown(false)
             }
             else window.location.href = "/demo-video-logs"
