@@ -29,6 +29,10 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [timer, settimer] = useState(true);
 
+  useEffect(() => {
+      console.log(timer)
+  }, [timer])
+
   var exercise;
 
   console.log("CAMERA POSE DETECT")
@@ -174,7 +178,7 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
           return new Promise((resolve, reject) => {
             pose.send({ image: webcamRef.current.video })
               .then(() => {
-                // console.log("LOADING SET TO FALSE");
+                console.log("LOADING SET TO FALSE");  
                 setloading(false);
                 resolve();
               })
