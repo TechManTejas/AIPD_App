@@ -90,7 +90,7 @@ export const CreatePatient: React.FC = () => {
          Hi, I want to create new condition tracker for condition ${newCondition} for patient ${firstname} ${lastname}
         `
 
-        window.open(`https://wa.me/7205301169?text=${encodeURIComponent(message)}`);
+        window.open(`https://wa.me/9972462202?text=${encodeURIComponent(message)}`);
     }
 
     return (
