@@ -10,6 +10,7 @@ export const CreatePatient: React.FC = () => {
     const [conditionDetails, setConditionDetails] = useState([])
     const [selectedCondition, setSelectedCondition] = useState<{ name: string, id: number, exercises: { name: string }[] }>({ name: "", id: -1, exercises: [] })
     const [username, setUsername] = useState("")
+    const [newCondition, setNewCondition] = useState("")
     const [firstname, setFirstname] = useState("")
     const [lastname, setLastname] = useState("")
     const [duration, setDuration] = useState(3)
@@ -42,7 +43,7 @@ export const CreatePatient: React.FC = () => {
         })
             .then((data: any) => {
                 localStorage.setItem("patient-id", data.data.patient_id)
-                setIndividualEx(individualExercise+1)
+                setIndividualEx(individualExercise + 1)
                 notifyOnWhatsapp(data.data.code)
             });
     }
@@ -57,6 +58,7 @@ export const CreatePatient: React.FC = () => {
                 console.log(data.data)
                 setSelectedCondition(data.data[0])
                 setConditionDetails(data.data)
+                console.log(data.data)
             });
     }, [])
 
@@ -82,6 +84,15 @@ export const CreatePatient: React.FC = () => {
         window.open(`https://wa.me/${username}?text=${encodeURIComponent(message)}`);
     }
 
+    function notifyFittlyfTeam() {
+        const message =
+            `
+         Hi, I want to create new condition tracker for condition ${newCondition} for patient ${firstname} ${lastname}
+        `
+
+        window.open(`https://wa.me/7205301169?text=${encodeURIComponent(message)}`);
+    }
+
     return (
         <div className="pb-16">
             <div>
@@ -95,17 +106,82 @@ export const CreatePatient: React.FC = () => {
                     optionLabel={"name"}
                 />
             </div>
-            <div className='space-y-4 my-4'>
-                <div className='space-y-4'>
-                    <div>
-                        <TextField fullWidth label="Phonenumber"
-                            value={username}
-                            onChange={(e) => {
-                                setUsername(e.target.value)
-                            }}
-                        />
+            {
+                selectedCondition.name != "New Condition +" &&
+                <>
+                    <div className='space-y-4 my-4'>
+                        <div className='space-y-4'>
+                            <div>
+                                <TextField fullWidth label="Phonenumber"
+                                    value={username}
+                                    onChange={(e) => {
+                                        setUsername(e.target.value)
+                                    }}
+                                />
+                            </div>
+                            <div className="flex space-x-2">
+                                <TextField fullWidth label="First Name"
+                                    value={firstname}
+                                    onChange={(e) => {
+                                        setFirstname(e.target.value)
+                                    }}
+                                />
+                                <TextField fullWidth label="Last Name"
+                                    value={lastname}
+                                    onChange={(e) => {
+                                        setLastname(e.target.value)
+                                    }}
+                                />
+                            </div>
+                            <div className="flex space-x-2">
+                                <TextField fullWidth label="Duration (months)"
+                                    type="number"
+                                    value={duration}
+                                    onChange={(e) => {
+                                        setDuration(parseInt(e.target.value))
+                                    }}
+                                    InputProps={{
+                                        endAdornment: (
+                                            <InputAdornment position="end">
+                                                <>
+                                                    <IconButton onClick={() => { setDuration(duration + 1) }}>
+                                                        +
+                                                    </IconButton>
+                                                    <IconButton onClick={() => { setDuration(duration - 1) }}>
+                                                        -
+                                                    </IconButton>
+                                                </>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            </div>
+                            {
+                                selectedCondition.exercises.map((e: any) => {
+                                    return (
+                                        <ExerciseCard exerciseid={e.id} exercise={e.name} individualExercise={individualExercise} />
+                                    )
+                                })
+                            }
+
+
+                        </div>
+                        <GradientButton
+                            onClick={createNewPatient}
+                            varient={"primary"}
+                            isFullWidth={true}
+                        >
+                            <div className="text-base">
+                                Create Patient
+                            </div>
+                        </GradientButton>
                     </div>
-                    <div className="flex space-x-2">
+                </>
+            }
+            {
+                selectedCondition.name == "New Condition +" &&
+                <>
+                    <div className="flex space-x-2 my-8">
                         <TextField fullWidth label="First Name"
                             value={firstname}
                             onChange={(e) => {
@@ -119,49 +195,28 @@ export const CreatePatient: React.FC = () => {
                             }}
                         />
                     </div>
-                    <div className="flex space-x-2">
-                        <TextField fullWidth label="Duration (months)"
-                            type="number"
-                            value={duration}
+                    <div className="my-8">
+                        <TextField fullWidth label="Condition Name"
+                            value={newCondition}
                             onChange={(e) => {
-                                setDuration(parseInt(e.target.value))
-                            }}
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        <>
-                                            <IconButton onClick={() => { setDuration(duration + 1) }}>
-                                                +
-                                            </IconButton>
-                                            <IconButton onClick={() => { setDuration(duration - 1) }}>
-                                                -
-                                            </IconButton>
-                                        </>
-                                    </InputAdornment>
-                                ),
+                                setNewCondition(e.target.value)
                             }}
                         />
                     </div>
-                    {
-                        selectedCondition.exercises.map((e : any) => {
-                            return (
-                                <ExerciseCard exerciseid = {e.id} exercise={e.name} individualExercise={individualExercise} />
-                            )
-                        })
-                    }
-
-
-                </div>
-                <GradientButton
-                    onClick={createNewPatient}
-                    varient={"primary"}
-                    isFullWidth={true}
-                >
-                    <div className="text-base">
-                        Create Patient
+                    <div className="my-8">
+                        <GradientButton
+                            onClick={notifyFittlyfTeam}
+                            varient={"primary"}
+                            isFullWidth={true}
+                        >
+                            <div className="text-base">
+                                Message Fittlyf Team
+                            </div>
+                        </GradientButton>
                     </div>
-                </GradientButton>
-            </div>
+                    This will send a system generated message to the WhatsApp of Fittlyf and you will be contacted soon for the condition and exercises you want to see in the app. Thank You :)
+                </>
+            }
         </div>
     )
 }
