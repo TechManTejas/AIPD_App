@@ -129,7 +129,7 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
           const blob = recorder.getBlob();
           const videoURL = URL.createObjectURL(blob);
           URL.revokeObjectURL(videoURL);
-          console.log(blob)
+          
           uploadFile(blob)
           if (localStorage.getItem("allexercise") === "1") {
             StateRef.current = 1;
