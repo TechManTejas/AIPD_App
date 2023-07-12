@@ -178,7 +178,7 @@ export const Home: React.FC = () => {
         <img className="p-6r" src={AIPDLogoName}></img>
       </div>
       <div className="flex justify-center">
-        <button onClick={() => Handle$Start$All$Exercise()} className="bg-green-500 px-5 py-5 rounded-full">
+        <button onClick={() => Handle$Start$All$Exercise()} className="bg-[#982dbe] text-white px-5 py-5 rounded-full">
           Today's Session
         </button>
       </div>
