@@ -8,7 +8,7 @@ export const Settings: React.FC = () => {
 
     return (
         <div className="pb-16">
-            <div className="m-2">
+            <div className="m-2 flex justify-center">
                 <img src={AIPDLogoName} />
             </div>
             <div className='space-y-4 my-4'>

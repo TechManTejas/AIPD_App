@@ -58,7 +58,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             </Carousel>
 
                         </div>
-                        <div className="border-t border-green-600 mx-3"></div>
+                        <div className="border-t border-[#982dbe] mx-3"></div>
                         <div className={` ${completed ? "" : ""} text-center p-1 text-md font-roboto text-black `}>
                             {text}
                         </div>

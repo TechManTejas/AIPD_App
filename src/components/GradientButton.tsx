@@ -32,9 +32,9 @@ const GradientButton: React.FC<GradientButtonProps> = (
         boxShadow = "rgb(244 67 53 / 15%) 0rem 0.1875rem 0.1875rem 0rem, rgb(244 67 53 / 20%) 0rem 0.1875rem 0.0625rem -0.125rem, rgb(244 67 53 / 15%) 0rem 0.0625rem 0.3125rem 0rem"
         boxShadowOnHover = "rgb(244 67 53 / 40%) 0rem 0.875rem 1.625rem -0.75rem, rgb(244 67 53 / 15%) 0rem 0.25rem 1.4375rem 0rem, rgb(244 67 53 / 20%) 0rem 0.5rem 0.625rem -0.3125rem"
     } else if (varient === "success") {
-        backgroundImage = "linear-gradient(195deg, rgb(102, 187, 106), rgb(67, 160, 71))"
-        boxShadow = "rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(76 175 79 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem"
-        boxShadowOnHover = "rgb(102 187 106 / 40%) 0rem 0.25rem 1.25rem 0rem, rgb(76 175 79 / 15%) 0rem 0.4375rem 0.625rem -0.3125rem"
+        backgroundImage = "linear-gradient(195deg, rgb(152, 45, 190), rgb(132, 15, 195)"
+        boxShadow = "rgb(0 0 0 / 14%) 0rem 0.25rem 1.25rem 0rem, rgb(152 45 190 / 40%) 0rem 0.4375rem 0.625rem -0.3125rem"
+        boxShadowOnHover = "rgb(152 45 190 / 40%) 0rem 0.25rem 1.25rem 0rem, rgb(132 15 195 / 15%) 0rem 0.4375rem 0.625rem -0.3125rem"
     }
 
     return (

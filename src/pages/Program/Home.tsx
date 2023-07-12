@@ -148,9 +148,9 @@ export const Home: React.FC = () => {
               <section
                 className="w-screen flex justify-evenly items-center text-xl"
               >
-                <ArrowLeftIcon onClick={() => setValue(value - 1)} className="text-green-500" sx={{ fontSize: "50px" }} />
+                <ArrowLeftIcon onClick={() => setValue(value - 1)} className="text-[#982dbe]" sx={{ fontSize: "50px" }} />
                 <p>{value == 0 ? "TODAY" : PerviousDate(value)}</p>
-                <ArrowRightIcon onClick={() => setValue(value + 1)} className="text-green-500" sx={{ fontSize: "50px" }} />
+                <ArrowRightIcon onClick={() => setValue(value + 1)} className="text-[#982dbe]" sx={{ fontSize: "50px" }} />
               </section>
               {/* {Array.from({ length: 13 }, (_, index) => index - 6).map(
                 (val) => {
@@ -174,8 +174,8 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div>
-        <img className="p-6" src={AIPDLogoName}></img>
+      <div className="flex justify-center">
+        <img className="p-6r" src={AIPDLogoName}></img>
       </div>
       <div className="flex justify-center">
         <button onClick={() => Handle$Start$All$Exercise()} className="bg-green-500 px-5 py-5 rounded-full">
