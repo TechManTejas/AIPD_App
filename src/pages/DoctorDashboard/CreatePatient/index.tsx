@@ -87,7 +87,7 @@ export const CreatePatient: React.FC = () => {
     function notifyFittlyfTeam() {
         const message =
             `
-         Hi, I want to create new condition tracker for condition ${newCondition} for patient ${firstname} ${lastname}
+         Hi, I want to create new condition tracker for\nCondition:- ${newCondition} \nPatient:- ${firstname} ${lastname}
         `
 
         window.open(`https://wa.me/+919972462202?text=${encodeURIComponent(message)}`);
