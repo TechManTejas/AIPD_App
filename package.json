@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@capacitor/android": "^4.7.0",
     "@capacitor/app": "4.1.1",
     "@capacitor/camera": "^4.1.4",

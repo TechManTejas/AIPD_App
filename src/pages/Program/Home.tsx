@@ -23,7 +23,7 @@ export const Home: React.FC = () => {
   // * The Array of Exercise that are completed by the patient
   const [completedExercise, setCompletedExercise] = useState<number[]>([]);
   const [individualSetReps, setIndivisualSetsReps] = useState<{ id: number, patient: number, exercise: number, sets: number, reps: number }[]>([])
-  const [logo, setlogo] = useState<string>(AIPDLogoName)
+  const [logo, setlogo] = useState<string>()
 
   useEffect(() => {
 
@@ -190,9 +190,11 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="w-screen flex justify-center">
+      <div className="flex flex-col justify-center">
         <img className="p-6" src={logo}></img>
+        <p className="text-right p-4">Powered by Fittlyf</p>
       </div>
+
       <div className="flex justify-center">
         <button onClick={() => Handle$Start$All$Exercise()} className="bg-green-500 px-5 py-5 rounded-full">
           Today's Session
