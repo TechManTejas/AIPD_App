@@ -19,6 +19,10 @@ import { GlobalDataState } from "./Context/global";
 setupIonicReact();
 
 const patientRoutes = () => {
+
+  
+
+
   return (
     <IonReactRouter>
       <IonRouterOutlet>
@@ -80,7 +84,7 @@ const unauthenticatedRoutes = () => {
         <Route exact path="/auth">
           <Auth />
         </Route>
-        <Route exact path="/doctor-auth"> 
+        <Route exact path="/doctor-auth">
           <DoctorAuth />
         </Route>
       </IonRouterOutlet>
@@ -89,8 +93,8 @@ const unauthenticatedRoutes = () => {
 }
 
 const App: React.FC = () => {
-  
-  const{authenticated} = GlobalDataState()
+
+  const { authenticated } = GlobalDataState()
 
   const [routes, setRoutes] = useState<() => JSX.Element>(unauthenticatedRoutes)
 
@@ -101,7 +105,7 @@ const App: React.FC = () => {
       setRoutes(() => doctorRoutes)
     else
       setRoutes(() => unauthenticatedRoutes)
-  
+
   }, [authenticated])
 
   return (

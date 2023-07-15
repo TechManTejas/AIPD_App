@@ -7,6 +7,8 @@ import { message } from "antd";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { useHistory } from "react-router-dom";
+
+
 // * The Types of Exercise
 
 export const Home: React.FC = () => {
@@ -21,6 +23,7 @@ export const Home: React.FC = () => {
   // * The Array of Exercise that are completed by the patient
   const [completedExercise, setCompletedExercise] = useState<number[]>([]);
   const [individualSetReps, setIndivisualSetsReps] = useState<{ id: number, patient: number, exercise: number, sets: number, reps: number }[]>([])
+  const [logo, setlogo] = useState<string>(AIPDLogoName)
 
   useEffect(() => {
 
@@ -50,6 +53,17 @@ export const Home: React.FC = () => {
 
   // * an axios post to fetch the completed exercise, reloads whenever the value (state) changes
   useEffect(() => {
+    if ('speechSynthesis' in window) {
+      window.onload = function () {
+        console.log("loaded")
+        var text = "This text will be spoken on load.";
+        var utterance = new SpeechSynthesisUtterance(text);
+        utterance.voice = speechSynthesis.getVoices()[0];
+        utterance.volume = 1;
+        utterance.rate = 1;
+        speechSynthesis.speak(utterance);
+      };
+    }
     axios.get("/exercise_record/", {
       headers: {
         Authorization: `Token ${localStorage.getItem(
@@ -68,9 +82,9 @@ export const Home: React.FC = () => {
     })
   }, [value])
 
-  useEffect(() => {
-    console.log(exerciseDetails)
-  }, [exerciseDetails])
+  // useEffect(() => {
+  //   console.log(exerciseDetails)
+  // }, [exerciseDetails])
 
   localStorage.setItem("allexercise", "0")
 
@@ -116,10 +130,12 @@ export const Home: React.FC = () => {
       },
     })
       .then((data: any) => {
-        console.log(data.data)
+        setlogo(data.data[0].doctor.company.logo)
         localStorage.setItem("exerciseDetails", JSON.stringify(data.data[0]["condition"]["exercises"]))
         setExerciseDetails(data.data[0]["condition"]["exercises"]);
         localStorage.setItem("patient-ID", data.data[0].id)
+      }).catch(() => {
+        console.log("error")
       });
   }, []);
 
@@ -175,7 +191,7 @@ export const Home: React.FC = () => {
         </div>
       </div>
       <div>
-        <img className="p-6" src={AIPDLogoName}></img>
+        <img className="p-6" src={logo}></img>
       </div>
       <div className="flex justify-center">
         <button onClick={() => Handle$Start$All$Exercise()} className="bg-green-500 px-5 py-5 rounded-full">

@@ -3,8 +3,11 @@ import playSound from "../../utils/PlaySound"
 import bell from "../../sounds/bell.wav"
 import butterfly from "../../sounds/butterfly.wav"
 import rep from "../../sounds/rep.mp3"
+import { PlayReps } from "../../utils/PlaySound";
+import s5 from "../../sounds/Reps/5.mp3"
 
 var sets = 0;
+
 
 const connectingPoints = [
     [12, 14],
@@ -54,6 +57,7 @@ export default function Butterfly({
     if (playInitVoice) {
         playInitVoice = false
         playSound(butterfly)
+        PlayReps(5, s5)
     }
 
 
