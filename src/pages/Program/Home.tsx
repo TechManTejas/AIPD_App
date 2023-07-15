@@ -190,7 +190,7 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div>
+      <div className="w-screen flex justify-center">
         <img className="p-6" src={logo}></img>
       </div>
       <div className="flex justify-center">
