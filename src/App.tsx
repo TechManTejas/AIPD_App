@@ -16,13 +16,10 @@ import { Auth } from "./pages/PartientAuth";
 import { DoctorAuth } from "./pages/DoctorAuth";
 import { DoctorDashboard } from "./pages/DoctorDashboard";
 import { GlobalDataState } from "./Context/global";
+import { FittlyfPhysioDashboard } from "./pages/FittlyfPhysioDashboard";
 setupIonicReact();
 
 const patientRoutes = () => {
-
-  
-
-
   return (
     <IonReactRouter>
       <IonRouterOutlet>
@@ -74,6 +71,21 @@ const doctorRoutes = () => {
   )
 }
 
+const fittlyfPhysioRoutes = () => {
+  return (
+    <IonReactRouter>
+      <IonRouterOutlet>
+        <Route exact path="/">
+          <Redirect to="/fittlyf-physio-dashboard" />
+        </Route>
+        <Route exact path="/fittlyf-physio-dashboard">
+          <FittlyfPhysioDashboard />
+        </Route>
+      </IonRouterOutlet>
+    </IonReactRouter>
+  )
+}
+
 const unauthenticatedRoutes = () => {
   return (
     <IonReactRouter>
@@ -103,6 +115,8 @@ const App: React.FC = () => {
       setRoutes(() => patientRoutes)
     else if (localStorage.getItem("aipd-doctor-access-token"))
       setRoutes(() => doctorRoutes)
+    else if (localStorage.getItem("aipd-fittlyf-physio-access-token"))
+      setRoutes(() => fittlyfPhysioRoutes)
     else
       setRoutes(() => unauthenticatedRoutes)
 
