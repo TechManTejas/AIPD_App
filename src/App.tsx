@@ -2,6 +2,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Program from "./pages/Program";
+import ProgramFittlyfPhysio from "./pages/FittlyfPhysioDashboard/PatientsInfo/Program";
 import Results from "./pages/Results";
 import Settings from "./pages/Settings";
 
@@ -80,6 +81,9 @@ const fittlyfPhysioRoutes = () => {
         </Route>
         <Route exact path="/fittlyf-physio-dashboard">
           <FittlyfPhysioDashboard />
+        </Route>
+        <Route exact path="/program">
+          <ProgramFittlyfPhysio />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>

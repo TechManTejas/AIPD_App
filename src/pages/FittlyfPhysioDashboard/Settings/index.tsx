@@ -17,7 +17,7 @@ export const Settings: React.FC = () => {
                 </div>
                 <GradientButton
                     onClick={()=>{
-                        localStorage.removeItem("aipd-doctor-access-token")
+                        localStorage.removeItem("aipd-fittlyf-physio-access-token")
                         setAuthenticated(false)
                         window.location.href = "/";
                     }}

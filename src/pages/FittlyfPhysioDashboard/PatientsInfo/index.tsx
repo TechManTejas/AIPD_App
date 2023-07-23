@@ -9,15 +9,13 @@ export const PatientsInfo: React.FC = () => {
         axios.get("/patient/",
             {
                 headers: {
-                    'Authorization': `Token ${localStorage.getItem("aipd-doctor-access-token")}`
+                    'Authorization': `Token ${localStorage.getItem("aipd-fittlyf-physio-access-token")}`
                 },
             }).then((data: any) => {
                 setPatientDetails(data.data)
                 console.log(data.data)
-                localStorage.setItem("doctor-id", data.data[0].doctor.id)
             });
     }, [])
-
 
     return (
         <div className="pb-16">
