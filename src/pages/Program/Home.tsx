@@ -192,7 +192,6 @@ export const Home: React.FC = () => {
       </div>
       <div className="flex flex-col justify-center">
         <img className="p-6" src={logo}></img>
-        <p className="text-right p-4">Powered by Fittlyf</p>
       </div>
 
       <div className="flex justify-center">
@@ -237,6 +236,7 @@ export const Home: React.FC = () => {
           );
         })}
       </div>
+      <p className="text-right p-2">Powered by Fittlyf</p>
     </div>
   );
 };
