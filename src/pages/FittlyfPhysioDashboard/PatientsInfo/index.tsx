@@ -22,7 +22,14 @@ export const PatientsInfo: React.FC = () => {
             {
                 patientDetails.map((details) => {
                     return (
-                        <div className="border shadow-xl rounded m-1 p-2 mb-4 bg-slate-50">
+                        <div 
+                            className="border shadow-xl rounded m-1 p-2 mb-4 bg-slate-50"
+                            onClick={()=>{
+                                console.log(details)
+                                localStorage.setItem('selected-review-patient',(details as {id: number}).id.toString() )
+                                window.location.href = '/program'
+                            }}
+                        >
                             <div className="flex justify-between">
                                 <div className="text-2xl font-bold text-green-600 bg-green-50">
                                     {(details as { user: { first_name: string } }).user.first_name} 

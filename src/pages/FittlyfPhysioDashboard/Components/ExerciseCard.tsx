@@ -32,8 +32,13 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
     // console.log(completedExercise)'
 
     return (
-        <Link to="/demo-video">
-            <CardActionArea>
+            <CardActionArea
+                onClick={()=>{
+                    if(completed){
+                        window.location.href = '/review'
+                    }
+                }}
+            >
                 <div
                     className="m-1.5 rounded-lg relative mt-8"
                     style={{
@@ -66,7 +71,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                 </div>
             </CardActionArea>
-        </Link>
     )
 }
 

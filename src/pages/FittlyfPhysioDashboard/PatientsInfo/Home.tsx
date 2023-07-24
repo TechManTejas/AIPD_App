@@ -28,12 +28,16 @@ export const Home: React.FC = () => {
   useEffect(() => {
 
     axios.get("/patient_exercise/", {
+      params:{
+        patient_id:localStorage.getItem('selected-review-patient')
+      },
       headers: {
         Authorization: `Token ${localStorage.getItem(
-          "aipd-patient-access-token"
+          "aipd-fittlyf-physio-access-token"
         )}`,
       },
     }).then((data: any) => {
+      console.log(data)
       setIndivisualSetsReps(data.data)
       localStorage.setItem("individualSetReps", JSON.stringify(data.data))
     }).catch((e) => {
@@ -65,12 +69,16 @@ export const Home: React.FC = () => {
       };
     }
     axios.get("/exercise_record/", {
+      params:{
+        patient_id:localStorage.getItem('selected-review-patient')
+      },
       headers: {
         Authorization: `Token ${localStorage.getItem(
-          "aipd-patient-access-token"
+          "aipd-fittlyf-physio-access-token"
         )}`,
       },
     }).then((data: any) => {
+      console.log(data)
       const todaysExercise = data.data.filter(checkdate)
       // * extracts the index of the done exercise
 
@@ -123,13 +131,17 @@ export const Home: React.FC = () => {
   // * to get the exercise that needs to be done by the patient
   useEffect(() => {
     axios.get("/patient/", {
+      params:{
+        patient_id:localStorage.getItem('selected-review-patient')
+      },
       headers: {
         Authorization: `Token ${localStorage.getItem(
-          "aipd-patient-access-token"
+          "aipd-fittlyf-physio-access-token"
         )}`,
       },
     })
       .then((data: any) => {
+        console.log(data)
         setlogo(data.data[0].doctor.company.logo)
         localStorage.setItem("exerciseDetails", JSON.stringify(data.data[0]["condition"]["exercises"]))
         setExerciseDetails(data.data[0]["condition"]["exercises"]);
@@ -193,12 +205,6 @@ export const Home: React.FC = () => {
       <div className="flex flex-col justify-center">
         <img className="p-6" src={logo}></img>
         <p className="text-right p-4">Powered by Fittlyf</p>
-      </div>
-
-      <div className="flex justify-center">
-        <button onClick={() => Handle$Start$All$Exercise()} className="bg-green-500 px-5 py-5 rounded-full">
-          Today's Session
-        </button>
       </div>
       <div className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"} overflow-auto`}>
         {exerciseDetails.map((exercise) => {
