@@ -2,6 +2,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Program from "./pages/Program";
+import ProgramFittlyfPhysio from "./pages/FittlyfPhysioDashboard/PatientsInfo/Program";
 import Results from "./pages/Results";
 import Settings from "./pages/Settings";
 
@@ -16,13 +17,10 @@ import { Auth } from "./pages/PartientAuth";
 import { DoctorAuth } from "./pages/DoctorAuth";
 import { DoctorDashboard } from "./pages/DoctorDashboard";
 import { GlobalDataState } from "./Context/global";
+import { FittlyfPhysioDashboard } from "./pages/FittlyfPhysioDashboard";
 setupIonicReact();
 
 const patientRoutes = () => {
-
-  
-
-
   return (
     <IonReactRouter>
       <IonRouterOutlet>
@@ -74,6 +72,24 @@ const doctorRoutes = () => {
   )
 }
 
+const fittlyfPhysioRoutes = () => {
+  return (
+    <IonReactRouter>
+      <IonRouterOutlet>
+        <Route exact path="/">
+          <Redirect to="/fittlyf-physio-dashboard" />
+        </Route>
+        <Route exact path="/fittlyf-physio-dashboard">
+          <FittlyfPhysioDashboard />
+        </Route>
+        <Route exact path="/program">
+          <ProgramFittlyfPhysio />
+        </Route>
+      </IonRouterOutlet>
+    </IonReactRouter>
+  )
+}
+
 const unauthenticatedRoutes = () => {
   return (
     <IonReactRouter>
@@ -103,6 +119,8 @@ const App: React.FC = () => {
       setRoutes(() => patientRoutes)
     else if (localStorage.getItem("aipd-doctor-access-token"))
       setRoutes(() => doctorRoutes)
+    else if (localStorage.getItem("aipd-fittlyf-physio-access-token"))
+      setRoutes(() => fittlyfPhysioRoutes)
     else
       setRoutes(() => unauthenticatedRoutes)
 

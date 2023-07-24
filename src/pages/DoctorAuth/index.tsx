@@ -19,19 +19,20 @@ export const DoctorAuth: React.FC = () => {
     function authAndProceed(){
         const url = "/auth/";
         const data = { username: username, password: password };
+        console.log(data)
         axios.post(url, data, {
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-            }).catch(function (error: any) {
-                console.log(error);
-            })
-            .then(( data: any ) => {
-                console.log(data.data);
+            }).then(( data: any ) => {
+                console.log(data)
+                console.log(data.data)
                 if(data.data.token){
-                    localStorage.setItem("aipd-doctor-access-token", data.data.token)
-                    console.log(data.data.token)
+                    if(data.data.user_type === 'doctor')
+                        localStorage.setItem("aipd-doctor-access-token", data.data.token)
+                    else if(data.data.user_type === 'fittlyf_physio')
+                        localStorage.setItem("aipd-fittlyf-physio-access-token", data.data.token)
                     setAuthenticated(true)
                     window.location.href = "/";
                 }
