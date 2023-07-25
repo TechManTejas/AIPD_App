@@ -21,7 +21,7 @@ export const Home: React.FC = () => {
   // ^ id => the id of the exercise, name => name of the exercise, image => url of the image of the exercise
   const [exerciseDetails, setExerciseDetails] = useState<{ id: number, name: string, image: string, cover_image : string, sets: number }[]>([]);
   // * The Array of Exercise that are completed by the patient
-  const [completedExercise, setCompletedExercise] = useState<any>([]);
+  const [completedExercise, setCompletedExercise] = useState<any[]>([]);
   const [individualSetReps, setIndivisualSetsReps] = useState<{ id: number, patient: number, exercise: number, sets: number, reps: number }[]>([])
   const [logo, setlogo] = useState<string>()
 
@@ -81,13 +81,16 @@ export const Home: React.FC = () => {
       console.log(data)
       const todaysExercise = data.data.filter(checkdate)
       // * extracts the index of the done exercise
-
       // dispatch(loginAction.addExerciseDetails({ ExerciseDetails: todaysExercise.map((e: any) => { return e.exercise }) }))
       // dispatch(Action.updateCompletedExercise({ completedExercise: todaysExercise.map((e: any) => { return e.exercise }) }))
-      setCompletedExercise(todaysExercise.map((e: any) => { return e }))
+      setCompletedExercise(todaysExercise)
+
+      console.log(todaysExercise)
+      console.log(completedExercise)
     }).catch((e) => {
       message.error(e.toString())
     })
+
   }, [value])
 
   // useEffect(() => {
@@ -207,7 +210,7 @@ export const Home: React.FC = () => {
         <p className="text-right p-4">Powered by Fittlyf</p>
       </div>
       <div className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"} overflow-auto`}>
-        {exerciseDetails.map((exercise) => {
+        {exerciseDetails.map((exercise : any) => {
           const entry = findEntryByExercise(individualSetReps, exercise.id)
           return (
             <div
@@ -234,7 +237,9 @@ export const Home: React.FC = () => {
               }}
             >
               <ExerciseCard
-                completed={completedExercise.indexOf(exercise) !== -1 ? exercise.id : 0}
+                completed={completedExercise.some((completed: any) => completed.exercise === exercise.id)
+                  ? completedExercise.find((completed: any) => completed.exercise === exercise.id)?.id ?? 0
+                  : 0}
                 image={exercise.image}
                 coverImage = {exercise.cover_image}
                 text={(exercise as { name: string }).name}
