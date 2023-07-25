@@ -21,7 +21,7 @@ export const Home: React.FC = () => {
   // ^ id => the id of the exercise, name => name of the exercise, image => url of the image of the exercise
   const [exerciseDetails, setExerciseDetails] = useState<{ id: number, name: string, image: string, cover_image : string, sets: number }[]>([]);
   // * The Array of Exercise that are completed by the patient
-  const [completedExercise, setCompletedExercise] = useState<number[]>([]);
+  const [completedExercise, setCompletedExercise] = useState<any>([]);
   const [individualSetReps, setIndivisualSetsReps] = useState<{ id: number, patient: number, exercise: number, sets: number, reps: number }[]>([])
   const [logo, setlogo] = useState<string>()
 
@@ -84,7 +84,7 @@ export const Home: React.FC = () => {
 
       // dispatch(loginAction.addExerciseDetails({ ExerciseDetails: todaysExercise.map((e: any) => { return e.exercise }) }))
       // dispatch(Action.updateCompletedExercise({ completedExercise: todaysExercise.map((e: any) => { return e.exercise }) }))
-      setCompletedExercise(todaysExercise.map((e: any) => { return e.exercise }))
+      setCompletedExercise(todaysExercise.map((e: any) => { return e }))
     }).catch((e) => {
       message.error(e.toString())
     })
@@ -234,7 +234,7 @@ export const Home: React.FC = () => {
               }}
             >
               <ExerciseCard
-                completed={completedExercise.indexOf(exercise.id) !== -1}
+                completed={completedExercise.indexOf(exercise) !== -1 ? exercise.id : 0}
                 image={exercise.image}
                 coverImage = {exercise.cover_image}
                 text={(exercise as { name: string }).name}

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Carousel } from "antd";
 
 interface ExerciseCardProps {
-    completed?: boolean
+    completed?: number
     image?: string
     coverImage?: string
     text?: string
@@ -35,7 +35,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             <CardActionArea
                 onClick={()=>{
                     if(completed){
-                        window.location.href = '/review'
+                        // window.location.href = '/review'
+                        console.log(completed)
                     }
                 }}
             >
