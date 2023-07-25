@@ -38,7 +38,7 @@ export const FittlyfDemoVideo: React.FC = () => {
         };
 
         // Send the PATCH request
-        axios.patch(`/exercise_record/${localStorage.getItem('review-exercise-record')}/`, reviewData, {
+        axios.patch(`/exercise_record_redundant/${localStorage.getItem('review-exercise-record')}/`, reviewData, {
             headers: {
                 Authorization: `Token ${localStorage.getItem("aipd-fittlyf-physio-access-token")}`,
             },
