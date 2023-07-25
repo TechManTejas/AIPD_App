@@ -35,7 +35,8 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             <CardActionArea
                 onClick={()=>{
                     if(completed){
-                        // window.location.href = '/review'
+                        localStorage.setItem('review-exercise-record', completed.toString())
+                        window.location.href = '/review'
                         console.log(completed)
                     }
                 }}
@@ -49,7 +50,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
                     <div className={`p-1 ${(completed) ? 'bg-green-100' : ''}`}>
                         <div className={`p-1  m-1`}>
-                            {(completed) &&
+                            {(completed !== 0) &&
                                 <div className="absolute -top-8 right-2 z-10 text-white-600 bg-white rounded-full">
                                     <CheckCircleIcon fontSize="large" sx={{ color: "green" }} />
                                 </div>

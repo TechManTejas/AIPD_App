@@ -18,6 +18,7 @@ import { DoctorAuth } from "./pages/DoctorAuth";
 import { DoctorDashboard } from "./pages/DoctorDashboard";
 import { GlobalDataState } from "./Context/global";
 import { FittlyfPhysioDashboard } from "./pages/FittlyfPhysioDashboard";
+import { FittlyfDemoVideo } from "./pages/FittlyfPhysioDashboard/PatientsInfo/DemoVideo";
 setupIonicReact();
 
 const patientRoutes = () => {
@@ -84,6 +85,9 @@ const fittlyfPhysioRoutes = () => {
         </Route>
         <Route exact path="/program">
           <ProgramFittlyfPhysio />
+        </Route>
+        <Route exact path="/review">
+          <FittlyfDemoVideo />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
