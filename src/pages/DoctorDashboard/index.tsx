@@ -3,8 +3,8 @@ import { CardActionArea } from "@mui/material"
 import { useState } from "react"
 import { PatientsInfo } from "./PatientsInfo"
 import { CreatePatient } from "./CreatePatient"
-import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
-import BarChartIcon from '@mui/icons-material/BarChart';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import PeopleIcon from '@mui/icons-material/People';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Settings } from "./Settings"
 
@@ -27,19 +27,19 @@ export const DoctorDashboard: React.FC = () => {
                     </div>
                     <div className='flex border-t border border-b z-50 bg-white w-full fixed bottom-0 text-base'>
                         <CardActionArea onClick={() => setValue(0)}>
-                            <div className={`text-xs flex flex-col items-center p-1 py-1.5 ${(value === 0) ? 'text-green-600' : 'opacity-50 text-gray-500'}`}>
-                                <BarChartIcon />
+                            <div className={`text-xs flex flex-col items-center p-1 py-1.5 ${(value === 0) ? 'text-[#3EBDE0FF]' : 'opacity-50 text-gray-500'}`}>
+                                <PeopleIcon />
                                 Patients Info
                             </div>
                         </CardActionArea>
                         <CardActionArea onClick={() => setValue(1)}>
-                            <div className={`text-xs flex flex-col items-center p-1 py-1.5 ${(value === 1) ? 'text-green-600' : 'opacity-50 text-gray-500'}`}>
-                                <AccessibilityNewIcon />
+                            <div className={`text-xs flex flex-col items-center p-1 py-1.5 ${(value === 1) ? 'text-[#3EBDE0FF]' : 'opacity-50 text-gray-500'}`}>
+                                <AddCircleOutlineIcon />
                                 Create Patient
                             </div>
                         </CardActionArea>
                         <CardActionArea onClick={() => setValue(2)}>
-                            <div className={`text-xs flex flex-col items-center p-1 py-1.5 ${(value === 2) ? 'text-green-600' : 'opacity-50 text-gray-500'}`}>
+                            <div className={`text-xs flex flex-col items-center p-1 py-1.5 ${(value === 2) ? 'text-[#3EBDE0FF]' : 'opacity-50 text-gray-500'}`}>
                                 <SettingsIcon />
                                 Settings
                             </div>

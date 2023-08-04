@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import PatientCard from "./PatientCard"
+import { CardActionArea } from "@mui/material"
 
 export const PatientsInfo: React.FC = () => {
 
     const [patientDetails, setPatientDetails] = useState([])
+    const [selectedTab, setSelectedTab] = useState(0);
 
     useEffect(() => {
-        axios.get("/patient/",
+        axios.get("/active-patient/",
             {
                 headers: {
                     'Authorization': `Token ${localStorage.getItem("aipd-doctor-access-token")}`
@@ -18,39 +21,24 @@ export const PatientsInfo: React.FC = () => {
             });
     }, [])
 
-
     return (
         <div className="pb-16">
+            <div className="flex gap-x-2 mt-2 mb-4">
+                <CardActionArea onClick={()=>setSelectedTab(0)}>
+                    <div className={`flex-1 text-center rounded-full p-2 ${selectedTab === 0 ? 'bg-[#3EBDE0FF] text-white' : 'bg-gray-200'}`}>
+                        Active
+                    </div>
+                </CardActionArea>
+                <CardActionArea onClick={()=>setSelectedTab(1)}>
+                    <div className={`flex-1 text-center rounded-full p-2 ${selectedTab === 1 ? 'bg-[#3EBDE0FF] text-white' : 'bg-gray-200'}`}>
+                        All
+                    </div>
+                </CardActionArea>
+            </div>
             {
-                patientDetails.map((details) => {
+                patientDetails.map((details, i) => {
                     return (
-                        <div className="border shadow-xl rounded m-1 p-2 mb-4 bg-slate-50">
-                            <div className="flex justify-between">
-                                <div className="text-2xl font-bold text-green-600 bg-green-50">
-                                    {(details as { user: { first_name: string } }).user.first_name} 
-                                    &nbsp;
-                                    {(details as { user: { last_name: string } }).user.last_name}
-                                </div>
-                                <div className="text-base">
-                                    {(details as { start_date: string }).start_date}
-                                    &nbsp; - &nbsp;
-                                    {(details as { end_date: string }).end_date}
-                                </div>
-                            </div>
-                            <div className="text-lg font-semibold bg-green-50 rounded">
-                                {(details as { user: { username: string } }).user.username}
-                            </div>
-                            <div className="text-lg font-semibold text-red-500 bg-red-50 rounded">
-                                {(details as { condition: { name: string } }).condition.name}
-                            </div>
-                            {(details as { condition: { exercises: [] } }).condition.exercises.map((exercise: { name: string }) => {
-                                return (
-                                    <div>
-                                        {exercise.name}
-                                    </div>
-                                );
-                            })}
-                        </div>
+                        <PatientCard key={i} details={details} />
                     )
                 })
             }
