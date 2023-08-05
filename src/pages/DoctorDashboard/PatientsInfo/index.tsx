@@ -9,7 +9,7 @@ export const PatientsInfo: React.FC = () => {
     const [selectedTab, setSelectedTab] = useState(0);
 
     useEffect(() => {
-        axios.get("/active-patient/",
+        axios.get(selectedTab ? "/patient/" : "/active-patient/",
             {
                 headers: {
                     'Authorization': `Token ${localStorage.getItem("aipd-doctor-access-token")}`
@@ -19,7 +19,7 @@ export const PatientsInfo: React.FC = () => {
                 console.log(data.data)
                 localStorage.setItem("doctor-id", data.data[0].doctor.id)
             });
-    }, [])
+    }, [selectedTab])
 
     return (
         <div className="pb-16">
