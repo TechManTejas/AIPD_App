@@ -45,14 +45,14 @@ export default function PatientCard({ details }) {
                             {(details).condition.name}
                         </div>
                     </div>
-                    <div className='flex justify-between'>
-                        <div className='flex space-x-2'>
-                            <div className='p-3 bg-[#A7D820FF] rounded-full' />
+                    <div className='flex justify-between text-sm'>
+                        <div className='flex space-x-2 items-center'>
+                            <div className='h-5 w-5 bg-[#A7D820FF] rounded-full' />
                             <div>
                                 Completed Today
                             </div>
                         </div>
-                        <div className='flex space-x-2'>
+                        <div className='flex space-x-2 items-center'>
                             <CalendarTodayIcon />
                             <div>
                                 {(details).end_date}
