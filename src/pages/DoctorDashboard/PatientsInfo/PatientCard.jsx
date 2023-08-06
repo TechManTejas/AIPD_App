@@ -47,10 +47,42 @@ export default function PatientCard({ details }) {
                     </div>
                     <div className='flex justify-between text-sm'>
                         <div className='flex space-x-2 items-center'>
-                            <div className='h-5 w-5 bg-[#A7D820FF] rounded-full' />
-                            <div>
-                                Completed Today
-                            </div>
+                            {(details).status ?
+                                <>
+                                    {(details).days_since_last_completion === -1 ?
+                                        <>
+                                            <div className='h-5 w-5 bg-gray-900 rounded-full' />
+                                            <div>
+                                                Not Started
+                                            </div>
+                                        </>
+                                        :
+                                        (details).days_since_last_completion === 0
+                                            ?
+                                            <>
+                                                <div className='h-5 w-5 bg-[#A7D820FF] rounded-full' />
+                                                <div>
+                                                    Completed Today
+                                                </div>
+                                            </>
+                                            :
+                                            <>
+                                                <div className='h-5 w-5 bg-red-600 rounded-full' />
+                                                <div>
+                                                    Missed {(details).days_since_last_completion} days
+                                                </div>
+                                            </>}
+                                </>
+                                :
+                                <>
+                                    <>
+                                        <div className='h-5 w-5 bg-gray-300 rounded-full' />
+                                        <div>
+                                            Done
+                                        </div>
+                                    </>
+                                </>
+                            }
                         </div>
                         <div className='flex space-x-2 items-center'>
                             <CalendarTodayIcon />
