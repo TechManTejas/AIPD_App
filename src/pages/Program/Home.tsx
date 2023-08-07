@@ -7,26 +7,29 @@ import { message } from "antd";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { useHistory } from "react-router-dom";
-
+import { Modal } from "antd";
+import { CardActionArea } from "@mui/material";
 
 // * The Types of Exercise
 
 export const Home: React.FC = () => {
   // * value => the index of the dates present in the top scroll bar
   const [value, setValue] = useState<number>(0);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [google_business_name, set_google_business_name] = useState<string>('');
+  const [google_business_review_link, set_google_business_review_link] = useState<string>('');
 
   const history = useHistory()
 
   // * The Exercise that needs to be done by the patients logined
   // ^ id => the id of the exercise, name => name of the exercise, image => url of the image of the exercise
-  const [exerciseDetails, setExerciseDetails] = useState<{ id: number, name: string, image: string, cover_image : string, sets: number }[]>([]);
+  const [exerciseDetails, setExerciseDetails] = useState<{ id: number, name: string, image: string, cover_image: string, sets: number }[]>([]);
   // * The Array of Exercise that are completed by the patient
   const [completedExercise, setCompletedExercise] = useState<number[]>([]);
   const [individualSetReps, setIndivisualSetsReps] = useState<{ id: number, patient: number, exercise: number, sets: number, reps: number }[]>([])
   const [logo, setlogo] = useState<string>()
 
   useEffect(() => {
-
     axios.get("/patient_exercise/", {
       headers: {
         Authorization: `Token ${localStorage.getItem(
@@ -40,7 +43,6 @@ export const Home: React.FC = () => {
       message.error(e.toString())
     })
   }, [])
-
 
   // * function to check whether the date selected is present in the data fetch in above state
   const checkdate = (dateObj: any) => {
@@ -82,14 +84,9 @@ export const Home: React.FC = () => {
     })
   }, [value])
 
-  // useEffect(() => {
-  //   console.log(exerciseDetails)
-  // }, [exerciseDetails])
-
   localStorage.setItem("allexercise", "0")
 
   const Handle$Start$All$Exercise = () => {
-
     localStorage.setItem("allexercise", "1")
     localStorage.setItem("Allexerciseid", "0")
 
@@ -116,8 +113,6 @@ export const Home: React.FC = () => {
     );
 
     history.push("/camera-rendering");
-
-
   }
 
   // * to get the exercise that needs to be done by the patient
@@ -130,6 +125,17 @@ export const Home: React.FC = () => {
       },
     })
       .then((data: any) => {
+        console.log(data.data)
+        const currentDate = new Date().toLocaleDateString();
+        const storedPromptReviewDate = new Date(localStorage.getItem("prompt_review") || '2003-04-22').toLocaleDateString();
+        // if (localStorage.getItem("prompt_review") === null || storedPromptReviewDate !== currentDate){
+        if (new Date(data.data[0]["prompt_review"]).toLocaleDateString() === currentDate) {
+          set_google_business_review_link(data.data[0]['doctor']['company']['google_business_review_link'])
+          set_google_business_name(data.data[0]['doctor']['company']['name'])
+          showModal()
+          localStorage.setItem("prompt_review", data.data[0]["prompt_review"])
+        }
+        // }
         setlogo(data.data[0].doctor.company.logo)
         localStorage.setItem("exerciseDetails", JSON.stringify(data.data[0]["condition"]["exercises"]))
         setExerciseDetails(data.data[0]["condition"]["exercises"]);
@@ -138,9 +144,6 @@ export const Home: React.FC = () => {
         console.log("error")
       });
   }, []);
-
-  // * initial scroll for todays date
-  // document.getElementById("scroll-top")?.scrollBy(-208, 0)
 
   interface DataEntry {
     id: number;
@@ -155,8 +158,39 @@ export const Home: React.FC = () => {
     return entry || null;
   }
 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+
   return (
     <div>
+      <Modal
+        title="Rate us"
+        centered
+        open={isModalVisible}
+        onCancel={handleCancel}
+        footer={null} // You can customize the footer as needed
+      >
+        <div className="space-y-3">
+          <div className="text-center text-xl">Rate
+            <span className="text-purple-700">{' '}
+              {google_business_name}
+            </span>{' '}
+            clinic on google</div>
+          <CardActionArea onClick={()=>{
+            window.location.href = google_business_review_link
+          }}>
+            <div className="text-center bg-red-600 text-white p-3 rounded-md font-fredokaone text-xl">
+              Rate
+            </div>
+          </CardActionArea>
+        </div>
+      </Modal>
       <div className="">
         <div className="sticky top-0 z-20 p-2">
           <div className="overflow-hidden">
@@ -165,7 +199,7 @@ export const Home: React.FC = () => {
                 className="w-screen flex justify-evenly items-center text-xl"
               >
                 <ArrowLeftIcon onClick={() => setValue(value - 1)} className="text-green-500" sx={{ fontSize: "50px" }} />
-                <p>{value == 0 ? "TODAY" : PerviousDate(value)}</p>
+                <p>{value === 0 ? "TODAY" : PerviousDate(value)}</p>
                 <ArrowRightIcon onClick={() => setValue(value + 1)} className="text-green-500" sx={{ fontSize: "50px" }} />
               </section>
               {/* {Array.from({ length: 13 }, (_, index) => index - 6).map(
@@ -229,7 +263,7 @@ export const Home: React.FC = () => {
               <ExerciseCard
                 completed={completedExercise.indexOf(exercise.id) !== -1}
                 image={exercise.image}
-                coverImage = {exercise.cover_image}
+                coverImage={exercise.cover_image}
                 text={(exercise as { name: string }).name}
               />
             </div>
