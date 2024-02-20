@@ -1,24 +1,27 @@
+// Import necessary modules and components
 import { Redirect, Route, Switch } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
+import { GlobalDataState } from "./Context/global";
+
+/* Pages and components */
 import Program from "./pages/Program";
 import ProgramFittlyfPhysio from "./pages/FittlyfPhysioDashboard/PatientsInfo/Program";
 import Results from "./pages/Results";
 import Settings from "./pages/Settings";
-
-/* Core CSS required for Ionic components to work properly */
-import "@ionic/react/css/core.css";
 import { BottomNavigationBar } from "./components/BottomNavigationBar";
 import { DemoVideo } from "./pages/Program/DemoVideo";
 import { DemoVideoAndLogs } from "./pages/Program/DemoVideoAndLogs";
 import { CameraRendering } from "./pages/Program/CameraRendering";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Auth } from "./pages/PartientAuth";
 import { DoctorAuth } from "./pages/DoctorAuth";
 import { DoctorDashboard } from "./pages/DoctorDashboard";
-import { GlobalDataState } from "./Context/global";
 import { FittlyfPhysioDashboard } from "./pages/FittlyfPhysioDashboard";
 import { FittlyfDemoVideo } from "./pages/FittlyfPhysioDashboard/PatientsInfo/DemoVideo";
+
+/* Core CSS required for Ionic components to work properly */
+import "@ionic/react/css/core.css";
 setupIonicReact();
 
 const patientRoutes = () => {
@@ -40,13 +43,10 @@ const patientRoutes = () => {
         <Route exact path="/camera-rendering">
           <CameraRendering />
         </Route>
-        <Route exact path="/program">
-          <Program />
-        </Route>
         <Route exact path="/results">
           <Results />
         </Route>
-        <Route path="/settings">
+        <Route exact path="/settings">
           <Settings />
         </Route>
       </IonRouterOutlet>
@@ -121,9 +121,9 @@ const App: React.FC = () => {
   useEffect(() => {
     if (!!localStorage.getItem("aipd-patient-access-token"))
       setRoutes(() => patientRoutes)
-    else if (localStorage.getItem("aipd-doctor-access-token"))
+    else if (!!localStorage.getItem("aipd-doctor-access-token"))
       setRoutes(() => doctorRoutes)
-    else if (localStorage.getItem("aipd-fittlyf-physio-access-token"))
+    else if (!!localStorage.getItem("aipd-fittlyf-physio-access-token"))
       setRoutes(() => fittlyfPhysioRoutes)
     else
       setRoutes(() => unauthenticatedRoutes)

@@ -6,7 +6,8 @@ type Props = {
     strokeBgColor: string;
     strokeColor: string;
     strokeWidth: number;
-    setCountDown : any
+    setCountDown : any;
+    settimer: any;
 };
 
 type State = {
@@ -25,21 +26,22 @@ export const CountdownTimer: React.FC<Props> = (props) => {
     const strokeDashoffset = () =>
         circumference - (countdown / milliseconds) * circumference;
 
-    
-
-    const startTimer = () => {
-        setIsPlaying(true);
-
-        const interval = setInterval(() => {
-            setCountdown((prevCountdown) => prevCountdown - 10);
-            if (countdown === 0) {
-                clearInterval(interval);
-                setCountdown(milliseconds);
-                setIsPlaying(false);
-            }
-        }, 10);
-    };
-
+        const startTimer = () => {
+            setIsPlaying(true);
+          
+            const interval = setInterval(() => {
+              setCountdown((prevCountdown) => {
+                if (prevCountdown <= 10) {
+                  clearInterval(interval);
+                  setIsPlaying(false);
+                  props.settimer(false);
+                  return milliseconds;
+                }
+                return prevCountdown - 10;
+              });
+            }, 10);
+          };
+          
     useEffect(() => {
         startTimer();
         setTimeout(() => {

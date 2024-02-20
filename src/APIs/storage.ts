@@ -1,4 +1,4 @@
-import { uploadBytesResumable, uploadBytes, ref, StorageReference, getDownloadURL } from "firebase/storage";
+import { uploadBytes, ref, StorageReference, getDownloadURL } from "firebase/storage";
 import { storage } from "../utils/firebase";
 import { addExerciseDataToDatabase } from "./PatientRecord";
 
@@ -9,18 +9,6 @@ export const uploadFile = async (file: File) => {
         console.log(file);
         await getVideoURL(storageRef)
     });
-    //  const uploadTask = uploadBytesResumable(storageRef, file);
-    //  uploadTask.on(
-    //    "state_changed",
-    //    (snapshot) => {},
-    //    (error) => {
-    //      console.log(error);
-    //    },
-    //    () => {
-    //     getVideoURL(storageRef)
-    //    }
-    //  );
-
 }
 
 export const getVideoURL = async (storageRef: StorageReference) => {

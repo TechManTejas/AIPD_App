@@ -3,7 +3,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'com.technopolis.aipd',
   // linuxAndroidStudioPath: "/snap/android-s tudio/current/android-studio/bin/studio.sh",
-  appName: 'APID',
+  appName: 'TherapEZ',
   webDir: 'build',
   bundledWebRuntime: false,
   plugins: {
@@ -15,10 +15,8 @@ const config: CapacitorConfig = {
     }
   },
   server: {
-    androidScheme: "http",
-    allowNavigation: [
-      "http://192.168.1.11:5000"
-    ]
+    url:"https://bharatsiksha.com/",
+    androidScheme: "https"
   }
 };
 

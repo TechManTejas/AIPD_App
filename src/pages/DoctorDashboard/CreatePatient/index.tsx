@@ -67,7 +67,7 @@ export const CreatePatient: React.FC = () => {
         Physiotherapist has suggested you to start home exercises for ${(selectedCondition as { name: string }).name}
 
         To start, follow the below steps : 
-        1. Download the app : https://play.google.com/store/apps/details?id=com.TechnopolisStudio.Electrica&hl=en_US&gl=US
+        1. Download the app : https://play.google.com/store/apps/details?id=com.technopolis.aipd
 
         2. Login Details: 
             1. Phone number: ${username}

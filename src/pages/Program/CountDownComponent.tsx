@@ -5,21 +5,9 @@ import { CountdownTimer } from "./CountdownTimer";
 
 export const CountDownComponent: React.FC<{ settimer: (val: boolean) => void }> = ({ settimer }) => {
 
-  const [timer, setimer] = useState(500)
-  var interval;
-
   useEffect(() => {
     playSound(breakSound)
-    interval = setInterval(() => {
-      setimer(timer => timer - 1);
-    }, 5);
   }, []);
-
-  useEffect(() => {
-    if (timer <= 0) {
-      settimer(true)
-    }
-  }, [timer])
 
   return (
     <>
@@ -31,6 +19,7 @@ export const CountDownComponent: React.FC<{ settimer: (val: boolean) => void }> 
             strokeColor="black"
             strokeWidth={12}
             setCountDown={() => {}}
+            settimer={settimer}
           />
       </div>
     </>

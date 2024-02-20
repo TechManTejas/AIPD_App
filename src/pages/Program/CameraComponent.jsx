@@ -3,73 +3,155 @@ import { useRef, useEffect, useState } from "react";
 import * as cam from "@mediapipe/camera_utils";
 import Webcam from "react-webcam";
 import { CountDownComponent } from "./CountDownComponent";
-import PendulumSideways from "./PendulumSideways";
-import PendulumCircles from "./PendulumCircles";
-import PendulumStraight from "./PendulumStraight";
-import PendulumSidewaysLeft from "./PendulumSidewaysLeft";
-import PendulumCirclesLeft from "./PendulumCirclesLeft";
-import PendulumStraightLeft from "./PendulumStraightLeft";
-import LyingArms from "./LyingArms";
-import Butterfly from "./Butterfly";
-import ArmsLock from "./ArmsLock";
-import RecordRTC from 'recordrtc';
-import { uploadFile } from "../../APIs/storage";
-import playSound from "../../utils/PlaySound";
-import CountdownTimer from "./CountdownTimer";
+
+import PendulumCircles from "./Exercises/PendulumCircles";
+import PendulumSideways from "./Exercises/PendulumSideways";
+import PendulumStraight from "./Exercises/PendulumStraight";
+import Butterfly from "./Exercises/Butterfly";
+import LyingArms from "./Exercises/LyingArms";
+import ArmsLock from "./Exercises/ArmsLock";
+import PendulumCirclesLeft from "./Exercises/PendulumCirclesLeft";
+import PendulumSidewaysLeft from "./Exercises/PendulumSidewaysLeft";
+import PendulumStraightLeft from "./Exercises/PendulumStraightLeft";
+
 import { Link } from "react-router-dom";
-import successSound from "../../sounds/excellent_work.wav";
+import ExerciseManager from "./ExerciseManager";
+import NextGenTracking from "./Exercises/NextGenTracking";
+import Arthritis9 from "./Exercises/Arthritis9";
+import Arthritis8 from "./Exercises/Arthritis8";
+import Arthritis7 from "./Exercises/Arthritis7";
+import Arthritis6 from "./Exercises/Arthritis6";
+import Arthritis5 from "./Exercises/Arthritis5";
+import Arthritis4 from "./Exercises/Arthritis4";
+import Arthritis3 from "./Exercises/Arthritis3";
+import Arthritis2 from "./Exercises/Arthritis2";
+import Arthritis1 from "./Exercises/Arthritis1";
+
+let recorder;
 
 
-function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, repref, setref, messageRef }) {
+function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, setWarning, repref, setref, messageRef, carsouselShown }) {
   // * Refs
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const StateRef = useRef(0);
-  let recorder;
+  const exerciseName = useRef("")
+  const exerciseID = useRef(0)
+  const [stencyl, setStencyl] = useState(null)
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [uploading, setUploading] = useState(false)
 
   var camera = null;
 
-  const [timer, settimer] = useState(true);
+  const [timer, settimer] = useState(false);
 
   var exercise;
 
-
-
   useEffect(() => {
     if (!loading) {
-      startRecording();
-      document.getElementById("done-exercise").addEventListener("click", () => {
-        playSound(successSound)
-        setIsModalOpen(true)
-        stopRecordingAndUploadFileToFirebase()
-        setIsModalOpen(false)
-        setShowCoutdown(false)
-      })
+      // startRecording();
+      // document.getElementById("done-exercise").addEventListener("click", () => {
+      //   playSound(successSound)
+      //   setIsModalOpen(true)
+      // stopRecordingAndUploadFileToFirebase()
+      //   runInBackgroundWithEmergencyStop()
+      //   setIsModalOpen(false)
+      //   setShowCoutdown(false)
+      // })
     }
   }, [loading])
 
-  const startRecording = () => {
+  // const runInBackground = () => {
+  //   recorder.stopRecording(async () => {
+  //     const blob = recorder.getBlob();
 
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: false })
-      .then((stream) => {
+  //     if ('serviceWorker' in navigator) {
+  //       navigator.serviceWorker.getRegistration()
+  //         .then((registration) => {
+  //           if (registration && registration.active) {
 
-        recorder = RecordRTC(stream, {
-          type: "video",
-          mimeType: "video/webm",
-          canvas: canvasRef.current,
-          frameRate: 5,
-          videoBitsPerSecond: 1000000,
-        });
+  //             const worker = registration.active;
+  //             worker.onmessage = function (event) {
+  //               if (event.data === 'done') {
+  //                 console.log('Task is done');
+  //               }
+  //             };
 
-        recorder.startRecording();
-      })
-      .catch((error) => {
-        console.error("Error accessing user media:", error);
-      });
+  //             worker.postMessage({
+  //               blob: blob, exercise: Number(localStorage.getItem("exerciseID")),
+  //               patient: localStorage.getItem("patient-ID"), authToken: localStorage.getItem(
+  //                 "aipd-patient-access-token"
+  //               )
+  //             });
+  //             Handle$NextDirectExercise()
+  //             // window.location.href = "/"
+  //           } else {
+  //             console.error('Service worker is not registered or active.');
+  //           }
+  //         })
+  //         .catch((error) => {
+  //           console.error('Error accessing service worker registration:', error);
+  //         });
+  //     }
+  //   });
+  // };
+
+  const runInBackgroundWithEmergencyStop = () => {
+    recorder.stopRecording(async () => {
+      const blob = recorder.getBlob();
+
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistration()
+          .then((registration) => {
+            if (registration && registration.active) {
+
+              const worker = registration.active;
+              worker.onmessage = function (event) {
+                if (event.data === 'done') {
+                  console.log('Task is done');
+                }
+              };
+
+              worker.postMessage({
+                blob: blob, exercise: Number(localStorage.getItem("exerciseID")),
+                patient: localStorage.getItem("patient-ID"), authToken: localStorage.getItem(
+                  "aipd-patient-access-token"
+                )
+              });
+              // Handle$NextDirectExercise()
+              window.location.href = "/"
+            } else {
+              console.error('Service worker is not registered or active.');
+            }
+          })
+          .catch((error) => {
+            console.error('Error accessing service worker registration:', error);
+          });
+      }
+    });
   };
+
+  // const startRecording = () => {
+
+  //   navigator.mediaDevices
+  //     .getUserMedia({ video: true, audio: false })
+  //     .then((stream) => {
+
+  //       recorder = RecordRTC(stream, {
+  //         type: "video",
+  //         mimeType: "video/webm",
+  //         canvas: canvasRef.current,
+  //         frameRate: 3,
+  //         videoBitsPerSecond: 1000,
+  //       });
+
+  //       recorder.startRecording();
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error accessing user media:", error);
+  //     });
+  // };
 
 
   function findEntryByExercise(data, exercise) {
@@ -117,79 +199,120 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
 
   useEffect(() => {
     console.log(showCoutdown, StateRef.current)
-    if (showCoutdown && StateRef.current === 1) {
-      Handle$NextDirectExercise()
+    if (showCoutdown) {
+      // runInBackground()
+      setUploading(true)
     }
   }, [showCoutdown])
 
-  const stopRecordingAndUploadFileToFirebase = async () => {
-    if (recorder) {
-      recorder.stopRecording(async () => {
-        try {
-          const blob = recorder.getBlob();
-          const videoURL = URL.createObjectURL(blob);
-          URL.revokeObjectURL(videoURL);
-          console.log(blob)
-          await uploadFile(blob)
-          // const file = new File(
-          //   [blob],
-          //   "demo.mp4",
-          //   {type : 'video/mp4'}
-          // )
-          // uploadFile(file) 
-          if (localStorage.getItem("allexercise") === "1") {
-            StateRef.current = 1;
-          }
-          else window.location.href = "/demo-video-logs"
-        } catch (error) {
-          console.log("--------------------------------> ", error)
-        }
-      });
-    }
+  const stopRecordingAndUploadFileToFirebase = () => {
+    // if (recorder) {
+    //   recorder.stopRecording(async () => {
+    //     try {
+    //       const blob = recorder.getBlob();
+    //       const videoURL = URL.createObjectURL(blob);
+    //       URL.revokeObjectURL(videoURL);
+    //       console.log(blob)
+    //       await uploadFile(blob)
+    //       console.log("uploaded")
+    //       Handle$NextDirectExercise()
+    //       // const file = new File(
+    //       //   [blob],
+    //       //   "demo.mp4",
+    //       //   {type : 'video/mp4'}
+    //       // )
+    //       // uploadFile(file) 
+    //       if (localStorage.getItem("allexercise") === "1") {
+    //         StateRef.current = 1;
+    //       }
+    //       else window.location.href = "/demo-video-logs"
+    //     } catch (error) {
+    //       console.log("--------------------------------> ", error)
+    //     }
+    //   });
+    // }
   };
 
 
   function onResults(results) {
-    exercise({
-      results: results,
-      camera: camera,
-      canvasRef: canvasRef,
-      webcamRef: webcamRef,
-      settimer: settimer,
-      repref: repref,
-      setref: setref,
-      messageRef: messageRef,
-    })
+    if (timer === false) {
+      if (results.poseLandmarks) {
+        setWarning(false)
+        ExerciseManager({
+          results: results,
+          camera: camera,
+          canvasRef: canvasRef,
+          webcamRef: webcamRef,
+          settimer: settimer,
+          setShowCoutdown: setShowCoutdown,
+          repref: repref,
+          setref: setref,
+          messageRef: messageRef,
+          setloading: setloading,
+          exerciseName: exerciseName,
+          exerciseID: exerciseID,
+          stencyl: setStencyl
+        })
+      } else {
+        setWarning(true)
+      }
+    }
   }
 
+
   useEffect(() => {
-    exercise = localStorage.getItem("exercise");
-    if (exercise === 'Pendulum Straight Right') {
+    exerciseName.current = localStorage.getItem("exercise");
+    exerciseID.current = localStorage.getItem("exerciseID");
+
+    console.log(exerciseName)
+    console.log(exerciseID)
+
+    if (exerciseName === 'Pendulum Straight Right') {
       exercise = PendulumStraight
     }
-    else if (exercise === 'Pendulum Sideways Right') {
+    else if (exerciseName.current === 'Pendulum Sideways Right') {
       exercise = PendulumSideways
     }
-    else if (exercise === 'Pendulum Circles Right') {
+    else if (exerciseName.current === 'Pendulum Circles Right') {
       exercise = PendulumCircles
     }
-    else if (exercise === 'Pendulum Straight Left') {
+    else if (exerciseName.current === 'Pendulum Straight Left') {
       exercise = PendulumStraightLeft
     }
-    else if (exercise === 'Pendulum Sideways Left') {
+    else if (exerciseName.current === 'Pendulum Sideways Left') {
       exercise = PendulumSidewaysLeft
     }
-    else if (exercise === 'Pendulum Circles Left') {
+    else if (exerciseName.current === 'Pendulum Circles Left') {
       exercise = PendulumCirclesLeft
     }
-    else if (exercise === 'Butterfly') {
+    else if (exerciseName.current === 'Butterfly') {
       exercise = Butterfly
     }
-    else if (exercise === 'Lying Arms') {
+    else if (exerciseName.current === 'Lying Arms') {
       exercise = LyingArms
     }
-    else if (exercise === 'Arms Lock') {
+    else if (exerciseName.current === 'Arms Lock') {
       exercise = ArmsLock
+    } else if (exerciseName.current === 'NextGenTracking') {
+      exercise = NextGenTracking
+    } else if (exerciseName.current === 'Arthritis1') {
+      exercise = Arthritis1
+    } else if (exerciseName.current === 'Arthritis2') {
+      exercise = Arthritis2
+    } else if (exerciseName.current === 'Arthritis3') {
+      exercise = Arthritis3
+    } else if (exerciseName.current === 'Arthritis4') {
+      exercise = Arthritis4
+    } else if (exerciseName.current === 'Arthritis5') {
+      exercise = Arthritis5
+    } else if (exerciseName.current === 'Arthritis6') {
+      exercise = Arthritis6
+    } else if (exerciseName.current === 'Arthritis7') {
+      exercise = Arthritis7
+    } else if (exerciseName.current === 'Arthritis8') {
+      exercise = Arthritis8
+    } else if (exerciseName.current === 'Arthritis9') {
+      exercise = Arthritis9
     }
 
     const pose = new Pose({
@@ -208,12 +331,12 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
     });
 
     pose.onResults(onResults)
-    playSound(ArmsLock)
+
     if (webcamRef.current !== "undefined" && webcamRef.current !== null) {
       camera = new cam.Camera(webcamRef.current.video, {
         onFrame: async () => {
           await pose.send({ image: webcamRef.current.video }).then(() => {
-            setloading(false)
+            // setloading(false)
           });
         },
       });
@@ -224,15 +347,22 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
   return (
     <center>
       <div className="App">
-        {timer && showCoutdown ? (
+        {stencyl &&
+          <div className="absolute flex w-full h-full justify-center items-center">
+            <img src={stencyl} className="opacity-80 mt-[20vh]" />
+          </div>
+        }
+        {!timer ? (
           <>
-            <Webcam id="webcam" ref={webcamRef} className="hidden w-screen" />
-            <canvas ref={canvasRef} className=" -ml-[100px] w-[600px] h-screen" />
+            <Webcam id="webcam" ref={webcamRef} className="hidden w-screen h-screen" />
+            {!uploading &&
+              <canvas ref={canvasRef} className="w-screen h-screen" />
+            }
           </>
         ) : (
-          <>
-            {!timer && <CountDownComponent settimer={settimer} />}
-          </>
+          <div>
+            <CountDownComponent settimer={settimer} />
+          </div>
         )}
       </div>
       <div>
@@ -241,21 +371,15 @@ function CameraPoseDetect({ showCoutdown, setShowCoutdown, loading, setloading, 
         </div>
       </div>
       {
-        !showCoutdown && <div className="w-screen h-screen absolute z-50 top-0 ledft-0  flex flex-col justify-center items-center">
-          <button onClick={() => setShowCoutdown(true)} className="m-3 px-8 py-2 bg-green-500">Next</button>
-          <CountdownTimer seconds={5}
-            size={200}
-            strokeBgColor="white"
-            strokeColor="black"
-            strokeWidth={12}
-            setCountDown={setShowCoutdown}
-          />
+        uploading &&
+        <div className="w-screen h-screen absolute z-50 top-0 ledft-0  flex flex-col justify-center items-center">
+          <button onClick={Handle$NextDirectExercise} className="m-3 px-8 py-2 bg-green-500">Next</button>
+          <iframe src="https://giphy.com/embed/sSgvbe1m3n93G" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/juan-gabriel-sSgvbe1m3n93G">Uploading video please wait</a></p>
           <Link to="/" className="m-3 px-8 py-2 bg-green-500" >Home</Link>
         </div>
 
       }
     </center>
   );
-
 }
 export default CameraPoseDetect;

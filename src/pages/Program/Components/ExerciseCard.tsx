@@ -1,7 +1,6 @@
 import { CardActionArea, Paper } from "@mui/material"
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Link } from "react-router-dom";
-import { Carousel } from "antd";
 
 interface ExerciseCardProps {
     completed?: boolean
@@ -35,9 +34,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
         <Link to="/demo-video">
             <CardActionArea>
                 <div
-                    className="m-1.5 rounded-lg relative mt-8"
+                    className="m-3 rounded-lg relative mt-8"
                     style={{
-                        boxShadow: "rgba(0, 0, 0, 0.15) 0px 3px 5px"
+                        boxShadow: "rgba(0, 0, 0, 0.15) 0px 5px 5px"
                     }}
                 >
 
@@ -48,14 +47,14 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     <CheckCircleIcon fontSize="large" sx={{ color: "green" }} />
                                 </div>
                             }
-                            <Carousel>
-                                <img className={`rounded-lg object-cover -mt-8 ${(completed) ? '' : ''}`} src={image} style={{
+                            <div className="flex">
+                                <img className={`w-1/2 rounded-l-lg object-cover -mt-8 ${(completed) ? '' : ''}`} src={image} style={{
                                     boxShadow: "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 5px 5px"
                                 }} />
-                                <img className={`rounded-lg object-cover -mt-8   ${(completed) ? '' : ''}`} src={coverImage} style={{
+                                <img className={`w-1/2 rounded-r-lg object-cover -mt-8 ${(completed) ? '' : ''}`} src={coverImage} style={{
                                     boxShadow: "rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 5px 5px"
                                 }} />
-                            </Carousel>
+                            </div>
 
                         </div>
                         <div className="border-t border-green-600 mx-3"></div>

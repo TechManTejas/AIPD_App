@@ -1,6 +1,6 @@
 import GradientButton from "../../../components/GradientButton";
 import { GlobalDataState } from "../../../Context/global";
-import AIPDLogoName from "../../../Images/aipdlogoname.png"
+import AIPDLogoName from "../../../Images/aipdlogo.png"
 
 export const Settings: React.FC = () => {
 

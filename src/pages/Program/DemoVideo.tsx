@@ -48,6 +48,8 @@ export const DemoVideo: React.FC = () => {
         </React.Fragment>
     ));
 
+    console.log(exerciseData)
+
     return (
         <IonPage>
             <IonContent fullscreen>
@@ -57,7 +59,7 @@ export const DemoVideo: React.FC = () => {
                             {/* <p className='text-center p-3 text-xl text-bold'>Demo Video</p> */}
                             <div className='flex justify-center bg-red-600'>
                                 <iframe
-                                    className=''
+                                    className='bg-'
                                     src={`${exerciseData.link}?autoplay=1&mute=1`}
                                     title="YouTube video player"
                                     width="100%"

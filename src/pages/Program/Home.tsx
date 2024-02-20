@@ -19,8 +19,6 @@ export const Home: React.FC = () => {
   const [google_business_name, set_google_business_name] = useState<string>('');
   const [google_business_review_link, set_google_business_review_link] = useState<string>('');
 
-  const history = useHistory()
-
   // * The Exercise that needs to be done by the patients logined
   // ^ id => the id of the exercise, name => name of the exercise, image => url of the image of the exercise
   const [exerciseDetails, setExerciseDetails] = useState<{ id: number, name: string, image: string, cover_image: string, sets: number }[]>([]);
@@ -55,17 +53,6 @@ export const Home: React.FC = () => {
 
   // * an axios post to fetch the completed exercise, reloads whenever the value (state) changes
   useEffect(() => {
-    if ('speechSynthesis' in window) {
-      window.onload = function () {
-        console.log("loaded")
-        var text = "This text will be spoken on load.";
-        var utterance = new SpeechSynthesisUtterance(text);
-        utterance.voice = speechSynthesis.getVoices()[0];
-        utterance.volume = 1;
-        utterance.rate = 1;
-        speechSynthesis.speak(utterance);
-      };
-    }
     axios.get("/exercise_record/", {
       headers: {
         Authorization: `Token ${localStorage.getItem(
@@ -112,7 +99,7 @@ export const Home: React.FC = () => {
       entry ? entry.reps.toString() : "",
     );
 
-    history.push("/camera-rendering");
+    window.location.href = "/camera-rendering";
   }
 
   // * to get the exercise that needs to be done by the patient
@@ -127,15 +114,14 @@ export const Home: React.FC = () => {
       .then((data: any) => {
         console.log(data.data)
         const currentDate = new Date().toLocaleDateString();
-        const storedPromptReviewDate = new Date(localStorage.getItem("prompt_review") || '2003-04-22').toLocaleDateString();
-        // if (localStorage.getItem("prompt_review") === null || storedPromptReviewDate !== currentDate){
-        if (new Date(data.data[0]["prompt_review"]).toLocaleDateString() === currentDate) {
-          set_google_business_review_link(data.data[0]['doctor']['company']['google_business_review_link'])
-          set_google_business_name(data.data[0]['doctor']['company']['name'])
-          showModal()
-          localStorage.setItem("prompt_review", data.data[0]["prompt_review"])
-        }
+
+        // if (new Date(data.data[0]["prompt_review"]).toLocaleDateString() === currentDate) {
+        //   set_google_business_review_link(data.data[0]['doctor']['company']['google_business_review_link'])
+        //   set_google_business_name(data.data[0]['doctor']['company']['name'])
+        //   showModal()
+        //   localStorage.setItem("prompt_review", data.data[0]["prompt_review"])
         // }
+
         setlogo(data.data[0].doctor.company.logo)
         localStorage.setItem("exerciseDetails", JSON.stringify(data.data[0]["condition"]["exercises"]))
         setExerciseDetails(data.data[0]["condition"]["exercises"]);
@@ -182,7 +168,7 @@ export const Home: React.FC = () => {
               {google_business_name}
             </span>{' '}
             clinic on google</div>
-          <CardActionArea onClick={()=>{
+          <CardActionArea onClick={() => {
             window.location.href = google_business_review_link
           }}>
             <div className="text-center bg-red-600 text-white p-3 rounded-md font-fredokaone text-xl">
@@ -225,14 +211,165 @@ export const Home: React.FC = () => {
         </div>
       </div>
       <div className="flex flex-col justify-center">
-        <img className="p-6" src={logo}></img>
+        <img className="p-6" src={logo} alt="Brand Logo"></img>
+      </div>
+
+      {/* <div className="flex justify-center m-3">
+        <button onClick={() => {
+
+          localStorage.setItem(
+            "exercise",
+            "NextGenTracking"
+          );
+
+          window.location.href = "/camera-rendering";
+
+        }} className="bg-blue-500 text-white px-5 py-5 rounded-full border-2 border-black shadow-2xl">
+          Next Gen Tracking (BETA)
+        </button>
+      </div>
+
+      <div className="flex justify-center m-3">
+        <button onClick={() => {
+
+          localStorage.setItem(
+            "exercise",
+            "Arthritis1"
+          );
+
+          window.location.href = "/camera-rendering";
+
+        }} className="bg-blue-500 text-white px-5 py-5 rounded-full border-2 border-black shadow-2xl">
+          Arthritis Exercise 1
+        </button>
+      </div>
+
+      <div className="flex justify-center m-3">
+        <button onClick={() => {
+
+          localStorage.setItem(
+            "exercise",
+            "Arthritis2"
+          );
+
+          window.location.href = "/camera-rendering";
+
+        }} className="bg-blue-500 text-white px-5 py-5 rounded-full border-2 border-black shadow-2xl">
+          Arthritis Exercise 2
+        </button>
+      </div>
+
+      <div className="flex justify-center m-3">
+        <button onClick={() => {
+
+          localStorage.setItem(
+            "exercise",
+            "Arthritis3"
+          );
+
+          window.location.href = "/camera-rendering";
+
+        }} className="bg-blue-500 text-white px-5 py-5 rounded-full border-2 border-black shadow-2xl">
+          Arthritis Exercise 3
+        </button>
+      </div>
+
+      <div className="flex justify-center m-3">
+        <button onClick={() => {
+
+          localStorage.setItem(
+            "exercise",
+            "Arthritis4"
+          );
+
+          window.location.href = "/camera-rendering";
+
+        }} className="bg-blue-500 text-white px-5 py-5 rounded-full border-2 border-black shadow-2xl">
+          Arthritis Exercise 4
+        </button>
+      </div>
+
+      <div className="flex justify-center m-3">
+        <button onClick={() => {
+
+          localStorage.setItem(
+            "exercise",
+            "Arthritis5"
+          );
+
+          window.location.href = "/camera-rendering";
+
+        }} className="bg-blue-500 text-white px-5 py-5 rounded-full border-2 border-black shadow-2xl">
+          Arthritis Exercise 5
+        </button>
+      </div>
+
+      <div className="flex justify-center m-3">
+        <button onClick={() => {
+
+          localStorage.setItem(
+            "exercise",
+            "Arthritis6"
+          );
+
+          window.location.href = "/camera-rendering";
+
+        }} className="bg-blue-500 text-white px-5 py-5 rounded-full border-2 border-black shadow-2xl">
+          Arthritis Exercise 6
+        </button>
+      </div>
+
+      <div className="flex justify-center m-3">
+        <button onClick={() => {
+
+          localStorage.setItem(
+            "exercise",
+            "Arthritis7"
+          );
+
+          window.location.href = "/camera-rendering";
+
+        }} className="bg-blue-500 text-white px-5 py-5 rounded-full border-2 border-black shadow-2xl">
+          Arthritis Exercise 7
+        </button>
+      </div>
+
+      <div className="flex justify-center m-3">
+        <button onClick={() => {
+
+          localStorage.setItem(
+            "exercise",
+            "Arthritis8"
+          );
+
+          window.location.href = "/camera-rendering";
+
+        }} className="bg-blue-500 text-white px-5 py-5 rounded-full border-2 border-black shadow-2xl">
+          Arthritis Exercise 8
+        </button>
+      </div>
+
+      <div className="flex justify-center m-3">
+        <button onClick={() => {
+
+          localStorage.setItem(
+            "exercise",
+            "Arthritis9"
+          );
+
+          window.location.href = "/camera-rendering";
+
+        }} className="bg-blue-500 text-white px-5 py-5 rounded-full border-2 border-black shadow-2xl">
+          Arthritis Exercise 9
+        </button>
       </div>
 
       <div className="flex justify-center">
-        <button onClick={() => Handle$Start$All$Exercise()} className="bg-green-500 px-5 py-5 rounded-full">
+        <button onClick={() => Handle$Start$All$Exercise()} className="bg-green-500 px-5 py-5 rounded-full border-2 border-black shadow-2xl">
           Today's Session
         </button>
-      </div>
+      </div> */}
+
       <div className={`${value === 0 ? "pointer-events-auto" : "pointer-events-none"} overflow-auto`}>
         {exerciseDetails.map((exercise) => {
           const entry = findEntryByExercise(individualSetReps, exercise.id)
